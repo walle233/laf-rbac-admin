@@ -1,0 +1,6 @@
+name: get-sts
+methods:
+  - GET
+  - POST
+tags:
+  - upload

@@ -1,0 +1,6 @@
+name: permission-create
+methods:
+  - GET
+  - POST
+tags:
+  - permission

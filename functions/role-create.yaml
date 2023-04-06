@@ -1,0 +1,6 @@
+name: role-create
+methods:
+  - GET
+  - POST
+tags:
+  - role

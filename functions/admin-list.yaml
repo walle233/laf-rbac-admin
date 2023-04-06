@@ -1,0 +1,6 @@
+name: admin-list
+methods:
+  - GET
+  - POST
+tags:
+  - admin

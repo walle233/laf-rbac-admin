@@ -1,0 +1,6 @@
+name: permission-list
+methods:
+  - GET
+  - POST
+tags:
+  - permission

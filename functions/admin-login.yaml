@@ -1,0 +1,5 @@
+name: admin-login
+methods:
+  - POST
+tags:
+  - admin

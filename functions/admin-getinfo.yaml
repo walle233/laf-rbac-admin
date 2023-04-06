@@ -1,0 +1,6 @@
+name: admin-getinfo
+methods:
+  - GET
+  - POST
+tags:
+  - admin

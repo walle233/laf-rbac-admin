@@ -1,0 +1,6 @@
+name: permission-delete
+methods:
+  - GET
+  - POST
+tags:
+  - permission

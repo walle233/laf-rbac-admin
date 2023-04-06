@@ -1,0 +1,6 @@
+name: admin-delete
+methods:
+  - GET
+  - POST
+tags:
+  - admin

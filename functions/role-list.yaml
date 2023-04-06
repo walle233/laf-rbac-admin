@@ -1,0 +1,6 @@
+name: role-list
+methods:
+  - GET
+  - POST
+tags:
+  - role

@@ -1,0 +1,6 @@
+name: permission-update
+methods:
+  - GET
+  - POST
+tags:
+  - permission

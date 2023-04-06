@@ -1,0 +1,5 @@
+name: admin-update
+methods:
+  - GET
+  - POST
+tags: []

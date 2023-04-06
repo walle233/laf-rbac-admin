@@ -1,0 +1,6 @@
+name: admin-create
+methods:
+  - GET
+  - POST
+tags:
+  - admin

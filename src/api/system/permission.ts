@@ -13,41 +13,41 @@ export interface BasicPageParams {
   total: number;
 }
 
-export function getRoles(params) {
+export function getPermissions(params) {
   return http.request({
-    url: '/role-list',
+    url: '/permission-list',
     method: 'POST',
     data: params,
   });
 }
 
-export function getAllRoles() {
+export function getAllPermissions() {
   return http.request({
-    url: '/role-all',
+    url: '/permission-all',
     method: 'POST',
     data: {},
   });
 }
 
-export function createRole(params) {
+export function createPermission(params) {
   return http.request({
-    url: '/role-create',
+    url: '/permission-create',
     method: 'POST',
     data: params,
   });
 }
 
-export function updateRole(params) {
+export function updatePermission(params) {
   return http.request({
-    url: '/role-update',
+    url: '/permission-update',
     method: 'POST',
     data: params,
   });
 }
 
-export function deleteRole(id) {
+export function deletePermission(id) {
   return http.request({
-    url: `/role-delete`,
+    url: `/permission-delete`,
     method: 'POST',
     data: {
       _id: id,

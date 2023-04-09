@@ -27,5 +27,5 @@ pnpm-debug.log*
 /components.d.ts
 
 // laf
-.secret.yaml
-.laf.yaml
+secret.yaml
+laf.yaml

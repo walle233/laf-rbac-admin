@@ -61,11 +61,7 @@
             v-model:value="formParams.roles"
             multiple
             placeholder="请选择角色"
-            :options="[
-              { label: 'Super Admin', value: 'superadmin' },
-              { label: 'Admin', value: 'admin' },
-              { label: 'User', value: 'user' },
-            ]"
+            :options="allRoles"
           />
         </n-form-item>
       </n-form>
@@ -80,10 +76,11 @@
 </template>
 
 <script lang="ts" setup>
-  import { h, reactive, ref } from 'vue';
+  import { h, reactive, ref, onMounted } from 'vue';
   import { useMessage, UploadCustomRequestOptions } from 'naive-ui';
   import { BasicTable, TableAction } from '@/components/Table';
   import { getAdminList, createAdmin, deleteAdmin, updateAdmin } from '@/api/system/user';
+  import { getAllRoles } from '@/api/system/role';
   import { uploadFile } from '@/api/cloud';
   import { columns } from './columns';
   import { PlusOutlined } from '@vicons/antd';
@@ -102,9 +99,26 @@
   const userStore = useUserStoreWidthOut();
   const { permissions } = userStore;
 
+  const allRoles = reactive<
+    {
+      value: string;
+      label: string;
+    }[]
+  >([]);
+
+  const getAllPermissionList = async () => {
+    const res = await getAllRoles();
+
+    allRoles.splice(0, allRoles.length, ...res.map((_) => ({ value: _.name, label: _.label })));
+  };
+
+  onMounted(() => {
+    getAllPermissionList();
+  });
+
   const actionRef = ref();
   const actionColumn = reactive({
-    width: 160,
+    width: 220,
     title: '操作',
     key: 'action',
     fixed: 'right',
@@ -258,7 +272,7 @@
     modalType.value = 'create';
   }
 
-  function handleEdit(record: Recordable) {
+  function handleEdit(record: TAdmin) {
     showModal.value = true;
     modalType.value = 'edit';
     const roles = record.roles || [];
@@ -269,7 +283,7 @@
     formParams._id = record._id;
   }
 
-  async function handleDelete(record: Recordable) {
+  async function handleDelete(record: TAdmin) {
     await deleteAdmin(record._id);
 
     message.success('删除成功');

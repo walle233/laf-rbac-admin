@@ -31,6 +31,7 @@ const routes: Array<RouteRecordRaw> = [
         name: 'Admin',
         meta: {
           title: '管理员列表',
+          activeMenu: 'Admin',
         },
         component: () => import('@/views/system/admin/index.vue'),
       },
@@ -39,7 +40,7 @@ const routes: Array<RouteRecordRaw> = [
         name: 'Role',
         meta: {
           title: '角色列表',
-          activeMenu: 'basic-list',
+          activeMenu: 'Role',
         },
         component: () => import('@/views/system/role/index.vue'),
       },
@@ -48,7 +49,7 @@ const routes: Array<RouteRecordRaw> = [
         name: 'Permission',
         meta: {
           title: '权限列表',
-          activeMenu: 'basic-list',
+          activeMenu: 'Permission',
         },
         component: () => import('@/views/system/permission/index.vue'),
       },

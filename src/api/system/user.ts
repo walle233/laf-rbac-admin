@@ -109,10 +109,12 @@ export function updateAdmin(params) {
  * @param {BasicPageParams} params
  * @return {*}
  */
-export function deleteAdmin(params) {
+export function deleteAdmin(_id) {
   return http.request({
     url: '/admin-delete',
     method: 'POST',
-    params,
+    data: {
+      _id,
+    },
   });
 }

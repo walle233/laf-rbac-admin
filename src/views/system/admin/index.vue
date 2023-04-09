@@ -9,7 +9,7 @@
       :scroll-x="1090"
     >
       <template #tableTitle>
-        <n-button type="primary" @click="handleCreate">
+        <n-button v-if="permissions.includes('admin.create')" type="primary" @click="handleCreate">
           <template #icon>
             <n-icon>
               <PlusOutlined />

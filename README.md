@@ -1,105 +1,52 @@
 ## 简介
-
-[Naive Ui Admin](https://github.com/jekip/naive-ui-admin) 完全免费，且可商用，基于 [Vue3.0](https://github.com/vuejs/vue-next)、[Vite](https://github.com/vitejs/vite)、 [Naive UI](https://www.naiveui.com/)、[TypeScript](https://www.typescriptlang.org/) 的中后台解决方案，它使用了最新的前端技术栈，并提炼了典型的业务模型，页面，包括二次封装组件、动态菜单、权限校验、粒子化权限控制等功能，它可以帮助你快速搭建企业级中后台项目， 相信不管是从新技术使用还是其他方面，都能帮助到你。
-
-## 特性
-- 二次封装实用高扩展性组件
-- 响应式、多主题，多配置，快速集成，开箱即用
-- 最新技术栈，使用 `Vue3`、`Typescript`、`Pinia`、`Vite` 等前端前沿技术
-- 强大的鉴权系统，对路由、菜单、功能点等支持`三种鉴权模式`，满足不同的业务鉴权需求
-- 持续更新，实用性页面模板功能和交互，随意搭配组合，让构建页面变得简单化
-
+这是一个 基于 laf 和 vue 的前后端一体化的后台管理系统。
 
 ## 预览
-- [naive-ui-admin](https://naive-ui-admin.vercel.app)
+- [laf-rbac-admin](https://naive-ui-admin.vercel.app)
 
-账号：admin，密码：123456（随意）
-
-## 提示
-
-如果这个版本的功能和组件，并不能满足您的需求，不妨看看，我们全新 `NaiveAdmin v2` 他或许能让您眼前一亮O(∩_∩)O哈哈~
-
-[NaiveAdmin 官网](https://www.naiveadmin.com)
-
-[NaiveAdmin v2 预览](https://pro.naiveadmin.com)
-
-[NaiveAdmin v2 变更日志](https://www.naiveadmin.com/guide/changelog)
-
-## 新品
-
-### Antd vue
-
-新产品，如果您选的技术栈是 `Antd` 的话，不妨看看
-
-[NaiveAdmin Antd 预览](https://antd.naiveadmin.com)
-
-### Arco vue
-
-新产品，智能设计体系，连接轻盈体验
-
-[NaiveAdmin Arco 预览](https://arco.naiveadmin.com)
-
-### Element Plus
-
-新产品，面向设计师和开发者的组件库
-
-[Element Plus Admin 预览](https://element.naiveadmin.com)
-
-以上版本同时具备 `NaiveAdmin v2` 功能/组件/页面，一如既往、开箱即用，欢迎前往查看。
-
-
-## 文档
-
-[v1文档地址](https://naive-ui-admin-docs.vercel.app)
+账号：test，密码：123456
 
 ## 准备
 
+- [laf](https://doc.laf.run/) - laf 文档
+- [pnpm](https://pnpm.io/)
 - [node](http://nodejs.org/) 和 [git](https://git-scm.com/) -项目开发环境
 - [Vite](https://vitejs.dev/) - 熟悉 vite 特性
 - [Vue3](https://v3.vuejs.org/) - 熟悉 Vue 基础语法
 - [TypeScript](https://www.typescriptlang.org/) - 熟悉`TypeScript`基本语法
-- [Es6+](http://es6.ruanyifeng.com/) - 熟悉 es6 基本语法
-- [Vue-Router-Next](https://next.router.vuejs.org/) - 熟悉 vue-router 基本使用
-- [Naive-ui-admin](https://www.naiveui.com/) - ui 基本使用
-- [Mock.js](https://github.com/nuysoft/Mock) - mockjs 基本语法
+- [Naive-ui](https://www.naiveui.com/) - ui 基本使用
 
 ## 使用
 
 - 获取项目代码
 
 ```bash
-git clone https://github.com/jekip/naive-ui-admin.git
+git clone https://github.com/walle233/laf-rbac-admin.git
 ```
 
 - 安装依赖
 
 ```bash
-cd naive-ui-admin
+cd laf-rbac-admin
 
-yarn install
+pnpm install
 
 ```
 
 - 运行
 
 ```bash
-yarn dev
+pnpm dev
 ```
 
 - 打包
 
 ```bash
-yarn build
+pnpm build
 ```
-
-## 更新日志
-
-[CHANGELOG](./CHANGELOG.md)
 
 
 ## 如何贡献
-
-非常欢迎你的加入！[提一个 Issue](https://github.com/jekip/naive-ui-admin/issues) 或者提交一个 Pull Request。
 
 **Pull Request:**
 
@@ -126,29 +73,3 @@ yarn build
   - `ci` 持续集成
   - `types` 类型定义文件更改
   - `wip` 开发中
-
-## 浏览器支持
-
-本地开发推荐使用`Chrome 80+` 浏览器
-
-支持现代浏览器, 不支持 IE
-
-| [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt=" Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>IE | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt=" Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Safari |
-| :-: | :-: | :-: | :-: | :-: |
-| not support | last 2 versions | last 2 versions | last 2 versions | last 2 versions |
-
-## 维护者
-[@Ah jung](https://github.com/jekip)
-
-## 交流
-
-`Naive Ui Admin` 使用或者其他问题，都可以在群内讨论或提问。
-
-![abelianGroup](https://user-images.githubusercontent.com/19426584/160335146-c28dd205-4600-4d62-b2c6-6456034ab7b1.jpg)
-
-## 赞助
-#### 如果你觉得这个项目帮助到了你，你可以帮作者买一杯果汁表示鼓励 🍹。
-
-![donate](https://jekip.github.io/docs/images/sponsor.png)
-
-[Paypal Me](https://www.paypal.com/paypalme/majunping)

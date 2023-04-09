@@ -2,7 +2,7 @@
 这是一个 基于 laf 和 vue 的前后端一体化的后台管理系统。
 
 ## 预览
-- [laf-rbac-admin](https://naive-ui-admin.vercel.app)
+- [laf-rbac-admin](https://rjb00l-site.site.laf.run/#/login)
 
 账号：test，密码：123456
 

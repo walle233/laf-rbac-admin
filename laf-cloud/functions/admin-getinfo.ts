@@ -1,16 +1,13 @@
 import cloud from '@lafjs/cloud'
 
+const db = cloud.database()
 const getPermissions = cloud.shared.get('getPermissions')
 
 export async function main (ctx: FunctionContext) {
-  const db = cloud.database()
-  console.log('authorization', ctx.headers['authorization'])
+  // check permission
   const token = ctx.headers['authorization'].split(' ')[1]
-  const parsed = parseToken(token)
-  console.log(token, parsed)
-  console.log('parsed', ctx.auth)
-  ctx.auth = parsed
-  const uid = ctx.auth?.uid
+  const parsed = cloud.parseToken(token)
+  const uid = parsed.uid
   if (!uid) return { code: 'NO_AUTH', error: "permission denied" }
 
   const { data: admin } = await db.collection('admin')
@@ -27,8 +24,4 @@ export async function main (ctx: FunctionContext) {
       permissions
     }
   }
-}
-
-function parseToken(token: string) {
-  return cloud.parseToken(token)
 }

@@ -75,14 +75,16 @@ export async function main(ctx: FunctionContext) {
     data['roles'] = roles
   }
 
-  console.log(_id, data)
   const r = await db.collection('admin')
     .where({ _id: _id })
-    .update(data)
+    .update({
+      ...data,
+      updated_at: Date.now()
+    })
 
   return {
     code: 0,
-    data: { ...r, _id }
+    result: { ...r, _id }
   }
 }
 

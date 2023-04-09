@@ -1,0 +1,6 @@
+name: role-all
+methods:
+  - GET
+  - POST
+tags:
+  - role

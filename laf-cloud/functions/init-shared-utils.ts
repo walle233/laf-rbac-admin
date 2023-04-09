@@ -4,8 +4,8 @@ import * as crypto from 'crypto'
 
 export async function main(ctx: FunctionContext) {
   cloud.shared.set('checkPermission', checkPermission)
-  cloud.shared.set('hashPassword', hashPassword)
   cloud.shared.set('getPermissions', getPermissions)
+  cloud.shared.set('hashPassword', hashPassword)
 
   return {
     code: 0,

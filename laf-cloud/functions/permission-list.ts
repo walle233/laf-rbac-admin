@@ -1,5 +1,6 @@
 import cloud from '@lafjs/cloud'
 
+const db = cloud.database()
 const checkPermission = cloud.shared.get('checkPermission')
 
 export async function main(ctx: FunctionContext) {
@@ -12,20 +13,18 @@ export async function main(ctx: FunctionContext) {
   if (!uid) return { code: '401', error: '未授权访问' }
 
   // checkPermission
-  const code = await checkPermission(uid, 'admin.create')
+  const code = await checkPermission(uid, 'permission.read')
   if (code) {
     return 'Permission denied'
   }
 
   const { page, pageSize } = body
-
-  // 数据库操作
-  const db = cloud.database()
-  const { total } = await db.collection('admin').count()
+  
+  const { total } = await db.collection('permission').count()
   
   const skip = page === 0 ? 0 : page - 1
   const r = await db
-    .collection('admin')
+    .collection('permission')
     .skip(skip * pageSize)
     .limit(pageSize)
     .get()

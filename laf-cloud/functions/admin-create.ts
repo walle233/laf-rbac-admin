@@ -15,24 +15,25 @@ export async function main(ctx: FunctionContext) {
     return 'Unauthorized'
   }
 
-  // 权限验证
+  // check permission
   const code = await checkPermission(uid, 'admin.create')
   if (code) {
     return 'Permission denied'
   }
 
+  // check params
   const { username, password, avatar, name, roles } = ctx.body
   if (!username || !password) {
     return 'username or password cannot be empty'
   }
 
-  // 验证用户是否已存在
+  // check exist
   const { total } = await db.collection('admin').where({ username }).count()
   if (total > 0) {
     return 'username already exists'
   }
 
-  // 验证 roles 是否合法
+  // check role validation
   const { total: valid_count } = await db.collection('role')
     .where({
       name: db.command.in(roles)

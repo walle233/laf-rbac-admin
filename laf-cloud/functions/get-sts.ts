@@ -1,14 +1,13 @@
-import cloud from '@lafjs/cloud'
-import { STSClient, AssumeRoleCommand } from "@aws-sdk/client-sts";
+import cloud from '@lafjs/cloud';
+import { STSClient, AssumeRoleCommand } from '@aws-sdk/client-sts';
 
-
-export async function main(ctx: FunctionContext) {
+export async function main() {
   const sts: any = new STSClient({
     region: cloud.env.OSS_REGION,
     endpoint: cloud.env.OSS_INTERNAL_ENDPOINT,
     credentials: {
-      accessKeyId: cloud.env.OSS_ACCESS_KEY,
-      secretAccessKey: cloud.env.OSS_ACCESS_SECRET,
+      accessKeyId: cloud.env.OSS_ACCESS_KEY || '',
+      secretAccessKey: cloud.env.OSS_ACCESS_SECRET || '',
     },
   });
 
@@ -16,7 +15,7 @@ export async function main(ctx: FunctionContext) {
     DurationSeconds: 3600,
     Policy:
       '{"Version":"2012-10-17","Statement":[{"Sid":"Stmt1","Effect":"Allow","Action":"s3:*","Resource":"arn:aws:s3:::*"}]}',
-    RoleArn: "arn:xxx:xxx:xxx:xxxx",
+    RoleArn: 'arn:xxx:xxx:xxx:xxxx',
     RoleSessionName: cloud.appid,
   });
 

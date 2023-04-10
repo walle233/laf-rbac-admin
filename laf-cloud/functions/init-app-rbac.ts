@@ -1,24 +1,22 @@
-
 /**
  * 本函数可用于初始化一套 RBAC 必要的数据，通常不需要删除此云函数，也不要开启 HTTP 调用。
  */
-import cloud from '@lafjs/cloud'
-import * as assert from 'assert'
-import * as crypto from 'crypto'
-const db = cloud.database()
+import cloud from '@lafjs/cloud';
+import * as assert from 'assert';
+import * as crypto from 'crypto';
+const db = cloud.database();
 
-export async function main (ctx) {
-
+export async function main() {
   // 创建 RBAC 初始权限
-  await createInitialPermissions()
+  await createInitialPermissions();
 
   // 创建 RBAC 初始角色
-  await createFirstRole()
+  await createFirstRole();
 
   // 创建初始管理员
-  await createFirstAdmin("admin", "123456")
+  await createFirstAdmin('admin', '123456');
 
-  return 'ok'
+  return 'ok';
 }
 
 /**
@@ -39,117 +37,103 @@ const permissions = [
   { name: 'admin.read', label: '获取管理员' },
   { name: 'admin.edit', label: '编辑管理员' },
   { name: 'admin.delete', label: '删除管理员' },
-
-  { name: 'product.create', label: '创建商品' },
-  { name: 'product.read', label: '获取商品' },
-  { name: 'product.edit', label: '编辑商品' },
-  { name: 'product.delete', label: '删除商品' },
-]
-
-
+];
 
 // 创建初始管理员
 async function createFirstAdmin(username: string, password: string) {
   try {
-
-    const { total } = await db.collection('admin').count()
+    const { total } = await db.collection('admin').count();
     if (total > 0) {
-      console.log('admin already exists')
-      return
+      console.log('admin already exists');
+      return;
     }
 
-    await cloud.mongo.db.collection('admin').createIndex('username', { unique: true })
+    await cloud.mongo.db.collection('admin').createIndex('username', { unique: true });
 
-    const { data } = await db.collection('role').get()
-    const roles = data.map(it => it.name)
+    const { data } = await db.collection('role').get();
+    const roles = data.map((it) => it.name);
 
     const r_add = await db.collection('admin').add({
       username,
-      avatar: "https://static.dingtalk.com/media/lALPDe7szaMXyv3NAr3NApw_668_701.png",
+      avatar: 'https://static.dingtalk.com/media/lALPDe7szaMXyv3NAr3NApw_668_701.png',
       name: 'Admin',
       roles,
       created_at: Date.now(),
-      updated_at: Date.now()
-    })
-    assert.ok(r_add.id, 'add admin occurs error')
+      updated_at: Date.now(),
+    });
+    assert.ok(r_add.id, 'add admin occurs error');
 
     await db.collection('password').add({
       uid: r_add.id,
       password: hashPassword(password),
       type: 'login',
       created_at: Date.now(),
-      updated_at: Date.now()
-    })
+      updated_at: Date.now(),
+    });
 
-    return r_add.id
+    return r_add.id;
   } catch (error) {
-    console.error(error.message)
+    console.error(error.message);
   }
 }
 
 // 创建初始角色
 async function createFirstRole() {
   try {
-    await cloud.mongo.db.collection('role').createIndex('name', { unique: true })
-    const r_perm = await db.collection('permission').get()
-    assert.ok(r_perm, 'get permissions failed')
+    await cloud.mongo.db.collection('role').createIndex('name', { unique: true });
+    const r_perm = await db.collection('permission').get();
+    assert.ok(r_perm, 'get permissions failed');
 
-    const permissions = r_perm.data.map(it => it.name)
+    const permissions = r_perm.data.map((it) => it.name);
     const r_add = await db.collection('role').add({
       name: 'superadmin',
       label: '超级管理员',
       description: '系统初始化的超级管理员',
       permissions,
       created_at: Date.now(),
-      updated_at: Date.now()
-    })
+      updated_at: Date.now(),
+    });
 
-    assert.ok(r_add.id, 'add role occurs error')
+    assert.ok(r_add.id, 'add role occurs error');
 
-    return r_add.id
+    return r_add.id;
   } catch (error) {
     if (error.code == 11000) {
-      return console.log('permissions already exists')
+      return console.log('permissions already exists');
     }
 
-    console.error(error.message)
+    console.error(error.message);
   }
 }
 
 // 创建初始权限
 async function createInitialPermissions() {
-
   // 创建唯一索引
-  await cloud.mongo.db.collection('permission').createIndex('name', { unique: true })
+  await cloud.mongo.db.collection('permission').createIndex('name', { unique: true });
   for (const perm of permissions) {
     try {
       const data = {
         ...perm,
         created_at: Date.now(),
-        updated_at: Date.now()
-      }
-      await db.collection('permission').add(data)
+        updated_at: Date.now(),
+      };
+      await db.collection('permission').add(data);
     } catch (error) {
       if (error.code == 11000) {
-        console.log('permissions already exists')
-        continue
+        console.log('permissions already exists');
+        continue;
       }
-      console.error(error.message)
+      console.error(error.message);
     }
   }
 
-  return true
+  return true;
 }
-
 
 /**
  * @param {string} content
  * @return {string}
  */
 function hashPassword(content: string): string {
-  return crypto
-    .createHash('sha256')
-    .update(content)
-    .digest('hex')
+  return crypto.createHash('sha256').update(content).digest('hex');
 }
-

@@ -1,27 +1,27 @@
-import cloud from '@lafjs/cloud'
+import cloud from '@lafjs/cloud';
 
-const db = cloud.database()
-const checkPermission = cloud.shared.get('checkPermission')
+const db = cloud.database();
+const checkPermission = cloud.shared.get('checkPermission');
 
 export async function main(ctx: FunctionContext) {
   // body, query 为请求参数, auth 是授权对象
-  const { body, query, headers } = ctx
+  const { body, query, headers } = ctx;
 
-  const token = headers['authorization'].split(' ')[1]
-  const parsed = cloud.parseToken(token)
-  const uid = parsed.uid
-  if (!uid) return { code: '401', error: '未授权访问' }
+  const token = headers['authorization'].split(' ')[1];
+  const parsed = cloud.parseToken(token);
+  const uid = parsed.uid;
+  if (!uid) return { code: '401', error: '未授权访问' };
 
   // checkPermission
-  const code = await checkPermission(uid, 'permission.read')
+  const code = await checkPermission(uid, 'permission.read');
   if (code) {
-    return 'Permission denied'
+    return 'Permission denied';
   }
-  
-  const r = await db.collection('permission').get()
+
+  const r = await db.collection('permission').get();
 
   return {
     code: 0,
-    result: r.data
-  }
+    result: r.data,
+  };
 }

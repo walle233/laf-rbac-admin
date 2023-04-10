@@ -1,18 +1,16 @@
+import cloud from '@lafjs/cloud';
+import * as crypto from 'crypto';
 
-import cloud from '@lafjs/cloud'
-import * as crypto from 'crypto'
-
-export async function main(ctx: FunctionContext) {
-  cloud.shared.set('checkPermission', checkPermission)
-  cloud.shared.set('getPermissions', getPermissions)
-  cloud.shared.set('hashPassword', hashPassword)
+export async function main() {
+  cloud.shared.set('checkPermission', checkPermission);
+  cloud.shared.set('getPermissions', getPermissions);
+  cloud.shared.set('hashPassword', hashPassword);
 
   return {
     code: 0,
-    data: 'ok'
-  }
+    data: 'ok',
+  };
 }
-
 
 /**
  * 判断用户是否有权限
@@ -22,54 +20,51 @@ export async function main(ctx: FunctionContext) {
  */
 async function checkPermission(uid: string, permission: string): Promise<number> {
   if (!uid) {
-    return 401
+    return 401;
   }
-  const { permissions } = await getPermissions(uid)
+  const { permissions } = await getPermissions(uid);
 
   if (!permissions.includes(permission)) {
-    return 403
+    return 403;
   }
-  return 0
+  return 0;
 }
-
 
 /**
  * 通过 user id 获取权限列表
- * @param role_ids 
- * @returns 
+ * @param role_ids
+ * @returns
  */
 async function getPermissions(uid: string) {
-  const db = cloud.database()
+  const db = cloud.database();
   // 查用户
-  const { data: admin } = await db.collection('admin')
-    .where({ _id: uid })
-    .getOne()
-
+  const { data: admin } = await db.collection('admin').where({ _id: uid }).getOne();
 
   // 查角色
-  const { data: roles } = await db.collection('role')
+  const { data: roles } = await db
+    .collection('role')
     .where({
       name: {
-        $in: admin.roles ?? []
-      }
+        $in: admin.roles ?? [],
+      },
     })
-    .get()
+    .get();
 
   if (!roles) {
-    return { permissions: [], roles: [], user: admin }
+    return { permissions: [], roles: [], user: admin };
   }
 
-  const permissions = []
+  const permissions = [];
   for (const role of roles) {
-    const perms = role.permissions ?? []
-    permissions.push(...perms)
+    const perms = role.permissions ?? [];
+    permissions.push(...perms);
   }
 
   return {
     permissions,
-    roles: roles.map(role => role.name),
-    user: admin
-  }
+    roles: roles.map((role) => role.name),
+    user: admin,
+  };
 }
 
 /**
@@ -77,8 +72,5 @@ async function getPermissions(uid: string) {
  * @return {string}
  */
 function hashPassword(content: string): string {
-  return crypto
-    .createHash('sha256')
-    .update(content)
-    .digest('hex')
+  return crypto.createHash('sha256').update(content).digest('hex');
 }

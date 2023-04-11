@@ -97,6 +97,8 @@
       allPermissions.length,
       ...res.map((_) => ({ value: _.name, label: _.label }))
     );
+
+    console.log('allPermissions', allPermissions);
   };
 
   onMounted(() => {
@@ -231,6 +233,7 @@
     modalType.value = 'edit';
     formParams.name = record.name;
     formParams.label = record.label;
+    formParams.permissions = record.permissions;
     formParams._id = record._id;
   }
 

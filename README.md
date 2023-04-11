@@ -56,6 +56,17 @@ pnpm build
 2. 发布所有 function 到 laf 线上
 3. 在线上执行 init-shared-utils 和 init-app-rbac 两个 function，初始化 rbac 相关数据
 
+**静态资源发布**
+```bash
+# 第一次先创建 bucket
+laf storage create bucketName
+
+pnpm build
+
+# 在 laf-cloud 目录下执行，发布静态资源到 bucket
+laf storage push bucketName ../dist
+```
+
 
 ## 如何贡献
 

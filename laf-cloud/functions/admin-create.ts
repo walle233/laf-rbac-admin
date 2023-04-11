@@ -50,7 +50,15 @@ export async function main(ctx: FunctionContext) {
     name: name ?? null,
     avatar: avatar ?? null,
     roles: roles ?? [],
+    created_at: Date.now(),
+    updated_at: Date.now(),
+  });
+
+  await db.collection('password').add({
+    uid: r.id,
     password: hashPassword(password),
+    type: 'login',
+    status: 'active',
     created_at: Date.now(),
     updated_at: Date.now(),
   });

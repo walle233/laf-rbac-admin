@@ -45,6 +45,17 @@ pnpm dev
 pnpm build
 ```
 
+## laf-cloud 使用
+
+**环境准备**
+1. npm i -g laf-cli
+2. vscode 安装插件 [laf-assistant](https://marketplace.visualstudio.com/items?itemName=nightwhite.laf-assistant)
+
+**初始化项目**
+1. 在 laf-cloud 目录下初始化 laf app
+2. 发布所有 function 到 laf 线上
+3. 在线上执行 init-shared-utils 和 init-app-rbac 两个 function，初始化 rbac 相关数据
+
 
 ## 如何贡献
 

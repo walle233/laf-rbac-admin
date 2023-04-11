@@ -19,7 +19,7 @@ export const columns = [
     width: 140,
     render(row) {
       if (row.avatar && row.avatar.length) {
-        return h(NAvatar, { src: row.avatar[0], round: true });
+        return h(NAvatar, { src: row.avatar, round: true });
       }
       return h(NAvatar, { round: true });
     },
@@ -40,14 +40,6 @@ export const columns = [
       return row.status === 0 ? '禁用' : '启用';
     },
   },
-  // {
-  //   title: '密码',
-  //   key: 'password',
-  //   width: 140,
-  //   render(row) {
-  //     return '******';
-  //   },
-  // },
   {
     title: '创建时间',
     key: 'created_at',

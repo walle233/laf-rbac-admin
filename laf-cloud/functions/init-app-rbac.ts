@@ -55,22 +55,22 @@ async function createFirstAdmin(username: string, password: string) {
 
     const r_add = await db.collection('admin').add({
       username,
-      avatar: 'https://static.dingtalk.com/media/lALPDe7szaMXyv3NAr3NApw_668_701.png',
+      avatar: 'https://laf.run/logo.png',
       name: 'Admin',
       roles,
-      password: hashPassword(password),
       created_at: Date.now(),
       updated_at: Date.now(),
     });
     assert.ok(r_add.id, 'add admin occurs error');
 
-    // await db.collection('password').add({
-    //   uid: r_add.id,
-    //   password: hashPassword(password),
-    //   type: 'login',
-    //   created_at: Date.now(),
-    //   updated_at: Date.now(),
-    // });
+    await db.collection('password').add({
+      uid: r_add.id,
+      password: hashPassword(password),
+      type: 'login',
+      status: 'active',
+      created_at: Date.now(),
+      updated_at: Date.now(),
+    });
 
     return r_add.id;
   } catch (error) {

@@ -9,10 +9,18 @@ export async function main(ctx: FunctionContext) {
 
   const { data: admin } = await db
     .collection('admin')
-    .where({ username, password: hashPassword(password) })
+    .where({ username })
+    .withOne({
+      query: db.collection('password').where({ type: 'login' }),
+      localField: '_id',
+      foreignField: 'uid',
+      as: 'password',
+    })
     .getOne();
 
-  if (!admin) return { code: 'INVALID_PARAM', error: '账号或密码错误' };
+  // check username and password
+  const isMatchPassword = admin.password?.password === hashPassword(password);
+  if (!admin || !isMatchPassword) return { code: 'INVALID_PARAM', error: '账号或密码错误' };
 
   // 默认 token 有效期为 7 天
   const expire = Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 7;

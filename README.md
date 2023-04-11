@@ -4,7 +4,7 @@
 ## 预览
 - [laf-rbac-admin](https://rjb00l-site.site.laf.run/#/login)
 
-账号：test，密码：123456
+账号：admin，密码：123456
 
 ## 准备
 

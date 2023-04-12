@@ -12,17 +12,6 @@ POST {{base_url}}/admin-create HTTP/1.1
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
-{
-  "username": "walle",
-  "password": "dasha206",
-  "avatar": "",
-  "name": "Walle",
-  "roles": [
-    "superadmin"
-  ]
-}
-
-
 ### 登陆
 # @name login
 

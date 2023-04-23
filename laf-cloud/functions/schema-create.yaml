@@ -1,0 +1,6 @@
+name: schema-create
+methods:
+  - GET
+  - POST
+tags:
+  - schema

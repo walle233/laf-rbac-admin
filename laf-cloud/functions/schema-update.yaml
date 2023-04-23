@@ -1,0 +1,6 @@
+name: schema-update
+methods:
+  - GET
+  - POST
+tags:
+  - schema

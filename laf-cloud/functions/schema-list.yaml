@@ -1,0 +1,6 @@
+name: schema-list
+methods:
+  - GET
+  - POST
+tags:
+  - schema

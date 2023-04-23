@@ -1,17 +1,8 @@
-import cloud from '@lafjs/cloud'
-
-const db = cloud.database()
+import cloud from '@lafjs/cloud';
+const mongodb = cloud.mongo.db;
 
 export async function main(ctx: FunctionContext) {
-  // insert data
-  const insertRes = await db.collection('test').add({ name: "hello laf" })
-  console.log(insertRes)
-  if (insertRes.ok) {
-    // get data
-    const res = await db.collection('test').getOne()
-    console.log(res)
-    return res
-  } else {
-    return { data: insertRes.error }
-  }
+  console.log('Hello World');
+  mongodb.renameCollection('test', 'test_new');
+  return { data: 'hi, laf' };
 }

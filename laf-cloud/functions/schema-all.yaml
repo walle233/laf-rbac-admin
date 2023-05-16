@@ -1,0 +1,5 @@
+name: schema-all
+methods:
+  - GET
+  - POST
+tags: []

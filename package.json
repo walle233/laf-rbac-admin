@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.142.0",
+    "@tinymce/tinymce-vue": "^5",
     "@vicons/antd": "^0.10.0",
     "@vicons/ionicons5": "^0.10.0",
     "@vueup/vue-quill": "^1.0.0-beta.8",

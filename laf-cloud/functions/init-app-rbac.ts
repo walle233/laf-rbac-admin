@@ -37,6 +37,11 @@ const permissions = [
   { name: 'admin.read', label: '获取管理员' },
   { name: 'admin.edit', label: '编辑管理员' },
   { name: 'admin.delete', label: '删除管理员' },
+
+  { name: 'schema.create', label: '创建内容模型' },
+  { name: 'schema.read', label: '读取内容模型' },
+  { name: 'schema.edit', label: '编辑内容模型' },
+  { name: 'schema.delete', label: '删除内容模型' },
 ];
 
 // 创建初始管理员

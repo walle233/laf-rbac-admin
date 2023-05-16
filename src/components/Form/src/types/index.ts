@@ -7,6 +7,7 @@ export type ComponentType =
   | 'NInputNumber'
   | 'NInputCountDown'
   | 'NSelect'
+  | 'NSelectRemote'
   | 'NTreeSelect'
   | 'NRadioButtonGroup'
   | 'NRadioGroup'
@@ -15,6 +16,7 @@ export type ComponentType =
   | 'NAutoComplete'
   | 'NCascader'
   | 'NDatePicker'
+  | 'NDateTimePicker'
   | 'NMonthPicker'
   | 'NRangePicker'
   | 'NWeekPicker'
@@ -25,4 +27,5 @@ export type ComponentType =
   | 'NIconPicker'
   | 'NRender'
   | 'NSlider'
-  | 'NRate';
+  | 'NRate'
+  | 'NRichText';

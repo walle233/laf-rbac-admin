@@ -4,6 +4,7 @@ specifiers:
   '@aws-sdk/client-s3': ^3.142.0
   '@commitlint/cli': ^12.1.4
   '@commitlint/config-conventional': ^12.1.4
+  '@tinymce/tinymce-vue': ^5
   '@types/lodash': ^4.14.182
   '@types/node': ^15.14.9
   '@typescript-eslint/eslint-plugin': ^4.33.0
@@ -74,6 +75,7 @@ specifiers:
 
 dependencies:
   '@aws-sdk/client-s3': 3.154.0
+  '@tinymce/tinymce-vue': 5.1.0_vue@3.2.37
   '@vicons/antd': 0.10.0
   '@vicons/ionicons5': 0.10.0
   '@vueup/vue-quill': 1.0.0-beta.9_vue@3.2.37
@@ -2059,6 +2061,15 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
+
+  /@tinymce/tinymce-vue/5.1.0_vue@3.2.37:
+    resolution: {integrity: sha512-Z4R8zaOKrAXBhHWsq+qUlwHY+rvze2RgxHDrZ5+qTYkGvRofW5880HLG9gvv6TRPVsNSQBNMdsaOjJ/eueccgA==}
+    peerDependencies:
+      vue: ^3.0.0
+    dependencies:
+      tinymce: 6.4.2
+      vue: 3.2.37
+    dev: false
 
   /@tootallnate/once/1.1.2:
     resolution: {integrity: sha512-RbzJvlNzmRq5c3O09UipeuXno4tA1FE6ikOjxZK0tuxVv3412l64l5t1W5pj4+rJq9vpkm/kwiR07aZXnsKPxw==}
@@ -7840,6 +7851,10 @@ packages:
     dependencies:
       readable-stream: 3.6.0
     dev: true
+
+  /tinymce/6.4.2:
+    resolution: {integrity: sha512-te+4c8PoAwTKPMBQtMQehnSZlOO9Ay5tDgaRFJKBehYb6SlX2PYZ0v3oe/cmiv5EfqdwZLkEMXk2MNOeApZZLg==}
+    dev: false
 
   /tmp/0.0.33:
     resolution: {integrity: sha512-jRCJlojKnZ3addtTOjdIqoRuPEKBvNXcGYqzO6zWZX8KfKEpnGY5jfggJQ3EjKuu8D4bJRr0y+cYJFmYbImXGw==}

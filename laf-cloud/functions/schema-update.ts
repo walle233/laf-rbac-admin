@@ -35,6 +35,12 @@ export async function main(ctx: FunctionContext) {
   const data = { updated_at: Date.now() } as any;
 
   if (collectionName) {
+    // check collectionName
+    const whiteList = ['schema', 'admin', 'role', 'permission', 'password'];
+    if (whiteList.indexOf(collectionName) > -1) {
+      return 'collectionName cannot be ' + whiteList.join(', ');
+    }
+
     data.collectionName = collectionName;
     mongodb.renameCollection(schema.collectionName, collectionName);
   }

@@ -1,0 +1,38 @@
+<script setup lang="ts">
+  import { computed } from 'vue';
+  import { ref, toRefs } from 'vue';
+
+  const props = defineProps<{
+    schemaList: Schema[];
+    currentSchema: Schema | undefined;
+  }>();
+
+  const emit = defineEmits(['changeSchema']);
+
+  const { schemaList } = toRefs(props);
+
+  const activeKey = computed(() => props.currentSchema?._id);
+
+  const handleChangeSchema = (key: string) => {
+    emit('changeSchema', key);
+  };
+</script>
+
+<template>
+  <n-menu
+    class="schema-list-box"
+    v-model:value="activeKey"
+    mode="vertical"
+    :options="schemaList.map((_) => ({ key: _._id, label: _.displayName }))"
+    @update:value="handleChangeSchema"
+  />
+</template>
+
+<style>
+  .schema-list-box {
+    width: 200px;
+    border: none;
+    padding: 20px 0;
+    background-color: #fff;
+  }
+</style>

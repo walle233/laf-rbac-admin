@@ -1,6 +1,7 @@
 import cloud from '@lafjs/cloud';
 
 const db = cloud.database();
+const mongodb = cloud.mongo.db;
 
 export async function main(ctx: FunctionContext) {
   const { headers } = ctx;
@@ -14,6 +15,12 @@ export async function main(ctx: FunctionContext) {
   const { displayName, collectionName, description } = ctx.body;
   if (!displayName || !collectionName) {
     return 'displayName or collectionName cannot be empty';
+  }
+
+  // check collectionName
+  const whiteList = ['schema', 'admin', 'role', 'permission', 'password'];
+  if (whiteList.indexOf(collectionName) > -1) {
+    return 'collectionName cannot be ' + whiteList.join(', ');
   }
 
   // check exist
@@ -52,6 +59,9 @@ export async function main(ctx: FunctionContext) {
 
   // add collection to schema
   const addRes = await db.collection('schema').add(schema);
+
+  // add collection to mongodb
+  await mongodb.createCollection(collectionName);
 
   return {
     code: 0,

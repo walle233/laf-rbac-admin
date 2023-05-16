@@ -23,7 +23,7 @@ const routes: Array<RouteRecordRaw> = [
     meta: {
       title: '异常页面',
       icon: renderIcon(ExclamationCircleOutlined),
-      sort: 3,
+      sort: 10,
       hidden: true,
     },
     children: [

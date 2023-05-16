@@ -54,6 +54,49 @@
               </n-space>
             </n-radio-group>
           </template>
+
+          <!--NSelect-->
+          <template v-else-if="schema.component === 'NSelect'">
+            <n-select
+              v-model:value="formModel[schema.field]"
+              :options="schema.componentProps.options"
+              :class="{ isFull: schema.isFull != false && getProps.isFull }"
+            />
+          </template>
+
+          <!--NSelectRemote-->
+          <template v-else-if="schema.component === 'NSelectRemote'">
+            <n-select
+              v-model:value="formModel[schema.field]"
+              :options="schema.componentProps.options"
+              remote
+              clearable
+              filterable
+              @search="() => schema.componentProps.onSearch()"
+              :class="{ isFull: schema.isFull != false && getProps.isFull }"
+            />
+          </template>
+
+          <!--NDateTimePicker-->
+          <template v-else-if="schema.component === 'NDateTimePicker'">
+            <n-date-picker
+              v-model:value="formModel[schema.field]"
+              type="datetime"
+              :class="{ isFull: schema.isFull != false && getProps.isFull }"
+            />
+          </template>
+
+          <!--RichText-->
+          <template v-else-if="schema.component === 'NRichText'">
+            <Editor
+              api-key="1ajuy5y0t0v2gw1x92nvkisgws4x5xqcbc9ql00zs1culc1t"
+              v-model="formModel[schema.field]"
+              :init="{
+                plugins: 'lists link image table code help wordcount',
+              }"
+            />
+          </template>
+
           <!--动态渲染表单组件-->
           <component
             v-else
@@ -133,13 +176,14 @@
   import type { Ref } from 'vue';
   import type { GridProps } from 'naive-ui/lib/grid';
   import type { FormSchema, FormProps, FormActionType } from './types/form';
+  import Editor from '@tinymce/tinymce-vue';
 
   import { isArray } from '@/utils/is/index';
   import { deepMerge } from '@/utils';
 
   export default defineComponent({
     name: 'BasicUpload',
-    components: { DownOutlined, UpOutlined, QuestionCircleOutlined },
+    components: { DownOutlined, UpOutlined, QuestionCircleOutlined, Editor },
     props: {
       ...basicProps,
     },

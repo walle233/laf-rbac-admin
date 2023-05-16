@@ -1,0 +1,5 @@
+name: cms-content-list
+methods:
+  - GET
+  - POST
+tags: ['cms']

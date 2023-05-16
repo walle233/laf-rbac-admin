@@ -1,0 +1,5 @@
+name: cms-content-all
+methods:
+  - GET
+  - POST
+tags: []

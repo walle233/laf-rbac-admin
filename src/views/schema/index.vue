@@ -1,4 +1,4 @@
-<script lang="ts" setup>
+<script setup lang="ts">
   import { reactive, ref, onMounted } from 'vue';
 
   import SchemaList from './components/SchemaList.vue';
@@ -60,44 +60,46 @@
 </script>
 
 <template>
-  <n-card :bordered="false" title="">
-    <n-button class="mr-3" type="primary" @click="handleCreateSchema"> 新增模型 </n-button>
-    <n-button :disabled="!currentSchema" type="primary" @click="toSchemaContent">
-      内容列表
-    </n-button>
-  </n-card>
+  <div>
+    <n-card :bordered="false" title="">
+      <n-button class="mr-3" type="primary" @click="handleCreateSchema"> 新增模型 </n-button>
+      <n-button :disabled="!currentSchema" type="primary" @click="toSchemaContent">
+        内容列表
+      </n-button>
+    </n-card>
 
-  <div class="schema-wrap">
-    <SchemaCreateModal
-      :modelValue="showSchemaCreateModal"
-      modalType="create"
-      @closeModal="() => (showSchemaCreateModal = false)"
-      @fetchSchemaList="handeleFetchSchemaList"
-    />
+    <div class="schema-wrap">
+      <SchemaCreateModal
+        :modelValue="showSchemaCreateModal"
+        modalType="create"
+        @closeModal="() => (showSchemaCreateModal = false)"
+        @fetchSchemaList="handeleFetchSchemaList"
+      />
 
-    <FieldCreateModal
-      :modelValue="showFieldCreateModal"
-      :fieldAction="fieldAction"
-      :selectField="selectField"
-      :currentSchema="currentSchema"
-      :allSchemas="schemaList"
-      @closeModal="() => (showFieldCreateModal = false)"
-      @fetchSchemaList="handeleFetchSchemaList"
-    />
+      <FieldCreateModal
+        :modelValue="showFieldCreateModal"
+        :fieldAction="fieldAction"
+        :selectField="selectField"
+        :currentSchema="currentSchema"
+        :allSchemas="schemaList"
+        @closeModal="() => (showFieldCreateModal = false)"
+        @fetchSchemaList="handeleFetchSchemaList"
+      />
 
-    <SchemaList
-      :currentSchema="currentSchema"
-      :schemaList="schemaList"
-      @changeSchema="handleChangeSchema"
-    />
+      <SchemaList
+        :currentSchema="currentSchema"
+        :schemaList="schemaList"
+        @changeSchema="handleChangeSchema"
+      />
 
-    <FieldList
-      :currentSchema="currentSchema"
-      @updateField="handleUpdateField"
-      @fetchSchemaList="handeleFetchSchemaList"
-    />
+      <FieldList
+        :currentSchema="currentSchema"
+        @updateField="handleUpdateField"
+        @fetchSchemaList="handeleFetchSchemaList"
+      />
 
-    <FieldPicker @selectField="handleSelectField" />
+      <FieldPicker @selectField="handleSelectField" />
+    </div>
   </div>
 </template>
 

@@ -18,7 +18,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/schema',
     name: 'Schema',
-    redirect: '/schema/index',
+    redirect: '/schema',
     component: Layout,
     meta: {
       title: '内容模型',
@@ -27,7 +27,7 @@ const routes: Array<RouteRecordRaw> = [
     },
     children: [
       {
-        path: 'index',
+        path: '',
         name: 'SchemaIndex',
         meta: {
           title: '内容模型',

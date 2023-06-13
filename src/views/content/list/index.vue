@@ -8,7 +8,8 @@
   import { useRoute, useRouter } from 'vue-router';
   import dayjs from 'dayjs';
 
-  const { schemaId } = useRoute().params;
+  const route = useRoute();
+  const schemaId = route.path.split('/').pop();
   const router = useRouter();
   const message = useMessage();
 

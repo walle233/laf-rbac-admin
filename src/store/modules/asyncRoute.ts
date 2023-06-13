@@ -5,6 +5,7 @@ import { store } from '@/store';
 import { asyncRoutes, constantRouter } from '@/router/index';
 import { generatorDynamicRouter } from '@/router/generator-routers';
 import { useProjectSetting } from '@/hooks/setting/useProjectSetting';
+import { getAllSchemas } from '@/api/cms/schema';
 
 interface TreeHelperConfig {
   id: string;
@@ -106,12 +107,30 @@ export const useAsyncRouteStore = defineStore({
         }
       } else {
         try {
+          // 获取所有的内容模型，动态生成路由
+          const schemas = await getAllSchemas();
+          const contentRoute = asyncRoutes?.find((item) => item.path === '/content') as any;
+          const contentChildren: any = [];
+          for (const schema of schemas) {
+            const { _id, collectionName, displayName } = schema;
+            contentChildren.push({
+              path: _id,
+              name: collectionName,
+              meta: {
+                title: displayName,
+              },
+              component: () => import('@/views/content/list/index.vue'),
+            });
+          }
+          contentRoute.children = [...contentChildren, ...contentRoute.children];
+
           //过滤账户是否拥有某一个权限，并将菜单从加载列表移除
           accessedRouters = filter(asyncRoutes, routeFilter);
         } catch (error) {
           console.log(error);
         }
       }
+
       accessedRouters = accessedRouters.filter(routeFilter);
       this.setRouters(accessedRouters);
       this.setMenus(accessedRouters);

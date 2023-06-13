@@ -31,7 +31,7 @@ const routes: Array<RouteRecordRaw> = [
         name: 'SchemaIndex',
         meta: {
           title: '内容模型',
-          activeMenu: 'Schema',
+          activeMenu: 'SchemaIndex',
         },
         component: () => import('@/views/schema/index.vue'),
       },

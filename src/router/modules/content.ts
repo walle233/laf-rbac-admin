@@ -23,19 +23,9 @@ const routes: Array<RouteRecordRaw> = [
     meta: {
       title: '内容集合',
       icon: renderIcon(UserOutlined),
-      hidden: true,
       sort: 2,
     },
     children: [
-      {
-        path: ':schemaId',
-        name: 'ContentIndex',
-        meta: {
-          title: '内容集合',
-          activeMenu: 'SchemaIndex',
-        },
-        component: () => import('@/views/content/list/index.vue'),
-      },
       {
         path: ':schemaId/edit/:contentId',
         name: 'ContentEdit',

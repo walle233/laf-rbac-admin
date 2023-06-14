@@ -4,8 +4,9 @@
   import SchemaList from './components/SchemaList.vue';
   import FieldList from './components/FieldList.vue';
   import FieldPicker from './components/FieldPicker.vue';
-  import SchemaCreateModal from './components/SchemaCreateModal.vue';
   import FieldCreateModal from './components/FieldCreateModal.vue';
+  import SchemaCreateModal from './components/SchemaCreateModal.vue';
+  import SchemaDeleteModal from './components/SchemaDeleteModal.vue';
 
   import { getAllSchemas } from '@/api/cms/schema';
   import { useRouter } from 'vue-router';
@@ -28,20 +29,31 @@
     schemaList.splice(0, schemaList.length, ...res);
 
     if (currentSchema.value) {
-      currentSchema.value = schemaList.find((_) => _._id === currentSchema.value?._id);
+      currentSchema.value =
+        schemaList.find((_) => _._id === currentSchema.value?._id) || schemaList[0];
     } else {
       currentSchema.value = schemaList[0];
     }
   };
 
   const showSchemaCreateModal = ref(false);
+  const schemaModalType = ref<'create' | 'edit'>('create');
   const handleCreateSchema = () => {
     showSchemaCreateModal.value = true;
+    schemaModalType.value = 'create';
   };
 
-  const toSchemaContent = () => {
-    router.push({ path: `/content/${currentSchema.value?._id}` });
+  const handleUpdateSchema = () => {
+    showSchemaCreateModal.value = true;
+    schemaModalType.value = 'edit';
   };
+
+  const showSchemaDeleteModal = ref(false);
+  const handleDeleteSchema = () => {
+    showSchemaDeleteModal.value = true;
+  };
+  const handleExportSchema = () => {};
+  const handleCloneSchema = () => {};
 
   const showFieldCreateModal = ref(false);
   const fieldAction = ref<'create' | 'edit'>('create');
@@ -61,18 +73,25 @@
 
 <template>
   <div>
-    <n-card :bordered="false" title="">
+    <n-card :bordered="false">
       <n-button class="mr-3" type="primary" @click="handleCreateSchema"> 新增模型 </n-button>
-      <n-button :disabled="!currentSchema" type="primary" @click="toSchemaContent">
-        内容列表
-      </n-button>
+      <n-button class="mr-3" type="primary"> 导出模型 </n-button>
+      <n-button class="mr-3" type="primary"> 导入模型 </n-button>
     </n-card>
 
     <div class="schema-wrap">
       <SchemaCreateModal
         :modelValue="showSchemaCreateModal"
-        modalType="create"
+        :modalType="schemaModalType"
+        :currentSchema="currentSchema"
         @closeModal="() => (showSchemaCreateModal = false)"
+        @fetchSchemaList="handeleFetchSchemaList"
+      />
+
+      <SchemaDeleteModal
+        :modelValue="showSchemaDeleteModal"
+        :currentSchema="currentSchema"
+        @closeModal="() => (showSchemaDeleteModal = false)"
         @fetchSchemaList="handeleFetchSchemaList"
       />
 
@@ -96,6 +115,10 @@
         :currentSchema="currentSchema"
         @updateField="handleUpdateField"
         @fetchSchemaList="handeleFetchSchemaList"
+        @updateSchema="handleUpdateSchema"
+        @deleteSchema="handleDeleteSchema"
+        @exportSchema="handleExportSchema"
+        @cloneSchema="handleCloneSchema"
       />
 
       <FieldPicker @selectField="handleSelectField" />

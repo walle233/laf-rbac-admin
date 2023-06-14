@@ -1,0 +1,11 @@
+name: test
+appid: rjb00l
+invokeUrl: https://rjb00l.laf.run
+function:
+  debugTokenExpire: 1687370746
+storage:
+  endpoint: https://oss.laf.run
+  accessKeyId: VIX4AART0O4POEJY7Z7U
+  accessKeySecret: 40qU9F1LmDyl1rk07A5LPbKPx6oE5vftxQ3BCTLn
+  sessionToken: eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NLZXkiOiJWSVg0QUFSVDBPNFBPRUpZN1o3VSIsImV4cCI6MTY4NzM3MDc0NiwicGFyZW50IjoicmpiMDBsIiwic2Vzc2lvblBvbGljeSI6ImV5SldaWEp6YVc5dUlqb2lNakF4TWkweE1DMHhOeUlzSWxOMFlYUmxiV1Z1ZENJNlczc2lVMmxrSWpvaVlYQndMWE4wY3kxbWRXeHNMV2R5WVc1MElpd2lSV1ptWldOMElqb2lRV3hzYjNjaUxDSkJZM1JwYjI0aU9pSnpNem9xSWl3aVVtVnpiM1Z5WTJVaU9pSmhjbTQ2WVhkek9uTXpPam82S2lKOVhYMD0ifQ.Ck9qIe4qCqsPop7tMi00zFSYgLT_X5ELzg-VDA_zDrjlmfJZXIsBa7-wSTUPLYWF-08VFNT2sWN6x713hsPxCw
+  expire: 1687370746

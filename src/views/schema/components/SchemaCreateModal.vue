@@ -1,13 +1,16 @@
 <script setup lang="ts">
   import { useMessage } from 'naive-ui';
-  import { reactive, ref, computed } from 'vue';
-  import { createSchema } from '@/api/cms/schema';
+  import { reactive, ref, computed, toRefs, watch } from 'vue';
+  import { createSchema, updateSchema } from '@/api/cms/schema';
 
   const props = defineProps<{
-    modelValue?: boolean;
-    modalType?: 'create' | 'edit';
+    modelValue: boolean;
+    modalType: 'create' | 'edit';
+    currentSchema: Schema | undefined;
   }>();
   const emit = defineEmits(['closeModal', 'fetchSchemaList']);
+
+  const { modelValue, modalType, currentSchema } = toRefs(props);
 
   const handleClose = () => {
     emit('closeModal');
@@ -19,8 +22,6 @@
 
   const message = useMessage();
   const formRef: any = ref(null);
-  const modelValue = computed(() => props.modelValue);
-  const modalType = ref(props.modalType);
   const formBtnLoading = ref(false);
 
   const formParams = reactive({
@@ -28,6 +29,21 @@
     collectionName: '',
     description: '',
   });
+
+  watch(
+    () => modelValue.value,
+    (val) => {
+      if (val) {
+        resetFormParams();
+        if (modalType.value === 'edit' && currentSchema.value) {
+          formParams.displayName = currentSchema.value.displayName;
+          formParams.collectionName = currentSchema.value.collectionName;
+          formParams.description = currentSchema.value.description;
+        }
+      }
+    },
+    { immediate: true }
+  );
 
   const resetFormParams = () => {
     formParams.displayName = '';
@@ -54,7 +70,7 @@
         if (modalType.value === 'create') {
           await createSchema(formParams);
         } else {
-          // await updateSchema(formParams);
+          await updateSchema({ ...formParams, _id: currentSchema.value?._id });
         }
 
         message.success(modalType.value === 'create' ? '创建成功' : '修改成功');
@@ -77,7 +93,7 @@
     preset="dialog"
     :mask-closable="false"
     :on-after-leave="resetFormParams"
-    :title="modalType === 'create' ? '创建模型' : '更新模型'"
+    :title="modalType === 'create' ? '新增模型' : '编辑模型'"
     @close="handleClose"
   >
     <n-form

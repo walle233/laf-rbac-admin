@@ -3,11 +3,19 @@
   import { updateSchema } from '@/api/cms/schema';
   import { useMessage } from 'naive-ui';
   import { FieldTypes } from '@/constants/field';
+  import { DeleteOutlined, EditOutlined, ExportOutlined, CopyOutlined } from '@vicons/antd';
 
   const props = defineProps<{
     currentSchema: Schema | undefined;
   }>();
-  const emit = defineEmits(['updateField', 'fetchSchemaList']);
+  const emit = defineEmits([
+    'updateField',
+    'fetchSchemaList',
+    'updateSchema',
+    'deleteSchema',
+    'exportSchema',
+    'copySchema',
+  ]);
 
   const message = useMessage();
 
@@ -16,6 +24,22 @@
 
   const handleUpdateField = (field: SchemaField) => {
     emit('updateField', field);
+  };
+
+  const handleUpdateSchema = () => {
+    emit('updateSchema');
+  };
+
+  const handleDeleteSchema = () => {
+    emit('deleteSchema');
+  };
+
+  const handleExportSchema = () => {
+    emit('exportSchema');
+  };
+
+  const handleCloneSchema = () => {
+    emit('copySchema');
   };
 
   const handleDeleteField = async (field: SchemaField) => {
@@ -30,13 +54,58 @@
 </script>
 
 <template>
-  <n-card class="schema-field-box" title="模型信息">
+  <n-card
+    class="schema-field-box"
+    :title="`${currentSchema?.displayName} - ${currentSchema?.collectionName}`"
+  >
+    <template #header-extra>
+      <n-tooltip placement="top">
+        <template #trigger>
+          <n-button type="primary" class="mr-2" circle text @click="handleUpdateSchema">
+            <template #icon>
+              <n-icon> <EditOutlined /> </n-icon>
+            </template>
+          </n-button>
+        </template>
+        <span>编辑</span>
+      </n-tooltip>
+      <n-tooltip placement="top">
+        <template #trigger>
+          <n-button type="primary" class="mr-2" circle text @click="handleDeleteSchema">
+            <template #icon>
+              <n-icon> <DeleteOutlined /> </n-icon>
+            </template>
+          </n-button>
+        </template>
+        <span>删除</span>
+      </n-tooltip>
+      <n-tooltip placement="top">
+        <template #trigger>
+          <n-button type="primary" class="mr-2" circle text @click="handleExportSchema">
+            <template #icon>
+              <n-icon> <ExportOutlined /> </n-icon>
+            </template>
+          </n-button>
+        </template>
+        <span>导出</span>
+      </n-tooltip>
+      <n-tooltip placement="top">
+        <template #trigger>
+          <n-button type="primary" class="mr-2" circle text @click="handleCloneSchema">
+            <template #icon>
+              <n-icon> <CopyOutlined /> </n-icon>
+            </template>
+          </n-button>
+        </template>
+        <span>克隆</span>
+      </n-tooltip>
+    </template>
     <n-card class="field-item" hoverable v-for="item in fields" :key="item.id">
       <div class="field-content">
         <div class="field-left">
           <div class="field-title">
             <span>{{ item.displayName }}</span>
-            <span> # {{ item.name }} </span>
+            <span> #{{ item.name }} </span>
           </div>
           <div class="field-type">
             <n-tag size="small">
@@ -59,6 +128,10 @@
         </div>
       </div>
     </n-card>
+    <!-- 空数据展示 -->
+    <div v-if="!fields?.length" class="flex justify-center items-center h-40">
+      <n-empty description="请选择内容类型添加字段" />
+    </div>
   </n-card>
 </template>
 

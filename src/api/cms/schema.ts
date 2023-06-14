@@ -55,12 +55,10 @@ export function updateSchema(params) {
   });
 }
 
-export function deleteSchema(id) {
+export function deleteSchema(data) {
   return http.request({
     url: `/schema-delete`,
     method: 'POST',
-    data: {
-      _id: id,
-    },
+    data,
   });
 }

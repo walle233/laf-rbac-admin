@@ -1,0 +1,6 @@
+name: schema-delete
+methods:
+  - GET
+  - POST
+tags:
+  - schema

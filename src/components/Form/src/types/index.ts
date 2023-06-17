@@ -6,6 +6,9 @@ export type ComponentType =
   | 'NInputTextArea'
   | 'NInputNumber'
   | 'NInputCountDown'
+  | 'NInputMobile'
+  | 'NInputEmail'
+  | 'NInputUrl'
   | 'NSelect'
   | 'NSelectRemote'
   | 'NTreeSelect'
@@ -28,4 +31,5 @@ export type ComponentType =
   | 'NRender'
   | 'NSlider'
   | 'NRate'
+  | 'NMarkdown'
   | 'NRichText';

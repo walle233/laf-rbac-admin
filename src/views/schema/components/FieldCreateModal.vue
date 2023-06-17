@@ -151,6 +151,7 @@
 
         message.success(fieldAction.value === 'create' ? '创建成功' : '修改成功');
         handleClose();
+        resetFormParams();
         emit('fetchSchemaList');
       } else {
         message.error('请填写完整信息');

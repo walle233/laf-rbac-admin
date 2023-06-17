@@ -1,0 +1,5 @@
+name: upload-file
+methods:
+  - GET
+  - POST
+tags: ['upload']

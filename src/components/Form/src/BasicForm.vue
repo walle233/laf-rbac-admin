@@ -26,6 +26,51 @@
             ></slot>
           </template>
 
+          <!-- NInputTextArea -->
+          <template v-else-if="schema.component === 'NInputTextArea'">
+            <n-input
+              type="textarea"
+              v-model:value="formModel[schema.field]"
+              :class="{ isFull: schema.isFull != false && getProps.isFull }"
+            />
+          </template>
+
+          <!--NInputMobile-->
+          <template v-else-if="schema.component === 'NInputMobile'">
+            <n-input
+              :input-props="{ type: 'tel' }"
+              v-model:value="formModel[schema.field]"
+              :class="{ isFull: schema.isFull != false && getProps.isFull }"
+            />
+          </template>
+
+          <!--NInputPassword-->
+          <template v-else-if="schema.component === 'NInputPassword'">
+            <n-input
+              :input-props="{ type: 'password' }"
+              v-model:value="formModel[schema.field]"
+              :class="{ isFull: schema.isFull != false && getProps.isFull }"
+            />
+          </template>
+
+          <!--NInputEmail-->
+          <template v-else-if="schema.component === 'NInputEmail'">
+            <n-input
+              :input-props="{ type: 'email' }"
+              v-model:value="formModel[schema.field]"
+              :class="{ isFull: schema.isFull != false && getProps.isFull }"
+            />
+          </template>
+
+          <!--NInputUrl-->
+          <template v-else-if="schema.component === 'NInputUrl'">
+            <n-input
+              :input-props="{ type: 'url' }"
+              v-model:value="formModel[schema.field]"
+              :class="{ isFull: schema.isFull != false && getProps.isFull }"
+            />
+          </template>
+
           <!--NCheckbox-->
           <template v-else-if="schema.component === 'NCheckbox'">
             <n-checkbox-group v-model:value="formModel[schema.field]">
@@ -71,10 +116,30 @@
               :options="schema.componentProps.options"
               remote
               clearable
-              filterable
-              @search="() => schema.componentProps.onSearch()"
+              @search="schema.componentProps.onSearch"
               :class="{ isFull: schema.isFull != false && getProps.isFull }"
             />
+          </template>
+
+          <!--NUploader-->
+          <template v-else-if="schema.component === 'NUpload'">
+            <n-upload
+              directory-dnd
+              :multiple="false"
+              :custom-request="customRequest"
+              :max="1"
+              @finish="handleUploadFinish(schema.field)"
+              @remove="handleUploadRemove(schema.field)"
+            >
+              <n-upload-dragger>
+                <div style="margin-bottom: 12px">
+                  <n-icon size="48" :depth="3">
+                    <archive-icon />
+                  </n-icon>
+                </div>
+                <n-text style="font-size: 16px"> 点击或者拖动文件到该区域来上传 </n-text>
+              </n-upload-dragger>
+            </n-upload>
           </template>
 
           <!--NDateTimePicker-->
@@ -95,6 +160,11 @@
                 plugins: 'lists link image table code help wordcount',
               }"
             />
+          </template>
+
+          <!--Markdown-->
+          <template v-else-if="schema.component === 'NMarkdown'">
+            <v-md-editor v-model="formModel[schema.field]" height="400px" />
           </template>
 
           <!--动态渲染表单组件-->
@@ -177,13 +247,16 @@
   import type { GridProps } from 'naive-ui/lib/grid';
   import type { FormSchema, FormProps, FormActionType } from './types/form';
   import Editor from '@tinymce/tinymce-vue';
+  import { ArchiveOutline as ArchiveIcon } from '@vicons/ionicons5';
 
   import { isArray } from '@/utils/is/index';
   import { deepMerge } from '@/utils';
+  import { uploadFile } from '@/api/cloud';
+  import { UploadCustomRequestOptions } from 'naive-ui';
 
   export default defineComponent({
     name: 'BasicUpload',
-    components: { DownOutlined, UpOutlined, QuestionCircleOutlined, Editor },
+    components: { DownOutlined, UpOutlined, QuestionCircleOutlined, Editor, ArchiveIcon },
     props: {
       ...basicProps,
     },
@@ -197,6 +270,23 @@
       const gridCollapsed = ref(true);
       const loadingSub = ref(false);
       const isUpdateDefaultRef = ref(false);
+
+      const uploadFileUrl = ref('');
+      async function customRequest(options: UploadCustomRequestOptions) {
+        const { file, onFinish } = options;
+        const { url } = await uploadFile(file?.file as File);
+        uploadFileUrl.value = url;
+
+        onFinish();
+      }
+
+      const handleUploadFinish = (res: any) => {
+        formModel[res] = uploadFileUrl.value;
+      };
+
+      const handleUploadRemove = (res: any) => {
+        formModel[res] = '';
+      };
 
       const getSubmitBtnOptions = computed(() => {
         return Object.assign(
@@ -342,6 +432,9 @@
         isInline,
         getComponentProps,
         unfoldToggle,
+        customRequest,
+        handleUploadFinish,
+        handleUploadRemove,
       };
     },
   });

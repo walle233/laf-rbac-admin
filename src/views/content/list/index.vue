@@ -43,7 +43,8 @@
             return row[item.name] ? '是' : '否';
           }
           if (item.type === 'Array') {
-            return row[item.name].join(',');
+            if (!Array.isArray(row[item.name])) return row[item.name];
+            return row[item.name]?.join(',');
           }
           if (item.type === 'Image') {
             return h('img', {
@@ -73,6 +74,9 @@
           if (item.type === 'Enum') {
             const enumItem = item.enumElements.find((_) => _.value === row[item.name]);
             return enumItem ? enumItem.label : '';
+          }
+          // todo connect
+          if (item.type === 'Connect') {
           }
           return row[item.name];
         },

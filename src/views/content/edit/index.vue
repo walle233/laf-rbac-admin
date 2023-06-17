@@ -28,7 +28,7 @@
     const res = await getSchema(schemaId);
 
     schemaInfo.value = res;
-    formSchemas.value = getFormSchemas();
+    formSchemas.value = await getFormSchemas();
   };
 
   const getContentInfo = async () => {
@@ -43,10 +43,32 @@
     return res;
   };
 
+  // type SchemaFieldType =
+  // | 'String'
+  // | 'MultiLineString'
+  // | 'Number'
+  // | 'Boolean'
+  // | 'DateTime'
+  // | 'Date'
+  // | 'File'
+  // | 'Image'
+  // | 'Media'
+  // | 'Email'
+  // | 'Tel'
+  // | 'Url'
+  // | 'RichText'
+  // | 'Markdown'
+  // | 'Connect'
+  // | 'Array'
+  // | 'Enum'
+  // | 'Object';
+
   const getComponentByType = (type: SchemaFieldType) => {
     switch (type) {
       case 'String':
         return 'NInput';
+      case 'MultiLineString':
+        return 'NInputTextArea';
       case 'Number':
         return 'NInputNumber';
       case 'Boolean':
@@ -57,55 +79,62 @@
         return 'NDateTimePicker';
       case 'RichText':
         return 'NRichText';
+      case 'Markdown':
+        return 'NMarkdown';
       case 'Image':
-        return 'NUpload';
+      case 'Media':
       case 'File':
         return 'NUpload';
-      case 'Array':
-        return 'NInput';
+      case 'Email':
+        return 'NInputEmail';
+      case 'Tel':
+        return 'NInputMobile';
+      case 'Url':
+        return 'NInputUrl';
+      // case 'Array':
+      //   return 'NInput';
       case 'Object':
         return 'NInput';
       case 'Enum':
         return 'NSelect';
       case 'Connect':
-        return 'NSelectRemote';
+        return 'NSelect';
       default:
         return 'NInput';
     }
   };
 
-  const getFormSchemas = () => {
+  const getFormSchemas = async () => {
+    for (const item of schemaInfo.value.fields) {
+      if (item.type === 'Connect') {
+        const connectResourceContents = await getConnectResourceContents(item.connectResource);
+
+        item.options = connectResourceContents.map((_) => ({
+          label: _[item.connectField],
+          value: _._id,
+        }));
+      }
+      if (item.type === 'Enum') {
+        item.options = item.enumElements;
+      }
+    }
+
     const schemas = schemaInfo.value.fields
       .filter((item) => !item.isSystem)
       .map((item: any) => {
         const component = getComponentByType(item.type);
         const isMultiple = item.type === 'Array';
-        const isEnum = item.type === 'Enum';
-        // const isConnect = item.type === 'Connect';
 
         const componentProps = {
           // placeholder: '请输入' + item.displayName,
           multiple: isMultiple,
-          options: isEnum ? item.enumElements : [],
-          filterable: isEnum,
+          options: item.options,
           clearable: !item.isRequired,
           multipleLimit: 0,
           onSearch: () => {},
           onSelect: () => {},
           onClear: () => {},
         };
-
-        // if (isConnect) {
-        //   componentProps.onSearch = async (options) => {
-        //     const connectResourceContents = await getConnectResourceContents(item.connectResource);
-        //     console.log('connectResourceContents', connectResourceContents);
-
-        //     options = connectResourceContents.map((_) => ({
-        //       label: _[item.connectField],
-        //       value: _._id,
-        //     }));
-        //   };
-        // }
 
         return {
           field: item.name,
@@ -137,12 +166,7 @@
 
     message.success('创建成功');
 
-    router.push({
-      name: 'ContentIndex',
-      params: {
-        schemaId,
-      },
-    });
+    router.push({ path: `/content/${schemaId}` });
   }
 
   function handleReset(values) {

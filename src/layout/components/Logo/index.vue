@@ -6,7 +6,7 @@
       alt=""
       :class="{ 'mr-2': !collapsed }"
     />
-    <h2 v-show="!collapsed" class="title">laf-rbac-admin</h2>
+    <h2 v-show="!collapsed" class="title">laf-cms</h2>
   </div>
 </template>
 

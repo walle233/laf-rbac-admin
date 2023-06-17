@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { createStorage } from '@/utils/Storage';
 import { store } from '@/store';
-import { ACCESS_TOKEN, CURRENT_USER, IS_LOCKSCREEN } from '@/store/mutation-types';
+import { ACCESS_TOKEN, CURRENT_USER, IS_LOCKSCREEN, USER_INFO } from '@/store/mutation-types';
 // import { ResultEnum } from '@/enums/httpEnum';
 
 const Storage = createStorage({ storage: localStorage });
@@ -85,6 +85,7 @@ export const useUserStore = defineStore({
           const permissionsList = result.permissions;
           this.setPermissions(permissionsList);
           this.setUserInfo(result);
+          storage.set(USER_INFO, result);
         }
         this.setAvatar(result.avatar);
         return Promise.resolve(result);

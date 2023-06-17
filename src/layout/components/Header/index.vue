@@ -7,7 +7,7 @@
     >
       <div class="logo" v-if="navMode === 'horizontal'">
         <img src="https://laf.run/logo.png" alt="" />
-        <h2 v-show="!collapsed" class="title">laf-rbac-admin</h2>
+        <h2 v-show="!collapsed" class="title">laf-cms</h2>
       </div>
       <AsideMenu
         v-model:collapsed="collapsed"

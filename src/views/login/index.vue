@@ -6,7 +6,7 @@
         <div class="flex" style="align-items: center; justify-content: center; margin-bottom: 20px">
           <img style="width: 80px" src="https://laf.run/logo.png" alt="" />
         </div>
-        <div class="view-account-top-desc">laf-rbac 管理后台</div>
+        <div class="view-account-top-desc">laf-cms 管理后台</div>
       </div>
       <div class="view-account-form">
         <n-form

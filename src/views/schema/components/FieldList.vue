@@ -14,7 +14,7 @@
     'updateSchema',
     'deleteSchema',
     'exportSchema',
-    'copySchema',
+    'cloneSchema',
   ]);
 
   const message = useMessage();
@@ -39,7 +39,7 @@
   };
 
   const handleCloneSchema = () => {
-    emit('copySchema');
+    emit('cloneSchema');
   };
 
   const handleDeleteField = async (field: SchemaField) => {
@@ -67,7 +67,7 @@
             </template>
           </n-button>
         </template>
-        <span>编辑</span>
+        <span>编辑模型</span>
       </n-tooltip>
       <n-tooltip placement="top">
         <template #trigger>
@@ -77,7 +77,7 @@
             </template>
           </n-button>
         </template>
-        <span>删除</span>
+        <span>删除模型</span>
       </n-tooltip>
       <n-tooltip placement="top">
         <template #trigger>
@@ -87,7 +87,7 @@
             </template>
           </n-button>
         </template>
-        <span>导出</span>
+        <span>导出模型</span>
       </n-tooltip>
       <n-tooltip placement="top">
         <template #trigger>
@@ -97,7 +97,7 @@
             </template>
           </n-button>
         </template>
-        <span>克隆</span>
+        <span>复制当前模型为新的模型</span>
       </n-tooltip>
     </template>
     <n-card class="field-item" hoverable v-for="item in fields" :key="item.id">

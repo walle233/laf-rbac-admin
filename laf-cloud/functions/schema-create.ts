@@ -12,7 +12,7 @@ export async function main(ctx: FunctionContext) {
     return 'Unauthorized';
   }
 
-  const { displayName, collectionName, description } = ctx.body;
+  const { displayName, collectionName, fields = [], description } = ctx.body;
   if (!displayName || !collectionName) {
     return 'displayName or collectionName cannot be empty';
   }
@@ -33,6 +33,7 @@ export async function main(ctx: FunctionContext) {
     displayName,
     collectionName,
     fields: [
+      ...fields,
       {
         displayName: '创建时间',
         name: 'created_at',

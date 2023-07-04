@@ -6,7 +6,7 @@ const APPID = import.meta.env.VITE_APPID;
 const bucket = `${APPID}-public`;
 
 const cloud = new Cloud({
-  baseUrl: `https://${APPID}.laf.run`,
+  baseUrl: `https://${APPID}.xooio.cn`,
   getAccessToken: () => localStorage.getItem('access_token') || '',
 });
 

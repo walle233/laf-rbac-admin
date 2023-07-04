@@ -23,7 +23,7 @@ export async function main() {
 
   return {
     credentials: res.Credentials,
-    endpoint: 'https://oss.laf.run',
+    endpoint: 'https://oss.xooio.cn',
     region: cloud.env.OSS_REGION,
   };
 }

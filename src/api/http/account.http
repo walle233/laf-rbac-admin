@@ -1,5 +1,5 @@
 
-@base_url=https://rjb00l.laf.run
+@base_url=https://cjjd2h.xooio.cn
 @token={{login.response.body.$.data.access_token}}
 
 @user=admin

@@ -1,6 +1,6 @@
 import { RouteRecordRaw } from 'vue-router';
 import { Layout } from '@/router/constant';
-import { UserOutlined } from '@vicons/antd';
+import { ApiOutlined } from '@vicons/antd';
 import { renderIcon } from '@/utils/index';
 
 /**
@@ -22,7 +22,7 @@ const routes: Array<RouteRecordRaw> = [
     component: Layout,
     meta: {
       title: 'Api接口',
-      icon: renderIcon(UserOutlined),
+      icon: renderIcon(ApiOutlined),
       permissions: ['schema.api'],
       sort: 2,
     },

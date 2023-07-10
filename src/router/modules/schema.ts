@@ -1,6 +1,6 @@
 import { RouteRecordRaw } from 'vue-router';
 import { Layout } from '@/router/constant';
-import { UserOutlined } from '@vicons/antd';
+import { AppstoreAddOutlined } from '@vicons/antd';
 import { renderIcon } from '@/utils/index';
 
 /**
@@ -22,7 +22,7 @@ const routes: Array<RouteRecordRaw> = [
     component: Layout,
     meta: {
       title: '内容模型',
-      icon: renderIcon(UserOutlined),
+      icon: renderIcon(AppstoreAddOutlined),
       permissions: ['schema'],
       sort: 1,
     },

@@ -23,6 +23,7 @@ const routes: Array<RouteRecordRaw> = [
     meta: {
       title: '内容模型',
       icon: renderIcon(UserOutlined),
+      permissions: ['schema'],
       sort: 1,
     },
     children: [

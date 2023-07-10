@@ -1,8 +1,10 @@
 
 import cloud from '@lafjs/cloud'
-import e from 'express';
 
 const db = cloud.database();
+
+const shared = cloud.shared;
+const checkPermission = shared.get('checkPermission');
 
 export default async function (ctx: FunctionContext) {
 
@@ -14,6 +16,11 @@ export default async function (ctx: FunctionContext) {
     return 'Unauthorized';
   }
 
+  // check permission
+  const code = await checkPermission(uid, 'schema.api.edit');
+  if (code) {
+    return 'Permission denied';
+  }
   
   const { _id, enable, list, count, read, add, update, remote } = ctx.body;
   if (!_id) {

@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import { computed } from 'vue';
-  import { ref, toRefs } from 'vue';
+  import { toRefs } from 'vue';
 
   const props = defineProps<{
     schemaList: Schema[];

@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import { useMessage } from 'naive-ui';
-  import { reactive, ref, computed, toRefs, watch } from 'vue';
-  import { createSchema, updateSchema } from '@/api/cms/schema';
+  import { reactive, ref, toRefs, watch } from 'vue';
+  import { createSchema, updateSchema, createSchemaApi } from '@/api/cms/schema';
 
   const props = defineProps<{
     modelValue: boolean;
@@ -69,6 +69,16 @@
       if (!errors) {
         if (modalType.value === 'create') {
           await createSchema(formParams);
+          await createSchemaApi({
+            collectionName: formParams.collectionName,
+            enable: false,
+            count: false,
+            list: false,
+            read: false,
+            add: false,
+            update: false,
+            remove: false,
+          });
         } else {
           await updateSchema({ ...formParams, _id: currentSchema.value?._id });
         }

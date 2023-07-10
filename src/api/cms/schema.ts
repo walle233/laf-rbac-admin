@@ -62,3 +62,61 @@ export function deleteSchema(data) {
     data,
   });
 }
+
+export function getSchemaApi(name) {
+  return http.request({
+    url: `/schema-api-info`,
+    method: 'POST',
+    data: {
+      collectionName: name,
+    },
+  });
+}
+
+export function createSchemaApi(params) {
+  return http.request({
+    url: '/schema-api-create',
+    method: 'POST',
+    data: params,
+  });
+}
+
+export function updateSchemaApi(params) {
+  return http.request({
+    url: '/schema-api-update',
+    method: 'POST',
+    data: params,
+  });
+}
+
+export function deleteSchemaApi(data) {
+  return http.request({
+    url: '/schema-api-delete',
+    method: 'POST',
+    data,
+  });
+}
+
+export function requestSchemaApiGet(method: string, collection: string, data) {
+  return http.request({
+    url: '/schema-api-request',
+    headers: {
+      method: method,
+      collection: collection,
+    },
+    method: 'GET',
+    data,
+  });
+}
+
+export function requestSchemaApiPost(method: string, collection: string, data) {
+  return http.request({
+    url: '/schema-api-request',
+    headers: {
+      method: method,
+      collection: collection,
+    },
+    method: 'GET',
+    data,
+  });
+}

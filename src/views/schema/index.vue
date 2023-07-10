@@ -1,13 +1,13 @@
 <script setup lang="ts">
   import { reactive, ref, onMounted } from 'vue';
 
-  import SchemaList from './components/SchemaList.vue';
-  import FieldList from './components/FieldList.vue';
-  import FieldPicker from './components/FieldPicker.vue';
-  import FieldCreateModal from './components/FieldCreateModal.vue';
-  import SchemaCreateModal from './components/SchemaCreateModal.vue';
-  import SchemaDeleteModal from './components/SchemaDeleteModal.vue';
-  import SchemaCloneModal from './components/SchemaCloneModal.vue';
+  import SchemaList from '../components/SchemaList.vue';
+  import FieldList from '../components/FieldList.vue';
+  import FieldPicker from '../components/FieldPicker.vue';
+  import FieldCreateModal from '../components/FieldCreateModal.vue';
+  import SchemaCreateModal from '../components/SchemaCreateModal.vue';
+  import SchemaDeleteModal from '../components/SchemaDeleteModal.vue';
+  import SchemaCloneModal from '../components/SchemaCloneModal.vue';
 
   import { getAllSchemas } from '@/api/cms/schema';
   import { useDialog, useMessage } from 'naive-ui';

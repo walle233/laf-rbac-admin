@@ -38,6 +38,8 @@ export async function main(ctx: FunctionContext) {
   // delete collection
   if (deleteCollection) {
     mongodb.dropCollection(schema.collectionName);
+  } else {
+    mongodb.renameCollection(schema.collectionName, `${schema.collectionName}-${Date.now()}`)
   }
 
   return {

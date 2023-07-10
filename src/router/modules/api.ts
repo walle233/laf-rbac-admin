@@ -16,35 +16,24 @@ import { renderIcon } from '@/utils/index';
  * */
 const routes: Array<RouteRecordRaw> = [
   {
-    path: '/content',
-    name: 'Content',
-    redirect: '/content',
+    path: '/api',
+    name: 'Api',
+    redirect: '/api',
     component: Layout,
     meta: {
-      title: '内容集合',
+      title: 'Api接口',
       icon: renderIcon(UserOutlined),
-      sort: 3,
+      sort: 2,
     },
     children: [
       {
-        path: ':schemaId/edit/:contentId',
-        name: 'ContentEdit',
+        path: '',
+        name: 'SchemaApi',
         meta: {
-          title: '更新内容',
-          activeMenu: 'Schema',
-          hidden: true,
+          title: 'Api接口',
+          activeMenu: 'SchemaApi',
         },
-        component: () => import('@/views/content/edit/index.vue'),
-      },
-      {
-        path: ':schemaId/create',
-        name: 'ContentCreate',
-        meta: {
-          title: '增加内容',
-          activeMenu: 'Schema',
-          hidden: true,
-        },
-        component: () => import('@/views/content/edit/index.vue'),
+        component: () => import('@/views/api/index.vue'),
       },
     ],
   },

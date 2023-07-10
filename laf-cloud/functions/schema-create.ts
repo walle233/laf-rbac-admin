@@ -18,7 +18,7 @@ export async function main(ctx: FunctionContext) {
   }
 
   // check collectionName
-  const whiteList = ['schema', 'admin', 'role', 'permission', 'password'];
+  const whiteList = ['schema','schema-api', 'admin', 'role', 'permission', 'password'];
   if (whiteList.indexOf(collectionName) > -1) {
     return 'collectionName cannot be ' + whiteList.join(', ');
   }

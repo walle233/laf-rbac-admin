@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import { reactive, ref, toRefs } from 'vue';
-  import { deleteSchema } from '@/api/cms/schema';
+  import { deleteSchema, deleteSchemaApi } from '@/api/cms/schema';
   import { useMessage } from 'naive-ui';
 
   const message = useMessage();
@@ -37,6 +37,9 @@
     };
 
     await deleteSchema(params);
+    await deleteSchemaApi({
+      collectionName: currentSchema.value?.collectionName,
+    });
 
     formBtnLoading.value = false;
     message.success('删除成功');

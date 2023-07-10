@@ -1,0 +1,5 @@
+name: schema-api-delete
+methods:
+  - GET
+  - POST
+tags: []

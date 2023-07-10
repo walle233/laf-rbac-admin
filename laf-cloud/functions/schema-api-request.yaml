@@ -1,0 +1,5 @@
+name: schema-api-reqest
+methods:
+  - GET
+  - POST
+tags: []

@@ -17,9 +17,9 @@ export default async function (ctx: FunctionContext) {
   const {data:open} = await db.collection('schema-api').where({ collectionName: "test" }).getOne();
 
   if ('read' == method) {
-    if (!open.read) {
+    if (open.enable && !open.read) {
       return {
-        code: 1010,
+        code: 1011,
         message: 'read method not yet open!',
       };
     }
@@ -78,9 +78,9 @@ export default async function (ctx: FunctionContext) {
       return { code: 10002, message: 'id not null!' };
     }
     if ('add' == method && ['POST'].indexOf(ctx.method.toUpperCase()) != -1) {
-      if (!open.add) {
+      if (open.enable && !open.add) {
         return {
-          code: 1010,
+          code: 1012,
           message: 'add method not yet open!',
         };
       }
@@ -88,9 +88,9 @@ export default async function (ctx: FunctionContext) {
       return { code: 0, data: resAdd };
     }
     if ('update' == method && ['POST', 'PUT'].indexOf(ctx.method.toUpperCase()) != -1) {
-      if (!open.update) {
+      if (open.enable && !open.update) {
         return {
-          code: 1010,
+          code: 1013,
           message: 'update method not yet open!',
         };
       }
@@ -98,9 +98,9 @@ export default async function (ctx: FunctionContext) {
       return { code: 0, data: resUpdate };
     }
     if ('remove' == method && ['POST', 'DELETE'].indexOf(ctx.method.toUpperCase()) != -1) {
-      if (!open.remove) {
+      if (open.enable && !open.remove) {
         return {
-          code: 1010,
+          code: 1014,
           message: 'remove method not yet open!',
         };
       }

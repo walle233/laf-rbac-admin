@@ -13,11 +13,19 @@
   const props = defineProps<{
     currentSchema: Schema | undefined;
   }>();
+  const { currentSchema } = toRefs(props);
   // const emit = defineEmits(['updateField', 'fetchSchemaList']);
   //
   // const message = useMessage();
   //
 
+  const title = computed(() => {
+    console.log(currentSchema.value);
+    if (currentSchema.value) {
+      return `${currentSchema.value?.displayName}（${currentSchema.value?.collectionName}）`;
+    }
+    return '';
+  });
   const collection = computed(() => currentSchema.value?.collectionName);
 
   let api = reactive({
@@ -63,7 +71,6 @@
       params: { id: '数据ID' },
     },
   });
-  const { currentSchema } = toRefs(props);
 
   watch(collection, (nv) => {
     apiItems.read.url = `/api/cms/${nv}/{id}`;
@@ -130,12 +137,9 @@
 </script>
 
 <template>
-  <n-card
-    class="schema-api-box"
-    :title="`${currentSchema?.displayName}（${currentSchema?.collectionName}）`"
-  >
+  <n-card class="schema-api-box" :title="title">
     <template #header-extra>
-      <n-tooltip placement="top">
+      <n-tooltip v-if="currentSchema" placement="top">
         <template #trigger>
           <n-switch size="large" :value="api.enable" @update:value="handleApiEnable">
             <template #checked>已开启</template>
@@ -196,7 +200,7 @@
       </n-card>
     </div>
     <div v-else class="flex justify-center items-center h-40">
-      <n-empty description="请选择内容类型添加字段" />
+      <n-empty description="请选择集合" />
     </div>
   </n-card>
 </template>

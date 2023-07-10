@@ -20,6 +20,13 @@
   const message = useMessage();
 
   const { currentSchema } = toRefs(props);
+  const title = computed(() => {
+    console.log(currentSchema.value);
+    if (currentSchema.value) {
+      return `${currentSchema.value?.displayName}（${currentSchema.value?.collectionName}）`;
+    }
+    return '';
+  });
   const fields = computed(() => currentSchema.value?.fields.filter((_) => !_.isSystem));
 
   const handleUpdateField = (field: SchemaField) => {
@@ -56,7 +63,7 @@
 <template>
   <n-card
     class="schema-field-box"
-    :title="`${currentSchema?.displayName} - ${currentSchema?.collectionName}`"
+    :title="title"
   >
     <template #header-extra>
       <n-tooltip placement="top">

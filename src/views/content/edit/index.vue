@@ -171,12 +171,7 @@
 
   function handleReset(values) {
     console.log(values);
-    router.push({
-      name: 'ContentIndex',
-      params: {
-        schemaId,
-      },
-    });
+    router.push({ path: `/content/${schemaId}` });
   }
 </script>
 

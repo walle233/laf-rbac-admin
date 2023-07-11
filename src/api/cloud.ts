@@ -3,10 +3,11 @@ import { Cloud } from 'laf-client-sdk';
 import { nanoid } from 'nanoid';
 
 const APPID = import.meta.env.VITE_APPID;
+const LAF_URL = import.meta.env.VITE_GLOB_LAF_URL;
 const bucket = `${APPID}-public`;
 
 const cloud = new Cloud({
-  baseUrl: `https://${APPID}.xooio.cn`,
+  baseUrl: LAF_URL,
   getAccessToken: () => localStorage.getItem('access_token') || '',
 });
 

@@ -36,8 +36,7 @@ export default async function (ctx: FunctionContext) {
       if (!_count) {
         _count = 10;
       }
-      console.log(_page);
-      console.log(_count);
+      
       let dbc = db
         .collection(collection)
         .skip((_page - 1) * _count)

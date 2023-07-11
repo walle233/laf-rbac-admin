@@ -12,7 +12,7 @@ export default async function (ctx: FunctionContext) {
     return 'Unauthorized';
   }
 
-  const { collectionName, enable, list, read, add, update, remote } = ctx.body;
+  const { collectionName, enable, list, read, add, update, remove } = ctx.body;
   if (!collectionName) {
     return 'displayName or collectionName cannot be empty';
   }
@@ -36,10 +36,29 @@ export default async function (ctx: FunctionContext) {
     read:false,
     add:false,
     update:false,
-    remote:false,
+    remove:false,
     created_at: Date.now(),
     updated_at: Date.now(),
   };
+
+  if (enable) {
+    api.enable = enable;
+  }
+  if (list) {
+    api.list = list;
+  }
+  if (read) {
+    api.read = read;
+  }
+  if (add) {
+    api.add = add;
+  }
+  if (update) {
+    api.update = update;
+  }
+  if (remove) {
+    api.remove = remove;
+  }
 
   // add collection to schema
   const addRes = await db.collection('schema-api').add(api);

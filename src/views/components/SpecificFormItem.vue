@@ -1,5 +1,6 @@
 <script setup lang="ts">
   import { toRefs } from 'vue';
+  import { SelectOption } from 'naive-ui';
 
   const props = defineProps<{
     type: SchemaFieldType;
@@ -22,6 +23,14 @@
   const handleAddEnumElement = () => {
     if (!formValue.enumElements) formValue.enumElements = [];
     formValue.enumElements.push({ label: '', value: '' });
+  };
+  const handleConnectCollection = (value: string, option: SelectOption) => {
+    for (let schema of schemas) {
+      if (schema._id == value) {
+        formValue.connectCollection = schema.collectionName;
+        break;
+      }
+    }
   };
 </script>
 
@@ -119,6 +128,7 @@
           v-model:value="formValue.connectResource"
           placeholder="请选择关联模型"
           size="small"
+          @update:value="handleConnectCollection"
           :options="schemas.map((schema) => ({ label: schema.displayName, value: schema._id }))"
         />
       </n-form-item>

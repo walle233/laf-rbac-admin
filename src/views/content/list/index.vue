@@ -77,6 +77,7 @@
           }
           // todo connect
           if (item.type === 'Connect') {
+            return row[`relation-${item.connectCollection}`][item.connectField];
           }
           return row[item.name];
         },

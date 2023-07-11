@@ -46,7 +46,7 @@ export default async function (ctx: FunctionContext) {
       }
       const resData = await dbc.get();
       const resCount = await db.collection(collection).count();
-      const totalPage = resCount.total / _page;
+      const totalPage = Math.ceil(resCount.total / _page);
       return {
         code: 0,
         data: resData.data,

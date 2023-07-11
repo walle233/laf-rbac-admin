@@ -54,6 +54,9 @@ interface SchemaField {
   // 样式属性
   style: {};
 
+  // 连接集合
+  connectCollection: string;
+
   // 连接字段
   connectField: string;
 

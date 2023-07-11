@@ -22,11 +22,27 @@ export async function main(ctx: FunctionContext) {
   const { total } = await db.collection(collection).count();
 
   const skip = page === 0 ? 0 : page - 1;
-  const r = await db
+
+  const relations = [];
+  for (let field of schema.fields) {
+    if (field.type == 'Connect') {
+      relations.push({
+        query: db.collection(field.connectCollection),
+        localField: field.name, // 主表连接键，即 article.id
+        foreignField: '_id', // 子表连接键，即 tag.article_id
+        as: `relation-${field.connectCollection}`, // 查询结果中字段重命名，缺省为子表名
+      })
+    }
+  }
+
+  let query = db
     .collection(collection)
     .skip(skip * pageSize)
-    .limit(pageSize)
-    .get();
+    .limit(pageSize);
+  for (let relation of relations) {
+    query = query.withOne(relation);
+  }
+  const r = await query.get();
 
   return {
     code: 0,

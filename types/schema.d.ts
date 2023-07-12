@@ -23,6 +23,9 @@ interface SchemaField {
   // 是否隐藏
   isHidden: boolean;
 
+  // 是否搜索项
+  isSearch: boolean;
+
   // 是否必需字段
   isRequired: boolean;
 

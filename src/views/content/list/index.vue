@@ -13,6 +13,15 @@
   const router = useRouter();
   const message = useMessage();
 
+  const searches = ref<
+    {
+      key: string;
+      title: string;
+      value: string;
+      type: string;
+      options: [];
+    }[]
+  >([]);
   const columns = ref<
     {
       title: string;
@@ -32,6 +41,19 @@
       ...fields.filter((item) => item.isSystem),
     ];
 
+    searches.value = fields
+      .filter((item) => {
+        return item.isSearch;
+      })
+      .map((item) => {
+        return {
+          key: item.name,
+          title: item.displayName,
+          value: item.enumElements ? null : '',
+          type: item.type,
+          options: item.enumElements,
+        };
+      });
     columns.value = fields.map((item) => {
       return {
         title: item.displayName,
@@ -83,6 +105,7 @@
         },
       };
     });
+    console.log(columns.value);
     displayName.value = res.displayName;
   };
 
@@ -122,12 +145,23 @@
   });
 
   const loadDataTable = async (params) => {
+    const filters = {};
+    searches.value.forEach((item) => (filters[item.key] = item.value));
     const ret = await getContents({
       schemaId,
       ...params,
+      filters: filters,
     });
     console.log(ret);
     return ret;
+  };
+  const handlerSearch = async () => {
+    actionRef.value.updatePage();
+  };
+  const handlerClear = async () => {
+    searches.value.forEach((item) => {
+      item.value = '';
+    });
   };
 
   function reloadTable() {
@@ -175,17 +209,64 @@
       :scroll-x="1090"
     >
       <template #tableTitle>
-        <n-button type="primary" @click="handleCreate">
-          <template #icon>
-            <n-icon>
-              <PlusOutlined />
-            </n-icon>
-          </template>
-          新增
-        </n-button>
+        <div class="table_head">
+          <n-button class="add" type="primary" @click="handleCreate">
+            <template #icon>
+              <n-icon>
+                <PlusOutlined />
+              </n-icon>
+            </template>
+            新增
+          </n-button>
+          <n-input-group v-for="(item, index) in searches" :key="index" style="margin-left: 8px">
+            <n-input-group-label>{{ item.title }}</n-input-group-label>
+            <n-select
+              v-if="'Enum' === item.type"
+              class="search_input"
+              v-model:value="item.value"
+              :placeholder="`请选择${item.title}`"
+              :options="item.options"
+              clearable
+            />
+            <n-input
+              v-else
+              class="search_input"
+              v-model:value="item.value"
+              :placeholder="`请输入${item.title}`"
+            />
+          </n-input-group>
+          <n-button
+            v-if="searches.length > 0"
+            class="search_button"
+            type="primary"
+            @click="handlerSearch"
+            >搜索</n-button
+          >
+          <n-button
+            v-if="searches.length > 0"
+            class="search_button"
+            type="warning"
+            @click="handlerClear"
+            >清除</n-button
+          >
+        </div>
       </template>
     </BasicTable>
   </n-card>
 </template>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+  .table_head {
+    display: flex;
+    .add {
+      margin-right: 16px;
+    }
+    .search_input {
+      width: 120px;
+      margin-right: 8px;
+    }
+    .search_button {
+      margin-right: 8px;
+    }
+  }
+</style>

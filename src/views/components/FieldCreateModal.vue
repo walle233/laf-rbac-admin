@@ -222,6 +222,26 @@
       <n-form-item label="是否隐藏" path="isHidden">
         <n-switch v-model:value="formParams.isHidden" />
       </n-form-item>
+      <n-form-item
+        label="是否搜索项"
+        path="isSearch"
+        :hidden="
+          [
+            'String',
+            'MultiLineString',
+            'Number',
+            'Boolean',
+            'Email',
+            'Tel',
+            'Url',
+            'RichText',
+            'Markdown',
+            'Enum',
+          ].indexOf(selectField?.type) === -1
+        "
+      >
+        <n-switch v-model:value="formParams.isSearch" />
+      </n-form-item>
       <n-form-item label="设为排序字段" path="isOrderField">
         <n-grid :x-gap="12" :cols="2">
           <n-grid-item>

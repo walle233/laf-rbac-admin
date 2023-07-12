@@ -15,6 +15,7 @@ export interface BasicPageParams {
 
 // { schemaId, page, pageSize }
 export function getContents(params) {
+  console.log(params);
   return http.request({
     url: '/cms-content-list',
     method: 'POST',

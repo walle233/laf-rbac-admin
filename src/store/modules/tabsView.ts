@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import { RouteLocationNormalized } from 'vue-router';
-import {logger} from "@/utils/Logger";
+import { logger } from '@/utils/Logger';
 
 // 不需要出现在标签页中的路由
 const whiteList = ['Redirect', 'login'];

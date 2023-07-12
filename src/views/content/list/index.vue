@@ -7,7 +7,7 @@
   import { PlusOutlined } from '@vicons/antd';
   import { useRoute, useRouter } from 'vue-router';
   import dayjs from 'dayjs';
-  import {logger} from "@/utils/Logger";
+  import { logger } from '@/utils/Logger';
 
   const route = useRoute();
   const schemaId = route.path.split('/').pop();

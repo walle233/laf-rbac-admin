@@ -3,7 +3,7 @@ import { isProdMode } from '@/utils/env';
 import { ModalMethods, UseModalReturnType } from '../type';
 import { getDynamicProps } from '@/utils';
 import { tryOnUnmounted } from '@vueuse/core';
-import {logger} from "@/utils/Logger";
+import { logger } from '@/utils/Logger';
 export function useModal(props): UseModalReturnType {
   const modalRef = ref<Nullable<ModalMethods>>(null);
   const currentInstance = getCurrentInstance();

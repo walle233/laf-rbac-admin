@@ -24,7 +24,7 @@
   import { BasicTable } from '@/components/Table';
   import { getTableList } from '@/api/table/list';
   import { columns } from './CellColumns';
-  import {logger} from "@/utils/Logger";
+  import { logger } from '@/utils/Logger';
 
   const actionRef = ref();
   const params = reactive({

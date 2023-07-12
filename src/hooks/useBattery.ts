@@ -1,5 +1,5 @@
 import { computed, onMounted, reactive, toRefs } from 'vue';
-import {logger} from "@/utils/Logger";
+import { logger } from '@/utils/Logger';
 
 interface Battery {
   charging: boolean; // 当前电池是否正在充电

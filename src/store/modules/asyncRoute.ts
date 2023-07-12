@@ -6,7 +6,7 @@ import { asyncRoutes, constantRouter } from '@/router/index';
 import { generatorDynamicRouter } from '@/router/generator-routers';
 import { useProjectSetting } from '@/hooks/setting/useProjectSetting';
 import { getAllSchemas } from '@/api/cms/schema';
-import {logger} from "@/utils/Logger";
+import { logger } from '@/utils/Logger';
 
 interface TreeHelperConfig {
   id: string;

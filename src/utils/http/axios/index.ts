@@ -23,7 +23,7 @@ const urlPrefix = globSetting.urlPrefix || '';
 import router from '@/router';
 import { storage } from '@/utils/Storage';
 import { ACCESS_TOKEN, CURRENT_USER, IS_LOCKSCREEN } from '@/store/mutation-types';
-import {logger} from "@/utils/Logger";
+import { logger } from '@/utils/Logger';
 
 /**
  * @description: 数据处理，方便区分多种处理方式

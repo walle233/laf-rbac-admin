@@ -59,7 +59,7 @@
   import { useMessage } from 'naive-ui';
   import { basicModal, useModal } from '@/components/Modal';
   import { BasicForm, FormSchema, useForm } from '@/components/Form/index';
-  import {logger} from "@/utils/Logger";
+  import { logger } from '@/utils/Logger';
   import {Recordable} from "vite-plugin-mock";
 
   const schemas: FormSchema[] = [

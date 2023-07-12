@@ -18,7 +18,7 @@
 <script lang="ts" setup>
   import { BasicForm, FormSchema, useForm } from '@/components/Form/index';
   import { useMessage } from 'naive-ui';
-  import {logger} from "@/utils/Logger";
+  import { logger } from '@/utils/Logger';
   import {Recordable} from "vite-plugin-mock";
 
   const schemas: FormSchema[] = [

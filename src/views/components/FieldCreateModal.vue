@@ -6,7 +6,7 @@
   import { updateSchema } from '@/api/cms/schema';
   import { nanoid } from 'nanoid';
   import { watch } from 'vue';
-  import {logger} from "@/utils/Logger";
+  import { logger } from '@/utils/Logger';
 
   type FieldType = Partial<SchemaField>;
 

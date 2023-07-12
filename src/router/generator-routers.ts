@@ -3,7 +3,7 @@ import { constantRouterIcon } from './router-icons';
 import { RouteRecordRaw } from 'vue-router';
 import { Layout, ParentLayout } from '@/router/constant';
 import type { AppRouteRecordRaw } from '@/router/types';
-import {logger} from "@/utils/Logger";
+import { logger } from '@/utils/Logger';
 
 const Iframe = () => import('@/views/iframe/index.vue');
 const LayoutMap = new Map<string, () => Promise<typeof import('*.vue')>>();

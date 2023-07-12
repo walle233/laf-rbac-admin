@@ -76,7 +76,7 @@
   import componentSetting from '@/settings/componentSetting';
   import { useGlobSetting } from '@/hooks/setting';
   import { isString } from '@/utils/is';
-  import {logger} from "@/utils/Logger";
+  import { logger } from '@/utils/Logger';
 
   const globSetting = useGlobSetting();
 

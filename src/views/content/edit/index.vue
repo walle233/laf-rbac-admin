@@ -6,7 +6,7 @@
   import { getSchema } from '@/api/cms/schema';
   import { getContent, createContent, updateContent, getAllContents } from '@/api/cms/content';
   import { onMounted } from 'vue';
-  import {logger} from "@/utils/Logger";
+  import { logger } from '@/utils/Logger';
 
   const { schemaId, contentId } = useRoute().params;
   const router = useRouter();

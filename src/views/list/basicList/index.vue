@@ -70,7 +70,7 @@
   import { columns } from './columns';
   import { PlusOutlined } from '@vicons/antd';
   import { useRouter } from 'vue-router';
-  import {logger} from "@/utils/Logger";
+  import { logger } from '@/utils/Logger';
   import {Recordable} from "vite-plugin-mock";
 
   const rules = {

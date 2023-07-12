@@ -4,7 +4,7 @@ import type { DynamicProps } from '/#/utils';
 import { ref, onUnmounted, unref, nextTick, watch } from 'vue';
 import { isProdMode } from '@/utils/env';
 import { getDynamicProps } from '@/utils';
-import {logger} from "@/utils/Logger";
+import { logger } from '@/utils/Logger';
 
 type Props = Partial<DynamicProps<FormProps>>;
 

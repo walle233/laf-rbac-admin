@@ -68,7 +68,7 @@
   import { PlusOutlined } from '@vicons/antd';
 
   import { useUserStoreWidthOut } from '@/store/modules/user';
-  import {logger} from "@/utils/Logger";
+  import { logger } from '@/utils/Logger';
 
   type TPermission = {
     _id: string | null;

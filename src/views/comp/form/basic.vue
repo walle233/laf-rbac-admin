@@ -26,7 +26,7 @@
   import { BasicForm } from '@/components/Form/index';
   import { useMessage } from 'naive-ui';
   import {Recordable} from "vite-plugin-mock";
-  import {logger} from "@/utils/Logger";
+  import { logger } from '@/utils/Logger';
 
   const schemas = [
     {

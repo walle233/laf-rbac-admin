@@ -6,7 +6,7 @@ import { RedirectName } from '@/router/constant';
 import { useRouter } from 'vue-router';
 import { isString } from '@/utils/is';
 import { unref } from 'vue';
-import {logger} from "@/utils/Logger";
+import { logger } from '@/utils/Logger';
 
 export type RouteLocationRawEx = Omit<RouteLocationRaw, 'path'> & { path: PageEnum };
 

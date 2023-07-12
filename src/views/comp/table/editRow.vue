@@ -25,7 +25,7 @@
   import { BasicTable, TableAction } from '@/components/Table';
   import { getTableList } from '@/api/table/list';
   import { columns } from './rowColumns';
-  import {logger} from "@/utils/Logger";
+  import { logger } from '@/utils/Logger';
 
   const actionRef = ref();
   const currentEditKeyRef = ref('');

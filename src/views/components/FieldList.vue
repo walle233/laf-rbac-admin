@@ -4,7 +4,7 @@
   import { useMessage } from 'naive-ui';
   import { FieldTypes } from '@/constants/field';
   import { DeleteOutlined, EditOutlined, ExportOutlined, CopyOutlined } from '@vicons/antd';
-  import {logger} from "@/utils/Logger";
+  import { logger } from '@/utils/Logger';
 
   const props = defineProps<{
     currentSchema: Schema | undefined;

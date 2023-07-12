@@ -2,7 +2,7 @@
   import { computed, reactive, ref, toRefs, watch } from 'vue';
   import { getSchemaApi, updateSchemaApi } from '@/api/cms/schema';
   import { useMessage } from 'naive-ui';
-  import {logger} from "@/utils/Logger";
+  import { logger } from '@/utils/Logger';
   // import { updateSchema } from '@/api/cms/schema';
   // import { useMessage } from 'naive-ui';
   // import { FieldTypes } from '@/constants/field';

@@ -21,7 +21,7 @@
   import { generatorMenu, generatorMenuMix } from '@/utils';
   import { useProjectSettingStore } from '@/store/modules/projectSetting';
   import { useProjectSetting } from '@/hooks/setting/useProjectSetting';
-  import {logger} from "@/utils/Logger";
+  import { logger } from '@/utils/Logger';
 
   export default defineComponent({
     name: 'Menu',

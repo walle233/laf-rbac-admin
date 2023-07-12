@@ -25,7 +25,7 @@
   import { columns } from './basicColumns';
   import { useDialog, useMessage } from 'naive-ui';
   import { DeleteOutlined, EditOutlined } from '@vicons/antd';
-  import {logger} from "@/utils/Logger";
+  import { logger } from '@/utils/Logger';
 
   const message = useMessage();
   const dialog = useDialog();

@@ -2,7 +2,7 @@ import type { GlobEnvConfig } from '/#/config';
 
 import pkg from '../../package.json';
 import { getConfigFileName } from '../../build/getConfigFileName';
-import {logger} from "@/utils/Logger";
+import { logger } from '@/utils/Logger';
 
 export function getCommonStoragePrefix() {
   const { VITE_GLOB_APP_SHORT_NAME } = getAppEnvConfig();

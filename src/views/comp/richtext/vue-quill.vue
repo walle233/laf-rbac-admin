@@ -40,7 +40,7 @@
   import { ref, reactive } from 'vue';
   import { QuillEditor } from '@vueup/vue-quill';
   import '@vueup/vue-quill/dist/vue-quill.snow.css';
-  import {logger} from "@/utils/Logger";
+  import { logger } from '@/utils/Logger';
   const quillEditor = ref();
   const myContent = ref(
     '<h4>Naive Ui Admin 是一个基于 vue3,vite2,TypeScript 的中后台解决方案</h4>'

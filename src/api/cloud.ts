@@ -1,7 +1,7 @@
 import { S3, PutObjectCommand } from '@aws-sdk/client-s3';
 import { Cloud } from 'laf-client-sdk';
 import { nanoid } from 'nanoid';
-import {logger} from "@/utils/Logger";
+import { logger } from '@/utils/Logger';
 
 const APPID = import.meta.env.VITE_APPID;
 const LAF_URL = import.meta.env.VITE_GLOB_LAF_URL;

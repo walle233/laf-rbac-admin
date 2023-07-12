@@ -2,10 +2,12 @@ import cloud from '@lafjs/cloud';
 
 const db = cloud.database();
 
+
 export async function main(ctx: FunctionContext) {
   // body, query 为请求参数, auth 是授权对象
   const { body, headers } = ctx;
-  const { schemaId, page, pageSize } = body;
+  const { schemaId, page, pageSize, filters } = body;
+
 
   const token = headers['authorization'].split(' ')[1];
   const parsed = cloud.parseToken(token);
@@ -35,8 +37,18 @@ export async function main(ctx: FunctionContext) {
     }
   }
 
+  const _myfilters = {};
+  for (let key in filters) {
+    if (filters[key]) {
+      try {
+        _myfilters[key] = new RegExp(`${filters[key]}`);
+      } catch (err) {}
+    }
+  }
+
   let query = db
     .collection(collection)
+    .where(db.command.and(_myfilters))
     .skip(skip * pageSize)
     .limit(pageSize);
   for (let relation of relations) {

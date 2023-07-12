@@ -133,8 +133,16 @@
   const handleApiCollect = (key: string, value: boolean) => {
     apiItems[key].collapse = value;
   };
-  const handleCopyText = (txt: String) => {
-    message.info('已经复制');
+  const handleCopyText = (txt: string) => {
+    navigator.clipboard
+      .writeText(txt)
+      .then(function () {
+        message.info('已经复制');
+      })
+      .catch(function (err) {
+        logger.error(err);
+        message.info('复制失败');
+      });
   };
 </script>
 

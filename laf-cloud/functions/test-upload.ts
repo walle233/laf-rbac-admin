@@ -16,8 +16,7 @@ exports.main = async function (ctx: FunctionContext) {
     forcePathStyle: true,
   });
 
-  const file = ctx.files[0]
-  console.log(file)
+  const file = ctx.files[0];
   const stream = require('fs').createReadStream(file.path)
   const cmd = new PutObjectCommand({
     Bucket: BUCKET,

@@ -3,6 +3,7 @@ import { isProdMode } from '@/utils/env';
 import { ModalMethods, UseModalReturnType } from '../type';
 import { getDynamicProps } from '@/utils';
 import { tryOnUnmounted } from '@vueuse/core';
+import {logger} from "@/utils/Logger";
 export function useModal(props): UseModalReturnType {
   const modalRef = ref<Nullable<ModalMethods>>(null);
   const currentInstance = getCurrentInstance();
@@ -10,7 +11,7 @@ export function useModal(props): UseModalReturnType {
   const getInstance = () => {
     const instance = unref(modalRef.value);
     if (!instance) {
-      console.error('useModal instance is undefined!');
+      logger.error('useModal instance is undefined!');
     }
     return instance;
   };

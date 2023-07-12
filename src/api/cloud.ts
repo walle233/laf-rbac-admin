@@ -1,6 +1,7 @@
 import { S3, PutObjectCommand } from '@aws-sdk/client-s3';
 import { Cloud } from 'laf-client-sdk';
 import { nanoid } from 'nanoid';
+import {logger} from "@/utils/Logger";
 
 const APPID = import.meta.env.VITE_APPID;
 const LAF_URL = import.meta.env.VITE_GLOB_LAF_URL;
@@ -35,7 +36,7 @@ const uploadFile = async (file: File) => {
     ContentType: file.type,
   });
   const res = await s3.send(cmd);
-  console.log(res);
+  logger.log(res);
   const url = `${endpoint}/${bucket}/${key}`;
 
   return { url, key };

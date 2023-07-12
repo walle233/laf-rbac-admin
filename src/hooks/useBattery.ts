@@ -1,4 +1,5 @@
 import { computed, onMounted, reactive, toRefs } from 'vue';
+import {logger} from "@/utils/Logger";
 
 interface Battery {
   charging: boolean; // 当前电池是否正在充电
@@ -35,7 +36,7 @@ export const useBattery = () => {
 
   // 计算电池充满剩余时间
   const calcChargingTime = computed(() => {
-    console.log(state.battery);
+    logger.log(state.battery);
     const hour = state.battery.chargingTime / 3600;
     const minute = (state.battery.chargingTime / 60) % 60;
     return `${~~hour}小时${~~minute}分钟`;

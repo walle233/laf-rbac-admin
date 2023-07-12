@@ -4,6 +4,7 @@ import type { DynamicProps } from '/#/utils';
 import { ref, onUnmounted, unref, nextTick, watch } from 'vue';
 import { isProdMode } from '@/utils/env';
 import { getDynamicProps } from '@/utils';
+import {logger} from "@/utils/Logger";
 
 type Props = Partial<DynamicProps<FormProps>>;
 
@@ -14,7 +15,7 @@ export function useForm(props?: Props): UseFormReturnType {
   async function getForm() {
     const form = unref(formRef);
     if (!form) {
-      console.error(
+      logger.error(
         'The form instance has not been obtained, please make sure that the form has been rendered when performing the form operation!'
       );
     }

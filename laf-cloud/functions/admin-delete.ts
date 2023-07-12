@@ -30,7 +30,7 @@ export async function main(ctx: FunctionContext) {
 
   // delete
   const r = await db.collection('admin').doc(_id).remove();
-  console.log(r);
+  // console.log(r);
 
   return {
     code: 0,

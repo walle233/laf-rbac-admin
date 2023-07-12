@@ -24,6 +24,7 @@
   import { BasicTable } from '@/components/Table';
   import { getTableList } from '@/api/table/list';
   import { columns } from './CellColumns';
+  import {logger} from "@/utils/Logger";
 
   const actionRef = ref();
   const params = reactive({
@@ -35,7 +36,7 @@
     if (column.key === 'id') {
       record.editValueRefs.name4.value = `${value}`;
     }
-    console.log(column, value, record);
+    logger.log(column, value, record);
   }
 
   const loadDataTable = async (res) => {
@@ -43,16 +44,16 @@
   };
 
   function onCheckedRow(rowKeys) {
-    console.log(rowKeys);
+    logger.log(rowKeys);
   }
 
   function reloadTable() {
-    console.log(actionRef.value);
+    logger.log(actionRef.value);
     actionRef.value.reload();
   }
 
   function editEnd({ record, index, key, value }) {
-    console.log(value);
+    logger.log(value);
   }
 </script>
 

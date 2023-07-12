@@ -7,6 +7,7 @@ import { ACCESS_TOKEN, CURRENT_USER, IS_LOCKSCREEN, USER_INFO } from '@/store/mu
 const Storage = createStorage({ storage: localStorage });
 import { getUserInfo, login } from '@/api/system/user';
 import { storage } from '@/utils/Storage';
+import {logger} from "@/utils/Logger";
 
 export interface IUserState {
   token: string;
@@ -90,7 +91,7 @@ export const useUserStore = defineStore({
         this.setAvatar(result.avatar);
         return Promise.resolve(result);
       } catch (error) {
-        console.log(error);
+        logger.log(error);
         return;
       }
     },

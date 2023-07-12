@@ -23,6 +23,7 @@ const urlPrefix = globSetting.urlPrefix || '';
 import router from '@/router';
 import { storage } from '@/utils/Storage';
 import { ACCESS_TOKEN, CURRENT_USER, IS_LOCKSCREEN } from '@/store/mutation-types';
+import {logger} from "@/utils/Logger";
 
 /**
  * @description: 数据处理，方便区分多种处理方式
@@ -233,7 +234,7 @@ const transform: AxiosTransform = {
     if (!isCancel) {
       checkStatus(error.response && error.response.status, msg);
     } else {
-      console.warn(error, '请求被取消！');
+      logger.warn(error, '请求被取消！');
     }
     //return Promise.reject(error);
     return Promise.reject(response?.data);

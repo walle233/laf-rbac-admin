@@ -93,7 +93,7 @@
 
   function handleSubmit() {
     subLoading.value = true;
-    console.log(subLoading.value);
+    logger.error(subLoading.value);
     emit('on-ok');
   }
 

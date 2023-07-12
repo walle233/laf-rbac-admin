@@ -72,6 +72,7 @@
   import { PlusOutlined } from '@vicons/antd';
 
   import { useUserStoreWidthOut } from '@/store/modules/user';
+  import {logger} from "@/utils/Logger";
 
   type TRole = {
     _id: string | null;
@@ -98,7 +99,7 @@
       ...res.map((_) => ({ value: _.name, label: _.label }))
     );
 
-    console.log('allPermissions', allPermissions);
+    logger.log('allPermissions', allPermissions);
   };
 
   onMounted(() => {
@@ -215,7 +216,7 @@
 
   const loadDataTable = async (params) => {
     const ret = await getRoles(params);
-    console.log(ret);
+    logger.log(ret);
     return ret;
   };
 

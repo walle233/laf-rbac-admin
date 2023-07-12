@@ -3,6 +3,7 @@ import type { BasicTableProps } from '../types/table';
 import type { PaginationProps } from '../types/pagination';
 import { isBoolean, isFunction, isArray } from '@/utils/is';
 import { APISETTING } from '../const';
+import {logger} from "@/utils/Logger";
 
 export function useDataSource(
   propsRef: ComputedRef<BasicTableProps>,
@@ -105,7 +106,7 @@ export function useDataSource(
         resultTotal,
       });
     } catch (error) {
-      console.error(error);
+      logger.error(error);
       emit('fetch-error', error);
       dataSourceRef.value = [];
       // setPagination({

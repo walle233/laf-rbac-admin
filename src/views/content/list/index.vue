@@ -7,6 +7,7 @@
   import { PlusOutlined } from '@vicons/antd';
   import { useRoute, useRouter } from 'vue-router';
   import dayjs from 'dayjs';
+  import {logger} from "@/utils/Logger";
 
   const route = useRoute();
   const schemaId = route.path.split('/').pop();
@@ -105,7 +106,7 @@
         },
       };
     });
-    console.log(columns.value);
+    logger.log(columns.value);
     displayName.value = res.displayName;
   };
 
@@ -152,7 +153,7 @@
       ...params,
       filters: filters,
     });
-    console.log(ret);
+    logger.log(ret);
     return ret;
   };
   const handlerSearch = async () => {

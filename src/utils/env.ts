@@ -1,8 +1,8 @@
 import type { GlobEnvConfig } from '/#/config';
 
-import { warn } from '@/utils/log';
 import pkg from '../../package.json';
 import { getConfigFileName } from '../../build/getConfigFileName';
+import {logger} from "@/utils/Logger";
 
 export function getCommonStoragePrefix() {
   const { VITE_GLOB_APP_SHORT_NAME } = getAppEnvConfig();
@@ -33,7 +33,7 @@ export function getAppEnvConfig() {
   } = ENV;
 
   if (!/^[a-zA-Z\_]*$/.test(VITE_GLOB_APP_SHORT_NAME)) {
-    warn(
+    logger.warn(
       `VITE_GLOB_APP_SHORT_NAME Variables can only be characters/underscores, please modify in the environment variables and re-running.`
     );
   }

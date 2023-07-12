@@ -4,6 +4,7 @@
   import { useMessage } from 'naive-ui';
   import { FieldTypes } from '@/constants/field';
   import { DeleteOutlined, EditOutlined, ExportOutlined, CopyOutlined } from '@vicons/antd';
+  import {logger} from "@/utils/Logger";
 
   const props = defineProps<{
     currentSchema: Schema | undefined;
@@ -21,7 +22,7 @@
 
   const { currentSchema } = toRefs(props);
   const title = computed(() => {
-    console.log(currentSchema.value);
+    logger.log(currentSchema.value);
     if (currentSchema.value) {
       return `${currentSchema.value?.displayName}（${currentSchema.value?.collectionName}）`;
     }

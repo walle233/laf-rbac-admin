@@ -6,11 +6,12 @@
   import { getSchema } from '@/api/cms/schema';
   import { getContent, createContent, updateContent, getAllContents } from '@/api/cms/content';
   import { onMounted } from 'vue';
+  import {logger} from "@/utils/Logger";
 
   const { schemaId, contentId } = useRoute().params;
   const router = useRouter();
   const routerName = router.currentRoute.value.name;
-  console.log(routerName, schemaId, contentId);
+  logger.log(routerName, schemaId, contentId);
 
   const schemaInfo = ref<any>({});
   const contentInfo = ref<any>({});
@@ -154,13 +155,13 @@
   const message = useMessage();
 
   async function handleSubmit(values) {
-    console.log(values);
+    logger.log(values);
 
     if (routerName === 'ContentEdit') {
-      console.log('编辑');
+      logger.log('编辑');
       await updateContent({ schemaId, _id: contentId, params: values });
     } else {
-      console.log('创建');
+      logger.log('创建');
       await createContent({ schemaId, params: values });
     }
 
@@ -170,7 +171,7 @@
   }
 
   function handleReset(values) {
-    console.log(values);
+    logger.log(values);
     router.push({ path: `/content/${schemaId}` });
   }
 </script>

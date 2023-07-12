@@ -70,6 +70,8 @@
   import { columns } from './columns';
   import { PlusOutlined } from '@vicons/antd';
   import { useRouter } from 'vue-router';
+  import {logger} from "@/utils/Logger";
+  import {Recordable} from "vite-plugin-mock";
 
   const rules = {
     name: {
@@ -99,7 +101,7 @@
       componentProps: {
         placeholder: '请输入姓名',
         onInput: (e: any) => {
-          console.log(e);
+          logger.log(e);
         },
       },
       rules: [{ required: true, message: '请输入姓名', trigger: ['blur'] }],
@@ -112,7 +114,7 @@
         placeholder: '请输入手机号码',
         showButton: false,
         onInput: (e: any) => {
-          console.log(e);
+          logger.log(e);
         },
       },
     },
@@ -133,7 +135,7 @@
           },
         ],
         onUpdateValue: (e: any) => {
-          console.log(e);
+          logger.log(e);
         },
       },
     },
@@ -146,7 +148,7 @@
         type: 'date',
         clearable: true,
         onUpdateValue: (e: any) => {
-          console.log(e);
+          logger.log(e);
         },
       },
     },
@@ -157,7 +159,7 @@
       componentProps: {
         clearable: true,
         onUpdateValue: (e: any) => {
-          console.log(e);
+          logger.log(e);
         },
       },
     },
@@ -188,7 +190,7 @@
           },
         ],
         onUpdateChecked: (e: any) => {
-          console.log(e);
+          logger.log(e);
         },
       },
     },
@@ -208,7 +210,7 @@
           },
         ],
         onUpdateChecked: (e: any) => {
-          console.log(e);
+          logger.log(e);
         },
       },
     },
@@ -300,7 +302,7 @@
   };
 
   function onCheckedRow(rowKeys) {
-    console.log(rowKeys);
+    logger.log(rowKeys);
   }
 
   function reloadTable() {
@@ -325,22 +327,22 @@
   }
 
   function handleEdit(record: Recordable) {
-    console.log('点击了编辑', record);
+    logger.log('点击了编辑', record);
     router.push({ name: 'basic-info', params: { id: record.id } });
   }
 
   function handleDelete(record: Recordable) {
-    console.log('点击了删除', record);
+    logger.log('点击了删除', record);
     message.info('点击了删除');
   }
 
   function handleSubmit(values: Recordable) {
-    console.log(values);
+    logger.log(values);
     reloadTable();
   }
 
   function handleReset(values: Recordable) {
-    console.log(values);
+    logger.log(values);
   }
 </script>
 

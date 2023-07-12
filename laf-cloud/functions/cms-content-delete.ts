@@ -30,7 +30,6 @@ export async function main(ctx: FunctionContext) {
 
   // 数据库操作
   const r = await db.collection(collection).doc(_id).remove();
-  console.log(r);
 
   return {
     code: 0,

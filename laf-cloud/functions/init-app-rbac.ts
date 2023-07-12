@@ -56,7 +56,7 @@ async function createFirstAdmin(username: string, password: string) {
   try {
     const { total } = await db.collection('admin').count();
     if (total > 0) {
-      console.log('admin already exists');
+      // console.log('admin already exists');
       return;
     }
 
@@ -86,7 +86,7 @@ async function createFirstAdmin(username: string, password: string) {
 
     return r_add.id;
   } catch (error) {
-    console.error(error.message);
+    // console.error(error.message);
   }
 }
 

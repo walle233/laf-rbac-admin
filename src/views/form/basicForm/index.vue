@@ -86,6 +86,7 @@
   import { useMessage } from 'naive-ui';
   import { BasicUpload } from '@/components/Upload';
   import { useGlobSetting } from '@/hooks/setting';
+  import {logger} from "@/utils/Logger";
 
   const globSetting = useGlobSetting();
 
@@ -189,6 +190,6 @@
   }
 
   function uploadChange(list: string[]) {
-    console.log(list);
+    logger.log(list);
   }
 </script>

@@ -68,6 +68,7 @@
   import { PlusOutlined } from '@vicons/antd';
 
   import { useUserStoreWidthOut } from '@/store/modules/user';
+  import {logger} from "@/utils/Logger";
 
   type TPermission = {
     _id: string | null;
@@ -186,7 +187,7 @@
 
   const loadDataTable = async (params) => {
     const ret = await getPermissions(params);
-    console.log(ret);
+    logger.log(ret);
     return ret;
   };
 

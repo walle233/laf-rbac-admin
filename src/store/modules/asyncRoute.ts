@@ -6,6 +6,7 @@ import { asyncRoutes, constantRouter } from '@/router/index';
 import { generatorDynamicRouter } from '@/router/generator-routers';
 import { useProjectSetting } from '@/hooks/setting/useProjectSetting';
 import { getAllSchemas } from '@/api/cms/schema';
+import {logger} from "@/utils/Logger";
 
 interface TreeHelperConfig {
   id: string;
@@ -90,7 +91,7 @@ export const useAsyncRouteStore = defineStore({
     async generateRoutes(data) {
       let accessedRouters;
       const permissionsList = data.permissions || [];
-      console.log('permissionsList', permissionsList);
+      logger.log('permissionsList', permissionsList);
       const routeFilter = (route) => {
         const { meta } = route;
         const { permissions } = meta || {};
@@ -104,7 +105,7 @@ export const useAsyncRouteStore = defineStore({
         try {
           accessedRouters = await generatorDynamicRouter();
         } catch (error) {
-          console.log(error);
+          logger.log(error);
         }
       } else {
         try {
@@ -128,7 +129,7 @@ export const useAsyncRouteStore = defineStore({
           //过滤账户是否拥有某一个权限，并将菜单从加载列表移除
           accessedRouters = filter(asyncRoutes, routeFilter);
         } catch (error) {
-          console.log(error);
+          logger.log(error);
         }
       }
 

@@ -2,6 +2,7 @@
   import { computed, reactive, ref, toRefs, watch } from 'vue';
   import { getSchemaApi, updateSchemaApi } from '@/api/cms/schema';
   import { useMessage } from 'naive-ui';
+  import {logger} from "@/utils/Logger";
   // import { updateSchema } from '@/api/cms/schema';
   // import { useMessage } from 'naive-ui';
   // import { FieldTypes } from '@/constants/field';
@@ -20,7 +21,7 @@
   //
 
   const title = computed(() => {
-    console.log(currentSchema.value);
+    logger.log(currentSchema.value);
     if (currentSchema.value) {
       return `${currentSchema.value?.displayName}（${currentSchema.value?.collectionName}）`;
     }

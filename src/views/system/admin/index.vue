@@ -86,6 +86,7 @@
   import { PlusOutlined } from '@vicons/antd';
 
   import { useUserStoreWidthOut } from '@/store/modules/user';
+  import {logger} from "@/utils/Logger";
 
   type TAdmin = {
     _id: string | null;
@@ -252,7 +253,7 @@
 
   const loadDataTable = async (params) => {
     const ret = await getAdminList(params);
-    console.log(ret);
+    logger.log(ret);
     return ret;
   };
 
@@ -260,7 +261,7 @@
     const { file } = options;
     const { url } = await uploadFile(file?.file as File);
     formParams.avatar = [url];
-    console.log(formParams.avatar);
+    logger.log(formParams.avatar);
   }
 
   function reloadTable() {

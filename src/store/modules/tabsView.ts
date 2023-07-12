@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 import { RouteLocationNormalized } from 'vue-router';
+import {logger} from "@/utils/Logger";
 
 // 不需要出现在标签页中的路由
 const whiteList = ['Redirect', 'login'];
@@ -64,7 +65,7 @@ export const useTabsViewStore = defineStore({
     },
     closeAllTabs() {
       // 关闭全部
-      console.log(retainAffixRoute(this.tabsList));
+      logger.log(retainAffixRoute(this.tabsList));
       this.tabsList = retainAffixRoute(this.tabsList);
     },
   },

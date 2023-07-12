@@ -25,6 +25,7 @@
   import { columns } from './basicColumns';
   import { useDialog, useMessage } from 'naive-ui';
   import { DeleteOutlined, EditOutlined } from '@vicons/antd';
+  import {logger} from "@/utils/Logger";
 
   const message = useMessage();
   const dialog = useDialog();
@@ -83,7 +84,7 @@
   };
 
   function onCheckedRow(rowKeys) {
-    console.log(rowKeys);
+    logger.log(rowKeys);
   }
 
   function reloadTable() {
@@ -91,7 +92,7 @@
   }
 
   function handleDelete(record) {
-    console.log(record);
+    logger.log(record);
     dialog.info({
       title: '提示',
       content: `您想删除${record.name}`,
@@ -105,7 +106,7 @@
   }
 
   function handleEdit(record) {
-    console.log(record);
+    logger.log(record);
     message.success('您点击了编辑按钮');
   }
 </script>

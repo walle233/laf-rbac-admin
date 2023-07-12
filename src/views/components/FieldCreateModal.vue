@@ -6,6 +6,7 @@
   import { updateSchema } from '@/api/cms/schema';
   import { nanoid } from 'nanoid';
   import { watch } from 'vue';
+  import {logger} from "@/utils/Logger";
 
   type FieldType = Partial<SchemaField>;
 
@@ -119,7 +120,7 @@
     formBtnLoading.value = true;
     formRef.value.validate(async (errors) => {
       if (!errors) {
-        console.log(formParams, currentSchema.value);
+        logger.log(formParams, currentSchema.value);
         if (fieldAction.value === 'create') {
           await updateSchema({
             _id: currentSchema.value?._id,

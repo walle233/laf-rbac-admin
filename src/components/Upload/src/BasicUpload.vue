@@ -76,6 +76,7 @@
   import componentSetting from '@/settings/componentSetting';
   import { useGlobSetting } from '@/hooks/setting';
   import { isString } from '@/utils/is';
+  import {logger} from "@/utils/Logger";
 
   const globSetting = useGlobSetting();
 
@@ -150,7 +151,7 @@
 
       //上传之前
       function beforeUpload({ file }) {
-        console.log('beforeUpload', file);
+        logger.log('beforeUpload', file);
         const fileInfo = file.file;
         const { maxSize, accept } = props;
         const acceptRef = (isString(accept) && accept.split(',')) || [];
@@ -173,7 +174,7 @@
 
       //上传结束
       function finish({ event: Event }) {
-        console.log('finish', Event);
+        logger.log('finish', Event);
         const res = eval('(' + Event.target.response + ')');
         const infoField = componentSetting.upload.apiSetting.infoField;
         const { code } = res;

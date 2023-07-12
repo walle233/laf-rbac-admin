@@ -27,6 +27,7 @@ export async function main(ctx: FunctionContext) {
   const collection = schema.collectionName;
 
   const r = await db.collection(collection).get();
+  // console.log(r);
 
   return {
     code: 0,

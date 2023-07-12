@@ -21,6 +21,7 @@
   import { generatorMenu, generatorMenuMix } from '@/utils';
   import { useProjectSettingStore } from '@/store/modules/projectSetting';
   import { useProjectSetting } from '@/hooks/setting/useProjectSetting';
+  import {logger} from "@/utils/Logger";
 
   export default defineComponent({
     name: 'Menu',
@@ -130,7 +131,7 @@
 
       //展开菜单
       function menuExpanded(openKeys: string[]) {
-        console.log(openKeys);
+        logger.log(openKeys);
         if (!openKeys) return;
         const latestOpenKey = openKeys.find((key) => state.openKeys.indexOf(key) === -1);
         const isExistChildren = findChildrenLen(latestOpenKey as string);

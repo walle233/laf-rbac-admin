@@ -18,6 +18,8 @@
 <script lang="ts" setup>
   import { BasicForm, FormSchema, useForm } from '@/components/Form/index';
   import { useMessage } from 'naive-ui';
+  import {logger} from "@/utils/Logger";
+  import {Recordable} from "vite-plugin-mock";
 
   const schemas: FormSchema[] = [
     {
@@ -31,7 +33,7 @@
       componentProps: {
         placeholder: '请输入姓名',
         onInput: (e: any) => {
-          console.log(e);
+          logger.log(e);
         },
       },
       rules: [{ required: true, message: '请输入姓名', trigger: ['blur'] }],
@@ -44,7 +46,7 @@
         placeholder: '请输入手机号码',
         showButton: false,
         onInput: (e: any) => {
-          console.log(e);
+          logger.log(e);
         },
       },
     },
@@ -68,7 +70,7 @@
           },
         ],
         onUpdateValue: (e: any) => {
-          console.log(e);
+          logger.log(e);
         },
       },
     },
@@ -84,7 +86,7 @@
         type: 'date',
         clearable: true,
         onUpdateValue: (e: any) => {
-          console.log(e);
+          logger.log(e);
         },
       },
     },
@@ -98,7 +100,7 @@
       componentProps: {
         clearable: true,
         onUpdateValue: (e: any) => {
-          console.log(e);
+          logger.log(e);
         },
       },
     },
@@ -126,7 +128,7 @@
           },
         ],
         onUpdateChecked: (e: any) => {
-          console.log(e);
+          logger.log(e);
         },
       },
     },
@@ -149,7 +151,7 @@
           },
         ],
         onUpdateChecked: (e: any) => {
-          console.log(e);
+          logger.log(e);
         },
       },
     },
@@ -176,12 +178,12 @@
   });
 
   function handleSubmit(values: Recordable) {
-    console.log(values);
+    logger.log(values);
     message.success(JSON.stringify(values));
   }
 
   function handleReset(values: Recordable) {
-    console.log(values);
+    logger.log(values);
   }
 </script>
 

@@ -3,6 +3,7 @@ import { constantRouterIcon } from './router-icons';
 import { RouteRecordRaw } from 'vue-router';
 import { Layout, ParentLayout } from '@/router/constant';
 import type { AppRouteRecordRaw } from '@/router/types';
+import {logger} from "@/utils/Logger";
 
 const Iframe = () => import('@/views/iframe/index.vue');
 const LayoutMap = new Map<string, () => Promise<typeof import('*.vue')>>();
@@ -114,7 +115,7 @@ export const dynamicImport = (
     return viewsModules[matchKey];
   }
   if (matchKeys?.length > 1) {
-    console.warn(
+    logger.warn(
       'Please do not create `.vue` and `.TSX` files with the same file name in the same hierarchical directory under the views folder. This will cause dynamic introduction failure'
     );
     return;

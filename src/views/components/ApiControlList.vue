@@ -62,7 +62,7 @@
       method: 'PUT',
       enable: false,
       collapse: false,
-      params: { id: '数据ID' },
+      params: {},
     },
     remove: {
       name: '删除 / Remove',
@@ -70,7 +70,7 @@
       method: 'DELETE',
       enable: false,
       collapse: false,
-      params: { id: '数据ID' },
+      params: {},
     },
   });
 
@@ -103,6 +103,9 @@
           apiItems.add.params[field.name] = `${field.displayName}(${
             field.isRequired ? '必须' : '可选'
           } | ${field.type})`;
+          apiItems.update.params[field.name] = `${field.displayName}(${
+            field.isRequired ? '必须' : '可选'
+          } | ${field.type})`;
         });
     } else {
       api.id = '';
@@ -112,6 +115,7 @@
       apiItems.update.enable = false;
       apiItems.remove.enable = false;
       apiItems.add.params = {};
+      apiItems.update.params = {};
     }
   };
 

@@ -26,32 +26,32 @@ export async function main(ctx: FunctionContext) {
   const skip = page === 0 ? 0 : page - 1;
 
   const relations = [];
-  for (let field of schema.fields) {
+  for (const field of schema.fields) {
     if (field.type == 'Connect') {
       relations.push({
         query: db.collection(field.connectCollection),
         localField: field.name, // 主表连接键，即 article.id
         foreignField: '_id', // 子表连接键，即 tag.article_id
         as: `relation-${field.connectCollection}`, // 查询结果中字段重命名，缺省为子表名
-      })
+      });
     }
   }
 
-  const _myfilters = {};
-  for (let key in filters) {
+  const where = {};
+  for (const key in filters) {
     if (filters[key]) {
       try {
-        _myfilters[key] = new RegExp(`${filters[key]}`);
+        where[key] = new RegExp(`${filters[key]}`);
       } catch (err) {}
     }
   }
 
   let query = db
     .collection(collection)
-    .where(db.command.and(_myfilters))
+    .where(db.command.and(where))
     .skip(skip * pageSize)
     .limit(pageSize);
-  for (let relation of relations) {
+  for (const relation of relations) {
     query = query.withOne(relation);
   }
   const r = await query.get();

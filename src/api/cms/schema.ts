@@ -1,4 +1,5 @@
 import { http } from '@/utils/http/axios';
+import {logger} from "@/utils/Logger";
 
 export interface BasicResponseModel<T = any> {
   code: number;
@@ -82,6 +83,7 @@ export function createSchemaApi(params) {
 }
 
 export function updateSchemaApi(params) {
+  logger.log(params);
   return http.request({
     url: '/schema-api-update',
     method: 'POST',
@@ -90,6 +92,7 @@ export function updateSchemaApi(params) {
 }
 
 export function deleteSchemaApi(data) {
+  logger.log(data);
   return http.request({
     url: '/schema-api-delete',
     method: 'POST',

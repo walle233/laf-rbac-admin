@@ -19,20 +19,22 @@ export default async function (ctx: FunctionContext) {
     return '_id or collectionName cannot be empty';
   }
 
-  
+
   // check id
-  const where = db.command.or({
-    _id: _id
-  }, {
-    collectionName: collectionName
-  });
-  const { total } = await db.collection('schema-api').where(where).count();
+  const where = [];
+  if (_id) {
+    where.push({ _id: _id });
+  }
+  if (collectionName) {
+    where.push({ collectionName: collectionName });
+  }
+  const { total } = await db.collection('schema-api').where(db.command.or(where)).count();
   if (total <= 0) {
     return { code: 0 };
   }
 
   // delete schema
-  const res = await db.collection('schema-api').where(where).remove();
+  const res = await db.collection('schema-api').where(db.command.or(where)).remove();
 
   return {
     code: 0,

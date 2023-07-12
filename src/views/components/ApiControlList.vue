@@ -168,7 +168,7 @@
             <div class="item-tag">
               <p
                 ><space class="item-tag-point">Url：</space
-                ><n-tag>{{ API_URL }}{{ it.url }}</n-tag></p
+                ><n-tag type="info">{{ API_URL }}{{ it.url }}</n-tag></p
               >
               <n-button
                 strong

@@ -9,6 +9,7 @@
   // import { DeleteOutlined, EditOutlined, ExportOutlined, CopyOutlined } from '@vicons/antd';
   // import { Space } from '../../../dist/assets/index.4073d1ff';
 
+  const API_URL = import.meta.env.VITE_GLOB_LAF_URL;
   const message = useMessage();
 
   const props = defineProps<{
@@ -166,7 +167,8 @@
           <div v-if="it.collapse">
             <div class="item-tag">
               <p
-                ><space class="item-tag-point">Url：</space><n-tag>{{ it.url }}</n-tag></p
+                ><space class="item-tag-point">Url：</space
+                ><n-tag>{{ API_URL }}{{ it.url }}</n-tag></p
               >
               <n-button
                 strong
@@ -174,7 +176,7 @@
                 round
                 type="primary"
                 size="tiny"
-                @click="handleCopyText(it.url)"
+                @click="handleCopyText(API_URL + it.url)"
                 >复制</n-button
               >
             </div>
@@ -231,7 +233,7 @@
       .item-bottom {
         font-size: 12px;
         display: flex;
-        justify-content: end;
+        justify-content: right;
         margin-top: 8px;
       }
 

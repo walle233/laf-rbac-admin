@@ -40,13 +40,13 @@ export default async function (ctx: FunctionContext) {
       let dbc = db
         .collection(collection)
         .skip((_page - 1) * _count)
-        .limit(_count);
+        .limit(parseInt(_count));
       if (order) {
         dbc = dbc.orderBy(order, 'asc');
       }
       const resData = await dbc.get();
       const resCount = await db.collection(collection).count();
-      const totalPage = Math.ceil(resCount.total / _page);
+      const totalPage = Math.ceil(resCount.total / _count);
       return {
         code: 0,
         data: resData.data,

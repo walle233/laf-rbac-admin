@@ -25,6 +25,8 @@ export async function main(ctx: FunctionContext) {
             }
             return false;
         }
-    } catch (err) { }
+    } catch (err) {
+        console.log(err);
+    }
     return true;
 }

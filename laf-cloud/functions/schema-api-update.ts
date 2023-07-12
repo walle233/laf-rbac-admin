@@ -22,7 +22,7 @@ export default async function (ctx: FunctionContext) {
     return 'Permission denied';
   }
   
-  const { _id, enable, list, count, read, add, update, remote } = ctx.body;
+  const { _id, enable, list, count, read, add, update, remove } = ctx.body;
   if (!_id) {
     return '_id cannot be empty';
   }
@@ -47,8 +47,8 @@ export default async function (ctx: FunctionContext) {
   if (update) {
     data.update = update;
   }
-  if (remote) {
-    data.remote = remote;
+  if (remove) {
+    data.remote = remove;
   }
 
 

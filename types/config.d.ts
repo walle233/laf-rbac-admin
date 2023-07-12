@@ -54,6 +54,7 @@ export interface GlobConfig {
   uploadUrl?: string;
   prodMock: boolean;
   imgUrl?: string;
+  loggerLevel: number;
 }
 
 export interface GlobEnvConfig {
@@ -71,4 +72,6 @@ export interface GlobEnvConfig {
   VITE_GLOB_IMG_URL?: string;
   //生产环境开启mock
   VITE_GLOB_PROD_MOCK: boolean;
+  // 日志登记
+  VITE_GLOB_LOGGER_LEVEL;
 }

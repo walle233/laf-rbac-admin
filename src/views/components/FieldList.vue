@@ -62,10 +62,7 @@
 </script>
 
 <template>
-  <n-card
-    class="schema-field-box"
-    :title="title"
-  >
+  <n-card class="schema-field-box" :title="title">
     <template #header-extra>
       <n-tooltip placement="top">
         <template #trigger>
@@ -116,8 +113,32 @@
             <span> #{{ item.name }} </span>
           </div>
           <div class="field-type">
-            <n-tag size="small">
+            <n-tag class="tag" size="small" type="info">
               {{ FieldTypes.find((_) => _.type === item.type)?.name }}
+            </n-tag>
+            <n-tag v-if="item.min && item.max" class="tag" size="small" type="info">
+              {{ `长度：${item.min} - ${item.max}` }}
+            </n-tag>
+            <n-tag v-else-if="item.min" class="tag" size="small" type="info">
+              {{ `最大长度${item.min}` }}
+            </n-tag>
+            <n-tag v-else-if="item.max" class="tag" size="small" type="info">
+              {{ `最小长度${item.min}` }}
+            </n-tag>
+            <n-tag class="tag" v-if="item.defaultValue" size="small" type="info">
+              {{ `默认值：${item.defaultValue}` }}
+            </n-tag>
+            <n-tag class="tag" v-if="item.isRequired" size="small" type="info">
+              {{ '必须项' }}
+            </n-tag>
+            <n-tag class="tag" v-if="item.isHidden" size="small" type="info">
+              {{ '隐藏' }}
+            </n-tag>
+            <n-tag class="tag" v-if="item.isSearch" size="small" type="info">
+              {{ '搜索项' }}
+            </n-tag>
+            <n-tag class="tag" v-if="item.isOrderField" size="small" type="info">
+              {{ item.orderDirection === 'asc' ? '升序' : '降序' }}
             </n-tag>
           </div>
         </div>
@@ -145,7 +166,7 @@
 
 <style lang="less" scoped>
   .schema-field-box {
-    width: 600px;
+    width: 760px;
     border: none;
     overflow: hidden;
     overflow-y: scroll;
@@ -172,6 +193,9 @@
             font-size: 12px;
             color: #999;
             margin-bottom: 10px;
+            .tag {
+              margin-right: 4px;
+            }
           }
         }
 

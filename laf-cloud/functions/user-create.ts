@@ -1,4 +1,5 @@
 import cloud from '@lafjs/cloud';
+import { PHONE, EMAIL } from '@/regex';
 const db = cloud.database();
 const shared = cloud.shared;
 
@@ -30,6 +31,16 @@ export async function main(ctx: FunctionContext) {
   const { total } = await db.collection('user').where({ username }).count();
   if (total > 0) {
     return 'username already exists';
+  }
+
+
+  if (phone && !PHONE.test(phone)) {
+    return { code: 1001, message: "手机号格式不正确" };
+  }
+
+
+  if (email && !EMAIL.test(email)) {
+    return { code: 1001, message: "邮箱地址格式不正确" };
   }
 
 

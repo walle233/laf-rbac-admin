@@ -1,4 +1,5 @@
 import cloud from '@lafjs/cloud';
+import { PHONE, EMAIL } from '@/regex';
 const db = cloud.database();
 const shared = cloud.shared;
 
@@ -61,13 +62,20 @@ export async function main(ctx: FunctionContext) {
     data['avatar'] = avatar;
   }
 
+
   // phone
   if (phone && phone != old.phone) {
+    if (!PHONE.test(phone)) {
+      return { code: 1001, message: "手机号格式不正确" };
+    }
     data['phone'] = phone;
   }
 
   // email
   if (phone && email != old.email) {
+    if (!EMAIL.test(email)) {
+      return { code: 1001, message: "邮箱地址格式不正确" };
+    }
     data['email'] = phone;
   }
 

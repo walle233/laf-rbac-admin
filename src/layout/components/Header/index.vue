@@ -84,7 +84,7 @@
         </n-tooltip>
       </div> -->
       <!--切换全屏-->
-      <!-- <div class="layout-header-trigger layout-header-trigger-min">
+      <div class="layout-header-trigger layout-header-trigger-min">
         <n-tooltip placement="bottom">
           <template #trigger>
             <n-icon size="18">
@@ -93,7 +93,7 @@
           </template>
           <span>全屏</span>
         </n-tooltip>
-      </div> -->
+      </div>
       <!-- 个人中心 -->
       <div class="layout-header-trigger layout-header-trigger-min">
         <n-dropdown trigger="hover" @select="avatarSelect" :options="avatarOptions">
@@ -108,7 +108,7 @@
         </n-dropdown>
       </div>
       <!--设置-->
-      <!-- <div class="layout-header-trigger layout-header-trigger-min" @click="openSetting">
+      <div class="layout-header-trigger layout-header-trigger-min" @click="openSetting">
         <n-tooltip placement="bottom-end">
           <template #trigger>
             <n-icon size="18" style="font-weight: bold">
@@ -117,7 +117,7 @@
           </template>
           <span>项目配置</span>
         </n-tooltip>
-      </div> -->
+      </div>
     </div>
   </div>
   <!--项目配置-->

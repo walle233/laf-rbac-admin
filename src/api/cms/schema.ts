@@ -64,6 +64,14 @@ export function deleteSchema(data) {
   });
 }
 
+export function getAllSchemaApi() {
+  return http.request({
+    url: `/schema-api-all`,
+    method: 'POST',
+    data: {},
+  });
+}
+
 export function getSchemaApi(name) {
   return http.request({
     url: `/schema-api-info`,
@@ -83,7 +91,6 @@ export function createSchemaApi(params) {
 }
 
 export function updateSchemaApi(params) {
-  logger.log(params);
   return http.request({
     url: '/schema-api-update',
     method: 'POST',

@@ -13,6 +13,7 @@
   import { useDialog, useMessage } from 'naive-ui';
   import { nanoid } from 'nanoid';
   import { saveContentToFile } from '@/utils/file';
+  import { logger } from '@/utils/Logger';
 
   const dialog = useDialog();
   const message = useMessage();
@@ -28,7 +29,7 @@
   };
 
   const handeleFetchSchemaList = async () => {
-    const res = (await getAllSchemas()) as Schema[];
+    const res = ((await getAllSchemas()) as Schema[]).filter((it) => !it.system);
 
     schemaList.splice(0, schemaList.length, ...res);
 
@@ -96,8 +97,7 @@
   <div>
     <n-card :bordered="false">
       <n-button class="mr-3" type="primary" @click="handleCreateSchema"> 新增模型 </n-button>
-      <!-- <n-button class="mr-3" type="primary"> 导出模型 </n-button>
-      <n-button class="mr-3" type="primary"> 导入模型 </n-button> -->
+      <n-button class="mr-3" type="primary"> 导入模型 </n-button>
     </n-card>
 
     <div class="schema-wrap">

@@ -92,6 +92,8 @@ interface Schema {
 
   collectionName: string;
 
+  system: boolean;
+
   fields: SchemaField[];
 
   description: string;

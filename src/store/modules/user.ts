@@ -5,7 +5,7 @@ import { ACCESS_TOKEN, CURRENT_USER, IS_LOCKSCREEN, USER_INFO } from '@/store/mu
 // import { ResultEnum } from '@/enums/httpEnum';
 
 const Storage = createStorage({ storage: localStorage });
-import { getUserInfo, login } from '@/api/system/user';
+import { getUserInfo, login } from '@/api/system/admin';
 import { storage } from '@/utils/Storage';
 import { logger } from '@/utils/Logger';
 

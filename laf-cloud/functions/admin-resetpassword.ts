@@ -15,7 +15,7 @@ export async function main(ctx: FunctionContext) {
     .collection('admin')
     .where({ username })
     .withOne({
-      query: db.collection('password').where({ type: 'login' }),
+      query: db.collection('password').where({ type: 'admin' }),
       localField: '_id',
       foreignField: 'uid',
       as: 'password',
@@ -29,7 +29,7 @@ export async function main(ctx: FunctionContext) {
   // update password
   await db
     .collection('password')
-    .where({ uid: admin._id, type: 'login', password: hashPassword(password) })
+    .where({ uid: admin._id, type: 'admin', password: hashPassword(password) })
     .update({
       status: 'inactive',
       updated_at: Date.now(),
@@ -38,7 +38,7 @@ export async function main(ctx: FunctionContext) {
   await db.collection('password').add({
     uid: admin.id,
     password: hashPassword(password),
-    type: 'login',
+    type: 'admin',
     status: 'active',
     created_at: Date.now(),
     updated_at: Date.now(),

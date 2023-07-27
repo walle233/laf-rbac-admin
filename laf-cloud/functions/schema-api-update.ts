@@ -21,34 +21,19 @@ export default async function (ctx: FunctionContext) {
   if (code) {
     return 'Permission denied';
   }
-  
-  const { _id, enable, list, count, read, add, update, remove } = ctx.body;
+
+  const { _id, enable, apis } = ctx.body;
   if (!_id) {
     return '_id cannot be empty';
   }
 
-  
+
   const data = { updated_at: Date.now() } as any;
   if (enable) {
     data.enable = enable;
   }
-  if (list) {
-    data.list = list;
-  }
-  if (count) {
-    data.count = count;
-  }
-  if (read) {
-    data.read = read;
-  }
-  if (add) {
-    data.add = add;
-  }
-  if (update) {
-    data.update = update;
-  }
-  if (remove) {
-    data.remote = remove;
+  if (apis) {
+    data.apis = apis;
   }
 
 

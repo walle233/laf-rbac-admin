@@ -44,7 +44,7 @@
           <n-input placeholder="请输入姓名" v-model:value="formParams.name" />
         </n-form-item>
         <n-form-item v-if="modalType === 'create'" label="密码" path="password">
-          <n-input placeholder="请输入密码" v-model:value="formParams.password" />
+          <n-input placeholder="请输入密码" v-model:value="formParams.password" type="password" />
         </n-form-item>
         <n-form-item label="头像" path="avatar">
           <BasicUpload
@@ -79,7 +79,7 @@
   import { h, reactive, ref, onMounted } from 'vue';
   import { useMessage, UploadCustomRequestOptions } from 'naive-ui';
   import { BasicTable, TableAction } from '@/components/Table';
-  import { getAdminList, createAdmin, deleteAdmin, updateAdmin } from '@/api/system/user';
+  import { getAdminList, createAdmin, deleteAdmin, updateAdmin } from '@/api/system/admin';
   import { getAllRoles } from '@/api/system/role';
   import { uploadFile } from '@/api/cloud';
   import { columns } from './columns';

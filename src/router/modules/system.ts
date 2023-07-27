@@ -23,7 +23,7 @@ const routes: Array<RouteRecordRaw> = [
     meta: {
       title: '系统管理',
       icon: renderIcon(SettingOutlined),
-      sort: 5,
+      sort: 101,
     },
     children: [
       {

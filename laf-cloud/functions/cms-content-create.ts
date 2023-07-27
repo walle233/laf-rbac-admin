@@ -18,7 +18,9 @@ export async function main(ctx: FunctionContext) {
   }
 
   // get schema
-  const { data: schema } = await db.collection('schema').doc(schemaId).get();
+  const { data: schema } = await db.collection('schema').where(
+    db.command.or({ _id: schemaId }, { collectionName: schemaId })
+  ).getOne();
 
   if (!schema) return 'Schema is not exit';
 

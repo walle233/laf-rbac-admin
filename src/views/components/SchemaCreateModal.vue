@@ -71,13 +71,7 @@
           await createSchema(formParams);
           await createSchemaApi({
             collectionName: formParams.collectionName,
-            enable: false,
-            count: false,
-            list: false,
-            read: false,
-            add: false,
-            update: false,
-            remove: false,
+            displayName: formParams.displayName,
           });
         } else {
           await updateSchema({ ...formParams, _id: currentSchema.value?._id });

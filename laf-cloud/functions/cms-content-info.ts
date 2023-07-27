@@ -12,12 +12,16 @@ export async function main(ctx: FunctionContext) {
   const { body } = ctx;
   const { schemaId, _id } = body;
 
+console.log(schemaId)
+console.log(_id)
   if (!schemaId || !_id) {
     return { code: 'INVALID_PARAM', error: 'schemaId or id cannot be empty' };
   }
 
   // get schema
-  const { data: schema } = await db.collection('schema').doc(schemaId).get();
+  const { data: schema } = await db.collection('schema').where(
+    db.command.or({ _id: schemaId }, { collectionName: schemaId })
+  ).getOne();
 
   if (!schema) return 'Schema is not exit';
 

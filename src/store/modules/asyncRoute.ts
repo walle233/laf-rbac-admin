@@ -114,7 +114,8 @@ export const useAsyncRouteStore = defineStore({
           const contentRoute = asyncRoutes?.find((item) => item.path === '/content') as any;
           const contentChildren: any = [];
           for (const schema of schemas) {
-            const { _id, collectionName, displayName } = schema;
+            const { _id, collectionName, displayName, system } = schema;
+            if (system) continue;
             contentChildren.push({
               path: _id,
               name: collectionName,

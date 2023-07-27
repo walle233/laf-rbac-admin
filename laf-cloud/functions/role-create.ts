@@ -14,14 +14,14 @@ export async function main(ctx: FunctionContext) {
   }
 
   // check permission
-  const code = await checkPermission(uid, 'role.create')
+  const code = await checkPermission(uid, 'role.create');
   if (code) {
-    return 'Permission denied'
+    return 'Permission denied';
   }
 
-  const { name, label, permissions } = ctx.body
+  const { name, label, permissions } = ctx.body;
   if (!name || !label) {
-    return 'name or label cannot be empty'
+    return 'name or label cannot be empty';
   }
 
   // check exist

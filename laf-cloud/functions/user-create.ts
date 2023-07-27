@@ -15,41 +15,31 @@ export async function main(ctx: FunctionContext) {
   }
 
   // check permission
-  const code = await checkPermission(uid, 'admin.create');
+  const code = await checkPermission(uid, 'user.create');
   if (code) {
     return 'Permission denied';
   }
 
   // check params
-  const { username, password, avatar, name, roles } = ctx.body;
-  if (!username || !password) {
-    return 'username & password cannot be empty';
+  const { username, password, avatar, nickname, phone, email } = ctx.body;
+  if (!username || !nickname || !password) {
+    return 'username & nickname & password cannot be empty';
   }
 
   // check exist
-  const { total } = await db.collection('admin').where({ username }).count();
+  const { total } = await db.collection('user').where({ username }).count();
   if (total > 0) {
     return 'username already exists';
   }
 
-  // check role validation
-  const { total: valid_count } = await db
-    .collection('role')
-    .where({
-      name: db.command.in(roles),
-    })
-    .count();
 
-  if (valid_count !== roles.length) {
-    return 'invalid roles';
-  }
-
-  // add admin
-  const r = await db.collection('admin').add({
+  // add user
+  const r = await db.collection('user').add({
     username,
-    name: name ?? null,
+    nickname,
     avatar: avatar ?? null,
-    roles: roles ?? [],
+    phone: phone ?? null,
+    email: email ?? null,
     created_at: Date.now(),
     updated_at: Date.now(),
   });
@@ -57,7 +47,7 @@ export async function main(ctx: FunctionContext) {
   await db.collection('password').add({
     uid: r.id,
     password: hashPassword(password),
-    type: 'admin',
+    type: 'user',
     status: 'active',
     created_at: Date.now(),
     updated_at: Date.now(),

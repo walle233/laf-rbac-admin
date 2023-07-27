@@ -1,15 +1,48 @@
 import cloud from '@lafjs/cloud';
 import * as crypto from 'crypto';
 
+const db = cloud.database();
+
+
 export async function main() {
   cloud.shared.set('checkPermission', checkPermission);
   cloud.shared.set('getPermissions', getPermissions);
   cloud.shared.set('hashPassword', hashPassword);
+  cloud.shared.set('checkToken', checkToken);
 
   return {
     code: 0,
     data: 'ok',
   };
+}
+
+
+/**
+ * @params token 用户 token
+ */
+async function checkToken(ctx: FunctionContext): Promise<number> {
+  const { token } = ctx.headers;
+
+  if (!token) {
+    return 403;
+  }
+
+  const tuid = cloud.parseToken(token);
+  if (!tuid) {
+    return 401;
+  }
+
+  const { data: td } = await db.collection('user-token').where({ 'uid': tuid }).getOne();
+
+  if (!td) {
+    return 401;
+  }
+
+  if (td.expired_at > Date.now()) {
+    return 402;
+  }
+
+  return 0;
 }
 
 /**

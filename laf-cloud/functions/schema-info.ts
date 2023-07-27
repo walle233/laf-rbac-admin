@@ -11,7 +11,9 @@ export async function main(ctx: FunctionContext) {
 
   const { _id } = ctx.body;
 
-  const { data: schema } = await db.collection('schema').doc(_id).get();
+  const { data: schema } = await db.collection('schema').where(
+    db.command.or({ _id: _id }, { collectionName: _id })
+  ).getOne();
 
   return {
     code: 0,

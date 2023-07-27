@@ -12,13 +12,13 @@ export default async function (ctx: FunctionContext) {
     return 'Unauthorized';
   }
 
-  const { collectionName, enable, list, read, add, update, remove } = ctx.body;
-  if (!collectionName) {
-    return 'displayName or collectionName cannot be empty';
+  const { collectionName, displayName } = ctx.body;
+  if (!collectionName || !displayName) {
+    return 'displayName & collectionName cannot be empty';
   }
 
   // check collectionName
-  const whiteList = ['schema', 'schema-api', 'admin', 'role', 'permission', 'password'];
+  const whiteList = ['schema', 'schema-api', 'admin', 'role', 'permission', 'password', 'user', 'user-token'];
   if (whiteList.indexOf(collectionName) > -1) {
     return 'collectionName cannot be ' + whiteList.join(', ');
   }
@@ -30,35 +30,64 @@ export default async function (ctx: FunctionContext) {
   }
 
   const api = {
-    collectionName:collectionName,
+    displayName: displayName,
+    collectionName: collectionName,
     enable: false,
-    list:false,
-    read:false,
-    add:false,
-    update:false,
-    remove:false,
+    apis: {
+      "read": {
+        "target": "api-cms-schema",
+        "enable": false,
+        "token": false,
+        "tokenEdit": true,
+        "displayName": "读取 / Read",
+        "url": `/api/cms/schema/${collectionName}/{id}`,
+        "method": "GET",
+        "params": {
+          'id': '数据ID（可选:传入ID返回对应数据，不传则返回列表）',
+          'page': '分页(列表可选)',
+          'count': '分页数据数(列表可选)',
+          'order': '排序字段(列表可选)',
+        },
+        "body": {},
+      },
+      "add": {
+        "target": "api-cms-schema",
+        "enable": false,
+        "token": false,
+        "tokenEdit": true,
+        "displayName": "添加 / Add",
+        "url": `/api/cms/schema/${collectionName}`,
+        "method": "POST",
+        "params": {},
+        "body": {},
+      },
+      "update": {
+        "target": "api-cms-schema",
+        "enable": false,
+        "token": false,
+        "tokenEdit": true,
+        "displayName": "更新 / Update",
+        "url": `/api/cms/schema/${collectionName}/{id}`,
+        "method": "PUT",
+        "params": {},
+        "body": {},
+      },
+      "remove": {
+        "target": "api-cms-schema",
+        "enable": false,
+        "token": false,
+        "tokenEdit": true,
+        "displayName": "删除 / Remove",
+        "url": `/api/cms/schema/${collectionName}/{id}`,
+        "method": "DELETE",
+        "params": {},
+        "body": {},
+      }
+    },
     created_at: Date.now(),
     updated_at: Date.now(),
   };
 
-  if (enable) {
-    api.enable = enable;
-  }
-  if (list) {
-    api.list = list;
-  }
-  if (read) {
-    api.read = read;
-  }
-  if (add) {
-    api.add = add;
-  }
-  if (update) {
-    api.update = update;
-  }
-  if (remove) {
-    api.remove = remove;
-  }
 
   // add collection to schema
   const addRes = await db.collection('schema-api').add(api);

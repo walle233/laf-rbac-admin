@@ -16,6 +16,12 @@ export async function main() {
   // 创建初始管理员
   await createFirstAdmin('admin', '123456');
 
+  // 创建初始集合
+  await createInitalSchema();
+
+  // 创建初始集合接口
+  await createInitalSchemaApi();
+
   return 'ok';
 }
 
@@ -35,6 +41,18 @@ const permissions = [
   { name: 'permission.edit', label: '编辑权限' },
   { name: 'permission.delete', label: '删除权限' },
 
+  { name: 'user', label: '用户' },
+  { name: 'user.create', label: '创建用户' },
+  { name: 'user.read', label: '获取用户' },
+  { name: 'user.edit', label: '编辑用户' },
+  { name: 'user.delete', label: '删除用户' },
+
+  { name: 'user.token', label: '用户Token' },
+  { name: 'user.token.create', label: '创建用户Token' },
+  { name: 'user.token.read', label: '获取用户Token' },
+  { name: 'user.token.edit', label: '编辑用户Token' },
+  { name: 'user.token.delete', label: '删除用户Token' },
+
   { name: 'admin', label: '管理员' },
   { name: 'admin.create', label: '创建管理员' },
   { name: 'admin.read', label: '获取管理员' },
@@ -48,6 +66,7 @@ const permissions = [
   { name: 'schema.delete', label: '删除内容模型' },
 
   { name: 'schema.api', label: '内容模型接口' },
+  { name: 'schema.api.read', label: '读取内容模型接口' },
   { name: 'schema.api.edit', label: '编辑内容模型接口' },
 ];
 
@@ -78,7 +97,7 @@ async function createFirstAdmin(username: string, password: string) {
     await db.collection('password').add({
       uid: r_add.id,
       password: hashPassword(password),
-      type: 'login',
+      type: 'admin',
       status: 'active',
       created_at: Date.now(),
       updated_at: Date.now(),
@@ -141,6 +160,260 @@ async function createInitialPermissions() {
   }
 
   return true;
+}
+
+
+const innerSchemas = [
+  {
+    "displayName": "User",
+    "collectionName": "user",
+    "system": true,
+    "fields": [
+      {
+        "displayName": "用户名",
+        "name": "username"
+      },
+      {
+        "displayName": "昵称",
+        "name": "nickname"
+      },
+      {
+        "displayName": "头像",
+        "name": "avator"
+      },
+      {
+        "displayName": "手机号",
+        "name": "phone"
+      },
+      {
+        "displayName": "邮箱",
+        "name": "email"
+      }
+    ],
+    "description": ""
+  },
+  {
+    "displayName": "用户Token",
+    "collectionName": "user-token",
+    "system": true,
+    "fields": [
+      {
+        "displayName": "创建时间",
+        "name": "created_at",
+        "type": "DateTime",
+        "dateFormatType": "timestamp-ms",
+        "id": "created_at",
+        "isSystem": true,
+        "description": "CMS 系统字段，请勿随意修改。通过 CMS 系统录入的数据会默认添加该字段"
+      },
+      {
+        "displayName": "更新时间",
+        "name": "updated_at",
+        "type": "DateTime",
+        "dateFormatType": "timestamp-ms",
+        "id": "updated_at",
+        "isSystem": true,
+        "description": "CMS 系统字段，请勿随意修改。通过 CMS 系统录入的数据会默认添加该字段"
+      },
+      {
+        "displayName": "用户",
+        "name": "uid",
+        "description": "",
+        "isRequired": true,
+        "isHidden": false,
+        "isOrderField": false,
+        "defaultValue": null,
+        "connectResource": "64ae2e438c6deecf4d1337b6",
+        "connectCollection": "user",
+        "connectField": "username",
+        "id": "wxxkSibEtExv83ddh3tG1",
+        "type": "Connect"
+      },
+      {
+        "displayName": "Token",
+        "name": "token",
+        "description": "",
+        "isRequired": true,
+        "isHidden": false,
+        "isOrderField": false,
+        "defaultValue": "",
+        "id": "LsCoOOXZ0mRkfPx3amkEN",
+        "type": "String"
+      },
+      {
+        "displayName": "过期时间",
+        "name": "expired_at",
+        "description": "",
+        "isRequired": true,
+        "isHidden": false,
+        "isOrderField": false,
+        "defaultValue": 1689304008750,
+        "dateFormatType": "timestamp-ms",
+        "id": "jmdvzSAWR8SBIDTqyAsth",
+        "type": "DateTime"
+      }
+    ],
+    "description": ""
+  }
+]
+
+// 创建初始内置集合
+async function createInitalSchema() {
+  await cloud.mongo.db.collection('schema').createIndex('collectionName', { unique: true });
+  try {
+    for (const schema of innerSchemas) {
+      try {
+        const data = {
+          ...schema,
+          created_at: Date.now(),
+          updated_at: Date.now(),
+        };
+        await db.collection('schema').add(data);
+      } catch (error) {
+        if (error.code == 11000) {
+          console.log('schema already exists');
+          continue;
+        }
+        console.error(error.message);
+      }
+    }
+
+  } catch (error) {
+
+  }
+}
+
+const innerSchemaApis = [{
+  "displayName": "用户",
+  "collectionName": "user",
+  "enable": true,
+  "apis": {
+    "register": {
+      "target": "api-cms-user-register",
+      "enable": true,
+      "token": false,
+      "tokenEdit": false,
+      "displayName": "注册 / Register",
+      "url": "/api/cms/user/register",
+      "method": "POST",
+      "params": {},
+      "body": {
+        "username": "用户名（必填|String）",
+        "nickname": "昵称（可选|String）",
+        "password": "密码（必填|String）"
+      },
+      "collapse": true
+    },
+    "login": {
+      "target": "api-cms-user-login",
+      "enable": true,
+      "token": false,
+      "tokenEdit": false,
+      "displayName": "登录 / Login",
+      "url": "/api/cms/user/login",
+      "method": "POST",
+      "params": {},
+      "body": {
+        "username": "用户名（必填|String）",
+        "password": "密码（必填|String）"
+      },
+      "collapse": false
+    },
+    "logout": {
+      "target": "api-cms-user-logout",
+      "enable": true,
+      "token": false,
+      "tokenEdit": false,
+      "displayName": "登出 / Logout",
+      "url": "/api/cms/user/logout",
+      "method": "POST",
+      "headers": {
+        "Authorization": "Token(必填|String)"
+      },
+      "params": {},
+      "body": {},
+      "collapse": true
+    },
+    "refreshtoken": {
+      "target": "api-cms-user-refreshtoken",
+      "enable": true,
+      "token": true,
+      "tokenEdit": false,
+      "displayName": "刷新Token / RefreshToken",
+      "url": "/api/cms/user/refreshtoken",
+      "method": "POST",
+      "headers": {
+        "Authorization": "Token(必填|String)"
+      },
+      "params": {},
+      "body": {},
+      "collapse": false
+    },
+    "resetpasswd": {
+      "target": "api-cms-user-resetpassword",
+      "enable": true,
+      "token": true,
+      "tokenEdit": false,
+      "displayName": "修改密码 / ResetPassword",
+      "url": "/api/cms/user/resetpasswd",
+      "method": "POST",
+      "headers": {
+        "Authorization": "Token(必填|String)"
+      },
+      "params": {},
+      "body": {
+        "oldpassword": "原密码（必填|String）",
+        "newpassword": "新密码（必填|String）"
+      },
+      "collapse": false
+    },
+    "update": {
+      "target": "api-cms-user-update",
+      "enable": true,
+      "token": true,
+      "tokenEdit": false,
+      "displayName": "更新 / Update",
+      "url": "/api/cms/user/update",
+      "method": "POST",
+      "headers": {
+        "Authorization": "Token(必填|String)"
+      },
+      "params": {},
+      "body": {
+        "nickname": "昵称(可选|String)",
+        "avator": "头像(可选|String)",
+        "phone": "手机号码(可选|String)",
+        "email": "邮箱地址(可选|String)"
+      },
+      "collapse": false
+    }
+  }
+}];
+
+// 创建初始集合接口
+async function createInitalSchemaApi() {
+  await cloud.mongo.db.collection('schema-api').createIndex('collectionName', { unique: true });
+  try {
+    for (const api of innerSchemaApis) {
+      try {
+        const data = {
+          ...api,
+          created_at: Date.now(),
+          updated_at: Date.now(),
+        };
+        await db.collection('schema-api').add(data);
+      } catch (error) {
+        if (error.code == 11000) {
+          console.log('schema api already exists');
+          continue;
+        }
+        console.error(error.message);
+      }
+    }
+
+  } catch (error) {
+
+  }
 }
 
 /**

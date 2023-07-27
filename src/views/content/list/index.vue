@@ -36,6 +36,7 @@
 
   const getSchemaInfo = async () => {
     const res = await getSchema(schemaId);
+    console.log(res)
     let fields: SchemaField[] = res.fields.filter((item) => !item.isHidden) || [];
     fields = [
       ...fields.filter((item) => !item.isSystem),

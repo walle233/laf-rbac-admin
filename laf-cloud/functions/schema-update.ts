@@ -32,6 +32,9 @@ export async function main(ctx: FunctionContext) {
     return { code: 'INVALID_PARAM', error: 'not exists' };
   }
 
+  const { data: schemaApi } = await db.collection('schema-api').where({ 'collectionName': schema.collectionName }).getOne();
+
+  const sdata = { updated_at: Date.now() } as any;
   const data = { updated_at: Date.now() } as any;
 
   if (collectionName) {
@@ -42,22 +45,42 @@ export async function main(ctx: FunctionContext) {
     }
 
     data.collectionName = collectionName;
+    sdata.collectionName = collectionName;
     mongodb.renameCollection(schema.collectionName, collectionName);
   }
 
   if (displayName) {
     data.displayName = displayName;
+    sdata.displayName = displayName;
   }
 
   if (fields) {
     data.fields = fields;
+
+    const addFiledBody = {};
+    const updateFiledBody = {};
+    fields
+      .filter((field) => {
+        return !(field.name == 'updated_at' || field.name == 'created_at');
+      })
+      .forEach((field) => {
+        addFiledBody[field.name] = `${field.displayName}(${field.isRequired ? '必须' : '可选'
+          } | ${field.type})`;
+        updateFiledBody[field.name] = `${field.displayName}(可选 | ${field.type})`;
+      });
+    sdata.apis = {
+      'add': { 'body': addFiledBody },
+      'update': { 'body': updateFiledBody },
+    }
   }
 
   if (description) {
     data.description = description;
   }
 
+
   // update schema
+  await db.collection('schema-api').doc(schemaApi._id).update(sdata);
   const r = await db.collection('schema').where({ _id }).update(data);
 
   return {

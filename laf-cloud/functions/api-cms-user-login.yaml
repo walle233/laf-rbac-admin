@@ -1,0 +1,6 @@
+name: api-cms-user-login
+methods:
+  - POST
+tags:
+  - user
+  - schema-api

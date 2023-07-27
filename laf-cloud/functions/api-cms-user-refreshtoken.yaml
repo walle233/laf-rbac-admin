@@ -1,0 +1,5 @@
+name: api-cms-user-refreshtoken
+methods:
+  - POST
+tags:
+  - user

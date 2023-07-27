@@ -1,0 +1,6 @@
+name: user-list
+methods:
+  - GET
+  - POST
+tags:
+  - user

@@ -1,0 +1,5 @@
+name: __init__
+methods:
+  - GET
+  - POST
+tags: []

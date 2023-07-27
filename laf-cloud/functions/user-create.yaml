@@ -1,0 +1,6 @@
+name: user-create
+methods:
+  - GET
+  - POST
+tags:
+  - user

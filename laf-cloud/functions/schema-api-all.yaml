@@ -1,0 +1,6 @@
+name: schema-api-all
+methods:
+  - GET
+  - POST
+tags:
+  - schema-api

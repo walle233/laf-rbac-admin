@@ -1,0 +1,5 @@
+name: api-cms-schema
+methods:
+  - GET
+  - POST
+tags: []

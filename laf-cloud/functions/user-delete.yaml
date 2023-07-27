@@ -1,0 +1,6 @@
+name: user-delete
+methods:
+  - GET
+  - POST
+tags:
+  - user

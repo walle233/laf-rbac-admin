@@ -3,7 +3,7 @@ tsconfig.json
 types
 node_modules
 .secret.yaml
-.app.yaml.yaml
+.app.yaml
 laf.yaml
 package-lock.json
 pnpm-lock.yaml

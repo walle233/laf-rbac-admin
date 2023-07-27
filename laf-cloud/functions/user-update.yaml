@@ -1,0 +1,6 @@
+name: user-update
+methods:
+  - GET
+  - POST
+tags:
+  - user

@@ -2,6 +2,7 @@
 node_modules
 /screenshots
 /dist
+/build
 dist.zip
 dist_electron
 

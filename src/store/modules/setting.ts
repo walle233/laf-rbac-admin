@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { store } from '@/store';
 import { getSetting, updateSetting } from '@/api/setting/system';
-import {logger} from "@/utils/Logger";
+import { logger } from '@/utils/Logger';
 
 export const useSystemSettingStore = defineStore('app-system-setting', {
   state: () => ({
@@ -14,7 +14,7 @@ export const useSystemSettingStore = defineStore('app-system-setting', {
     },
     setting: {
       name: '',
-      logo: '',
+      logo: [],
       icpCode: '',
       mobile: '',
       address: '',
@@ -69,8 +69,13 @@ export const useSystemSettingStore = defineStore('app-system-setting', {
     // 更新系统设置信息
     async save(key: string): Promise<boolean> {
       try {
-        const params = this.setting;
-        await updateSetting({ key: key, ...params });
+        if (key === 'setting') {
+          const params = this.setting;
+          await updateSetting({ key: key, ...params });
+        } else if (key === 'email') {
+          const params = this.email;
+          await updateSetting({ key: key, ...params });
+        }
         return true;
       } catch (e) {
         logger.log('error', e);

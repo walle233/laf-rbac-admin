@@ -140,7 +140,7 @@
       if (!errors) {
         useSystemSettingStoreWidthOut().updateSystemSetting({
           name: formParams.name,
-          logo: formParams.logo,
+          logo: formParams.logo[0],
           icpCode: formParams.icpCode,
           mobile: formParams.mobile,
           address: formParams.address,

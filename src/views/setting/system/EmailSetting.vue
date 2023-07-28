@@ -2,7 +2,7 @@
   <n-grid cols="1 s:1.5 m:2 l:2 xl:2 2xl:2" responsive="screen">
     <n-grid-item>
       <n-form :label-width="120" :model="formParams" :rules="rules" ref="formRef">
-        <n-form-item label="发件人邮箱" path="originator">
+        <n-form-item label="发件人邮箱" path="emailAddr">
           <n-input v-model:value="formParams.emailAddr" placeholder="请输入发件人邮箱" />
         </n-form-item>
 
@@ -59,36 +59,40 @@
   });
 
   const rules = {
-    originator: {
+    emailAddr: {
       required: true,
-      message: '请输入发件人邮箱',
-      trigger: 'blur',
+      trigger: ['blue', 'input'],
+      validator: (rule, value) => {
+        if (!value) {
+          return new Error('请输入发件人邮箱');
+        }
+        return true;
+      },
     },
   };
 
   function handleTestEmail() {
-    useSystemSettingStoreWidthOut().updateSystemSetting({
-      emailAddr: formParams.emailAddr,
-      smtpAddr: formParams.smtpAddr,
-      smtpPort: formParams.smtpPort,
-      smtpName: formParams.smtpName,
-      smtpPassword: formParams.smtpPassword,
-    });
-    useSystemSettingStoreWidthOut()
-      .save('email')
-      .then((success) => {
-        if (success) {
-          message.success('保存成功');
-        } else {
-          message.success('保存失败');
-        }
-      });
   }
 
   function handleSubmit() {
     formRef.value.validate((errors) => {
       if (!errors) {
-        message.success('验证成功');
+        useSystemSettingStoreWidthOut().updateSystemEmail({
+          emailAddr: formParams.emailAddr,
+          smtpAddr: formParams.smtpAddr,
+          smtpPort: formParams.smtpPort,
+          smtpName: formParams.smtpName,
+          smtpPassword: formParams.smtpPassword,
+        });
+        useSystemSettingStoreWidthOut()
+          .save('email')
+          .then((success) => {
+            if (success) {
+              message.success('保存成功');
+            } else {
+              message.success('保存失败');
+            }
+          });
       } else {
         message.error('验证失败，请填写完整信息');
       }

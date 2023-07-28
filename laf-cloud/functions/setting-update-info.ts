@@ -1,4 +1,5 @@
-import cloud from '@lafjs/cloud'
+import cloud from '@lafjs/cloud';
+import { EMAIL } from '@/regex';
 
 const db = cloud.database();
 
@@ -31,13 +32,16 @@ export default async function (ctx: FunctionContext) {
     if (closeText) {
       data['closeText'] = closeText;
     }
-    
+
     const result = await db.collection('setting').where({ key }).update(data);
     return { code: 0, result };
   } else if (key === 'email') {
     const { emailAddr, smtpAddr, smtpPort, smtpName, smtpPassword } = ctx.body;
     const data = { updated_at: Date.now() };
     if (emailAddr) {
+      if (!EMAIL.test(emailAddr)) {
+        return { code: 1101, message: "请输入正确的邮箱地址" };
+      }
       data['emailAddr'] = emailAddr;
     }
     if (smtpAddr) {

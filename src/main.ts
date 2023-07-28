@@ -2,7 +2,7 @@ import './styles/tailwind.css';
 import { createApp } from 'vue';
 import App from './App.vue';
 import router, { setupRouter } from './router';
-import { setupStore } from '@/store';
+import {loadFirstStore, setupStore} from '@/store';
 import { setupNaive, setupDirectives } from '@/plugins';
 import { AppProvider } from '@/components/Application';
 
@@ -32,6 +32,7 @@ async function bootstrap() {
 
   // 挂载状态管理
   setupStore(app);
+  await loadFirstStore();
 
   //优先挂载一下 Provider 解决路由守卫，Axios中可使用，Dialog，Message 等之类组件
   appProvider.mount('#appProvider', true);

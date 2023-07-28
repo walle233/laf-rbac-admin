@@ -6,8 +6,8 @@
       v-if="navMode === 'horizontal' || (navMode === 'horizontal-mix' && mixMenu)"
     >
       <div class="logo" v-if="navMode === 'horizontal'">
-        <img src="https://laf.run/logo.png" alt="" />
-        <h2 v-show="!collapsed" class="title">laf-cms</h2>
+        <img :src="setting.logo" alt="" />
+        <h2 v-show="!collapsed" class="title">{{ setting.name }}</h2>
       </div>
       <AsideMenu
         v-model:collapsed="collapsed"
@@ -135,6 +135,8 @@
   import ProjectSetting from './ProjectSetting.vue';
   import { AsideMenu } from '@/layout/components/Menu';
   import { useProjectSetting } from '@/hooks/setting/useProjectSetting';
+  import { useSystemSettingStoreWidthOut } from '@/store/modules/setting';
+  import { storeToRefs } from 'pinia';
 
   export default defineComponent({
     name: 'PageHeader',
@@ -148,6 +150,7 @@
       },
     },
     setup(props) {
+      const { setting } = storeToRefs(useSystemSettingStoreWidthOut());
       const userStore = useUserStore();
       const useLockscreen = useLockscreenStore();
       const message = useMessage();
@@ -316,6 +319,7 @@
       }
 
       return {
+        setting,
         ...toRefs(state),
         iconList,
         toggleFullScreen,

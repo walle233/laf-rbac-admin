@@ -260,7 +260,7 @@
     props: {
       ...basicProps,
     },
-    emits: ['reset', 'submit', 'register'],
+    emits: ['reset', 'handleSubmit', 'register'],
     setup(props, { emit, attrs }) {
       const defaultFormModel = ref<Recordable>({});
       const formModel = reactive<Recordable>({});

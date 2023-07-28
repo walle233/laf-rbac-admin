@@ -45,7 +45,7 @@ export function useFormEvents({
     try {
       await validate();
       loadingSub.value = false;
-      emit('submit', formModel);
+      emit('handleSubmit', formModel);
       return;
     } catch (error) {
       loadingSub.value = false;

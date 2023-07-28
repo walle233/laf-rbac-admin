@@ -1,0 +1,5 @@
+name: setting-update-info
+methods:
+  - GET
+  - POST
+tags: []

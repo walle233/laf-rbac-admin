@@ -6,6 +6,7 @@ import { useAsyncRouteStoreWidthOut } from '@/store/modules/asyncRoute';
 import { PageEnum } from '@/enums/pageEnum';
 import { ErrorPageRoute } from '@/router/base';
 import { logger } from '@/utils/Logger';
+import {Recordable} from "vite-plugin-mock";
 
 const LOGIN_PATH = PageEnum.BASE_LOGIN;
 

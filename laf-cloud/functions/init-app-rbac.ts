@@ -7,6 +7,10 @@ import * as crypto from 'crypto';
 const db = cloud.database();
 
 export async function main() {
+
+  // 创建初始化设置
+  createSystemSetting();
+
   // 创建 RBAC 初始权限
   await createInitialPermissions();
 
@@ -23,6 +27,47 @@ export async function main() {
   await createInitalSchemaApi();
 
   return 'ok';
+}
+
+const sysEmail = {
+  key: "email",
+  emailAddr: '',
+  smtpAddr: '',
+  smtpPort: '',
+  smtpName: '',
+  smtpPassword: '',
+}
+const sysSetting = {
+  key: 'setting',
+  name: 'LafCms',
+  logo: ['https://laf.run/logo.png'],
+  icpCode: '',
+  mobile: '',
+  address: '',
+  loginCode: '',
+  systemOpen: true,
+  closeText: '网站维护中...',
+}
+
+async function createSystemSetting() {
+  await cloud.mongo.db.collection('setting').createIndex('key', { unique: true });
+  try {
+    for (const api of innerSchemaApis) {
+      try {
+        db.collection('setting').add(sysEmail);
+        db.collection('setting').add(sysSetting);
+      } catch (error) {
+        if (error.code == 11000) {
+          console.log('setting already exists');
+          continue;
+        }
+        console.error(error.message);
+      }
+    }
+
+  } catch (error) {
+
+  }
 }
 
 /**

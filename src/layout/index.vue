@@ -16,7 +16,7 @@
       :inverted="inverted"
       class="layout-sider"
     >
-      <Logo :collapsed="collapsed" />
+      <Logo :collapsed="collapsed" :title="settings.name" :logo="settings.logo" />
       <AsideMenu v-model:collapsed="collapsed" v-model:location="getMenuLocation" />
     </n-layout-sider>
 
@@ -26,7 +26,7 @@
       :placement="'left'"
       class="layout-side-drawer"
     >
-      <Logo :collapsed="collapsed" />
+      <Logo :collapsed="collapsed" :title="settings.name" :logo="settings.logo" />
       <AsideMenu @clickMenuItem="collapsed = false" />
     </n-drawer>
 
@@ -80,6 +80,9 @@
   import { useLoadingBar } from 'naive-ui';
   import { useRoute } from 'vue-router';
   import { useProjectSettingStore } from '@/store/modules/projectSetting';
+  import { storeToRefs } from 'pinia';
+  import { useSystemSettingStoreWidthOut } from '@/store/modules/setting';
+  const { settings } = storeToRefs(useSystemSettingStoreWidthOut());
 
   const { getDarkTheme } = useDesignSetting();
   const {

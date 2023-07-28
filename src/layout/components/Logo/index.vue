@@ -1,19 +1,16 @@
 <template>
   <div class="logo">
-    <img
-      src="https://laf.run/logo.png"
-      style="border-radius: 50%"
-      alt=""
-      :class="{ 'mr-2': !collapsed }"
-    />
-    <h2 v-show="!collapsed" class="title">laf-cms</h2>
+    <img :src="logo" style="border-radius: 50%" alt="" :class="{ 'mr-2': !collapsed }" />
+    <h2 v-show="!collapsed" class="title">{{ title }}</h2>
   </div>
 </template>
 
-<script>
+<script lang="ts">
   export default {
     name: 'Index',
     props: {
+      title: { type: String },
+      logo: { type: String },
       collapsed: {
         type: Boolean,
       },

@@ -6,7 +6,7 @@
         <div class="flex" style="align-items: center; justify-content: center; margin-bottom: 20px">
           <img style="width: 80px" src="https://laf.run/logo.png" alt="" />
         </div>
-        <div class="view-account-top-desc">laf-cms 管理后台</div>
+        <div class="view-account-top-desc">{{ setting.logo }} 管理后台</div>
       </div>
       <div class="view-account-form">
         <n-form
@@ -90,9 +90,11 @@
   import { useRoute, useRouter } from 'vue-router';
   import { useUserStore } from '@/store/modules/user';
   import { useMessage } from 'naive-ui';
-  import { ResultEnum } from '@/enums/httpEnum';
   import { PersonOutline, LockClosedOutline, LogoGithub, LogoFacebook } from '@vicons/ionicons5';
   import { PageEnum } from '@/enums/pageEnum';
+  import { storeToRefs } from 'pinia';
+  import { useSystemSettingStoreWidthOut } from '@/store/modules/setting';
+  const { setting } = storeToRefs(useSystemSettingStoreWidthOut());
 
   interface FormState {
     username: string;

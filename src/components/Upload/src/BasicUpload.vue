@@ -11,7 +11,7 @@
         >
           <div class="upload-card-item-info">
             <div class="img-box">
-              <img :src="item" />
+              <img :src="getImgUrl(item)" />
             </div>
             <div class="img-box-actions">
               <n-icon size="18" class="mx-2 action-icon" @click="preview(item)">
@@ -46,13 +46,6 @@
         </div>
       </div>
     </div>
-
-    <!--上传图片-->
-    <!-- <n-space>
-      <n-alert title="提示" type="info" v-if="helpText" class="flex w-full">
-        {{ helpText }}
-      </n-alert>
-    </n-space> -->
   </div>
 
   <!--预览图片-->
@@ -103,16 +96,13 @@
         showModal: false,
         previewUrl: '',
         originalImgList: [] as string[],
-        imgList: [] as string[],
+        imgList: props.value as string[],
       });
 
-      //赋值默认图片显示
       watch(
         () => props.value,
         () => {
-          state.imgList = props.value.map((item) => {
-            return getImgUrl(item);
-          });
+          state.imgList = props.value;
         }
       );
 
@@ -175,6 +165,7 @@
       //上传结束
       function finish({ event: Event }) {
         logger.log('finish', Event);
+        console.log('==================');
         const res = eval('(' + Event.target.response + ')');
         const infoField = componentSetting.upload.apiSetting.infoField;
         const { code } = res;
@@ -195,6 +186,7 @@
         preview,
         remove,
         beforeUpload,
+        getImgUrl,
         getCSSProperties,
       };
     },

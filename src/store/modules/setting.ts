@@ -12,7 +12,7 @@ export const useSystemSettingStore = defineStore('app-system-setting', {
       smtpName: '',
       smtpPassword: '',
     },
-    setting: {
+    basic: {
       name: '',
       logo: [],
       icpCode: '',
@@ -25,7 +25,7 @@ export const useSystemSettingStore = defineStore('app-system-setting', {
   }),
   getters: {
     settings: (state) => {
-      return state.setting;
+      return state.basic;
     },
     emails: (state) => {
       return state.email;
@@ -33,14 +33,14 @@ export const useSystemSettingStore = defineStore('app-system-setting', {
   },
   actions: {
     updateSystemSetting(setting) {
-      this.setting.name = setting.name;
-      this.setting.logo = setting.logo;
-      this.setting.icpCode = setting.icpCode;
-      this.setting.mobile = setting.mobile;
-      this.setting.address = setting.address;
-      this.setting.loginCode = setting.loginCode;
-      this.setting.systemOpen = setting.systemOpen;
-      this.setting.closeText = setting.closeText;
+      this.basic.name = setting.name;
+      this.basic.logo = setting.logo;
+      this.basic.icpCode = setting.icpCode;
+      this.basic.mobile = setting.mobile;
+      this.basic.address = setting.address;
+      this.basic.loginCode = setting.loginCode;
+      this.basic.systemOpen = setting.systemOpen;
+      this.basic.closeText = setting.closeText;
     },
     updateSystemEmail(email) {
       this.email.emailAddr = email.emailAddr;
@@ -70,7 +70,7 @@ export const useSystemSettingStore = defineStore('app-system-setting', {
     async save(key: string): Promise<boolean> {
       try {
         if (key === 'basic') {
-          const params = this.setting;
+          const params = this.basic;
           await updateSetting({ key: key, ...params });
         } else if (key === 'email') {
           const params = this.email;

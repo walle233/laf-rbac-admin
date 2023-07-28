@@ -38,7 +38,7 @@ const sysEmail = {
   smtpPassword: '',
 }
 const sysSetting = {
-  key: 'setting',
+  key: 'basic',
   name: 'LafCms',
   logo: ['https://laf.run/logo.png'],
   icpCode: '',

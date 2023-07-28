@@ -149,7 +149,7 @@
           closeText: formParams.closeText,
         });
         useSystemSettingStoreWidthOut()
-          .save('setting')
+          .save('basic')
           .then((success) => {
             if (success) {
               message.success('保存成功');

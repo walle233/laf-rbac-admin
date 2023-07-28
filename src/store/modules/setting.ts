@@ -52,7 +52,7 @@ export const useSystemSettingStore = defineStore('app-system-setting', {
     // 获取系统设置
     async getSystemSettings() {
       try {
-        const result = await getSetting({ key: 'setting' });
+        const result = await getSetting({ key: 'basic' });
         this.updateSystemSetting(result);
       } catch (e) {
         logger.log('error', e);
@@ -69,7 +69,7 @@ export const useSystemSettingStore = defineStore('app-system-setting', {
     // 更新系统设置信息
     async save(key: string): Promise<boolean> {
       try {
-        if (key === 'setting') {
+        if (key === 'basic') {
           const params = this.setting;
           await updateSetting({ key: key, ...params });
         } else if (key === 'email') {

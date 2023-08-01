@@ -5,16 +5,16 @@ const db = cloud.database();
 export default async function (ctx: FunctionContext) {
   const { body, query, headers } = ctx;
 
-  // const token = headers['authorization'].split(' ')[1];
-  // const parsed = cloud.parseToken(token);
-  // const uid = parsed.uid;
-  // if (!uid) return { code: '401', error: '未授权访问' };
+  const token = headers['authorization'].split(' ')[1];
+  const parsed = cloud.parseToken(token);
+  const uid = parsed.uid;
+  if (!uid) return { code: '401', error: '未授权访问' };
 
-  // // checkPermission
-  // const code = await checkPermission(uid, 'user.read');
-  // if (code) {
-  //   return 'Permission denied';
-  // }
+  // checkPermission
+  const code = await checkPermission(uid, 'oss.manager.read');
+  if (code) {
+    return 'Permission denied';
+  }
 
   const { page, pageSize } = body;
 

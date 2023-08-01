@@ -113,6 +113,14 @@ const permissions = [
   { name: 'schema.api', label: '内容模型接口' },
   { name: 'schema.api.read', label: '读取内容模型接口' },
   { name: 'schema.api.edit', label: '编辑内容模型接口' },
+
+  { name: 'oss.manager', label: '资源管理' },
+  { name: 'oss.manager.read', label: '读取资源文件' },
+  { name: 'oss.manager.delete', label: '删除资源文件' },
+
+  { name: 'system.setting', label: '系统设置' },
+  { name: 'system.setting.read', label: '读取系统设置' },
+  { name: 'system.setting.edit', label: '修改系统设置' },
 ];
 
 // 创建初始管理员

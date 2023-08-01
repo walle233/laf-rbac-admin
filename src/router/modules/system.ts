@@ -62,6 +62,7 @@ const routes: Array<RouteRecordRaw> = [
         meta: {
           title: '资源管理',
           activeMenu: 'OSS',
+          permissions: ['oss.manager'],
         },
         component: () => import('@/views/system/oss/index.vue'),
       },
@@ -70,6 +71,8 @@ const routes: Array<RouteRecordRaw> = [
         name: 'setting-system',
         meta: {
           title: '系统设置',
+          activeMenu: 'setting-system',
+          permissions: ['system.setting'],
         },
         component: () => import('@/views/setting/system/system.vue'),
       },

@@ -2,8 +2,22 @@ import cloud from '@lafjs/cloud';
 import { EMAIL } from '@/regex';
 
 const db = cloud.database();
+const checkPermission = cloud.shared.get('checkPermission');
 
 export default async function (ctx: FunctionContext) {
+
+  const { body } = ctx;
+  const token = ctx.headers['authorization'].split(' ')[1];
+  const parsed = cloud.parseToken(token);
+  const uid = parsed.uid;
+  if (!uid) return { code: 'NO_AUTH', error: 'permission denied' };
+
+  // check permission
+  const code = await checkPermission(uid, 'system.setting.edit');
+  if (code) {
+    return 'Permission denied';
+  }
+
   const { key } = ctx.body;
   if (key === 'setting') {
     const { name, logo, icpCode, mobile, address, loginCode, systemOpen, closeText } = ctx.body;

@@ -5,16 +5,16 @@ const checkPermission = cloud.shared.get('checkPermission');
 
 export default async function (ctx: FunctionContext) {
   const { body } = ctx;
-  // const token = ctx.headers['authorization'].split(' ')[1];
-  // const parsed = cloud.parseToken(token);
-  // const uid = parsed.uid;
-  // if (!uid) return { code: 'NO_AUTH', error: 'permission denied' };
+  const token = ctx.headers['authorization'].split(' ')[1];
+  const parsed = cloud.parseToken(token);
+  const uid = parsed.uid;
+  if (!uid) return { code: 'NO_AUTH', error: 'permission denied' };
 
-  // // check permission
-  // const code = await checkPermission(uid, 'oss.delete');
-  // if (code) {
-  //   return 'Permission denied';
-  // }
+  // check permission
+  const code = await checkPermission(uid, 'oss.manager.delete');
+  if (code) {
+    return 'Permission denied';
+  }
 
   // check params
   const { _id } = body;

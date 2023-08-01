@@ -20,15 +20,28 @@
   import { columns } from './columns';
   import { logger } from '@/utils/Logger';
   import { getList, deleteFile } from '@/api/system/oss';
+  import { getAllRoles } from '@/api/system/role';
+  import { useUserStoreWidthOut } from '@/store/modules/user';
 
-  type TOss = {
-    _id: string | null;
-    originalname: string;
-    mimetype: string;
-    key: string;
+  const userStore = useUserStoreWidthOut();
+  const { permissions } = userStore;
+
+  const allRoles = reactive<
+    {
+      value: string;
+      label: string;
+    }[]
+  >([]);
+
+  const getAllPermissionList = async () => {
+    const res = await getAllRoles();
+
+    allRoles.splice(0, allRoles.length, ...res.map((_) => ({ value: _.name, label: _.label })));
   };
 
-  onMounted(() => {});
+  onMounted(() => {
+    getAllPermissionList();
+  });
 
   const actionRef = ref();
   const actionColumn = reactive({
@@ -48,7 +61,7 @@
               confirm: handleDelete.bind(null, record),
             },
             ifShow: () => {
-              return true;
+              return permissions.includes('oss.manager.delete');
             },
           },
           {
@@ -67,7 +80,7 @@
 
   const loadDataTable = async (params) => {
     const ret = await getList(params);
-    console.log(ret);
+    logger.log(ret);
     return ret;
   };
 

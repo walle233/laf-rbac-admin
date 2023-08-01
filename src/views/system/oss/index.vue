@@ -75,7 +75,9 @@
     actionRef.value.reload();
   }
 
-  async function handleDownload(item) {}
+  async function handleDownload(item) {
+    window.open(item.url);
+  }
 
   async function handleDelete(item) {
     await deleteFile(item._id);

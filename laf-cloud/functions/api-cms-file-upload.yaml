@@ -1,0 +1,5 @@
+name: api-cms-file-upload
+methods:
+  - GET
+  - POST
+tags: []

@@ -4,9 +4,9 @@
     <div class="view-account-container">
       <div class="view-account-top">
         <div class="flex" style="align-items: center; justify-content: center; margin-bottom: 20px">
-          <img style="width: 80px" src="https://laf.run/logo.png" alt="" />
+          <img style="width: 80px" :src="settings.logo" alt="" />
         </div>
-        <div class="view-account-top-desc">{{ setting.logo }} 管理后台</div>
+        <div class="view-account-top-desc">{{ settings.name }} 管理后台</div>
       </div>
       <div class="view-account-form">
         <n-form
@@ -94,7 +94,7 @@
   import { PageEnum } from '@/enums/pageEnum';
   import { storeToRefs } from 'pinia';
   import { useSystemSettingStoreWidthOut } from '@/store/modules/setting';
-  const { setting } = storeToRefs(useSystemSettingStoreWidthOut());
+  const { settings } = storeToRefs(useSystemSettingStoreWidthOut());
 
   interface FormState {
     username: string;

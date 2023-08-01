@@ -432,7 +432,47 @@ const innerSchemaApis = [{
       },
       "collapse": false
     }
-  }
+  },
+  "created_at": Date.now(),
+  "updated_at": Date.now()
+}, {
+  "displayName": "资源管理",
+  "collectionName": "oss",
+  "enable": true,
+  "apis": {
+    "fileupload": {
+      "target": "api-cms-file-upload",
+      "enable": true,
+      "token": false,
+      "displayName": "文件上传 / FileUpload",
+      "url": "/api/cms/oss/fileupload",
+      "method": "POST",
+      "headers": {
+        "path": "保存路径(可选|String)"
+      },
+      "params": {},
+      "body": {
+        "file": "上传的文件"
+      },
+      "collapse": true
+    },
+    "filedelete": {
+      "target": "api-cms-file-delete",
+      "enable": true,
+      "token": false,
+      "displayName": "文件删除 / FileDelete",
+      "url": "/api/cms/oss/filedelete",
+      "method": "POST",
+      "headers": {},
+      "params": {},
+      "body": {
+        "key": "文件 Key"
+      },
+      "collapse": true
+    }
+  },
+  "created_at": Date.now(),
+  "updated_at": Date.now()
 }];
 
 // 创建初始集合接口

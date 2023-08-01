@@ -57,6 +57,15 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('@/views/system/permission/index.vue'),
       },
       {
+        path: 'oss',
+        name: 'OSS',
+        meta: {
+          title: '资源管理',
+          activeMenu: 'OSS',
+        },
+        component: () => import('@/views/system/oss/index.vue'),
+      },
+      {
         path: 'system',
         name: 'setting-system',
         meta: {

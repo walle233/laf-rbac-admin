@@ -15,6 +15,14 @@ const whitePathList = [LOGIN_PATH]; // no redirect whitelist
 
 export function createRouterGuards(router: Router) {
   const basicStore = useSystemSettingStoreWidthOut();
+  const logo = basicStore.settings.logo;
+  const link = document.querySelector("link[rel*='icon']");
+  if (logo && link) {
+    link['rel'] = 'icon';
+    link['href'] = logo;
+    document.getElementsByTagName('head')[0].appendChild(link);
+  }
+
   const userStore = useUserStoreWidthOut();
   const asyncRouteStore = useAsyncRouteStoreWidthOut();
   router.beforeEach(async (to, from, next) => {
@@ -29,14 +37,6 @@ export function createRouterGuards(router: Router) {
     if (whitePathList.includes(to.path as PageEnum)) {
       next();
       return;
-    }
-
-    const logo = basicStore.settings.logo;
-    const link = document.querySelector("link[rel*='icon']");
-    if (logo && link) {
-      link['rel'] = 'icon';
-      link['href'] = logo;
-      document.getElementsByTagName('head')[0].appendChild(link);
     }
 
     const token = userStore.token;

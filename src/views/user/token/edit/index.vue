@@ -198,7 +198,7 @@
           layout="horizontal"
           :gridProps="{ cols: 1 }"
           :schemas="formSchemas"
-          @submit="handleSubmit"
+          @handleSubmit="handleSubmit"
           @reset="handleReset"
         >
           <template #statusSlot="{ model, field }">

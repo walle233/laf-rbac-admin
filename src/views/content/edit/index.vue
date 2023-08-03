@@ -155,8 +155,6 @@
   const message = useMessage();
 
   async function handleSubmit(values) {
-    logger.log(values);
-
     if (routerName === 'ContentEdit') {
       logger.log('编辑');
       await updateContent({ schemaId, _id: contentId, params: values });
@@ -198,7 +196,7 @@
           layout="horizontal"
           :gridProps="{ cols: 1 }"
           :schemas="formSchemas"
-          @submit="handleSubmit"
+          @handleSubmit="handleSubmit"
           @reset="handleReset"
         >
           <template #statusSlot="{ model, field }">

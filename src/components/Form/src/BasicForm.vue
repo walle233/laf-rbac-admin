@@ -253,6 +253,7 @@
   import { deepMerge } from '@/utils';
   import { uploadFile } from '@/api/cloud';
   import { UploadCustomRequestOptions } from 'naive-ui';
+  import { Recordable } from 'vite-plugin-mock';
 
   export default defineComponent({
     name: 'BasicUpload',

@@ -32,10 +32,10 @@ export function createRouterGuards(router: Router) {
     }
 
     const logo = basicStore.settings.logo;
-    if (logo) {
-      const link = document.querySelector("link[rel*='icon']");
-      link.rel = 'icon';
-      link.href = logo;
+    const link = document.querySelector("link[rel*='icon']");
+    if (logo && link) {
+      link['rel'] = 'icon';
+      link['href'] = logo;
       document.getElementsByTagName('head')[0].appendChild(link);
     }
 

@@ -96,8 +96,12 @@
         showModal: false,
         previewUrl: '',
         originalImgList: [] as string[],
-        imgList: props.value as string[],
+        imgList: [] as string[],
       });
+
+      if (props.value) {
+        state.imgList = props.value as string[];
+      }
 
       watch(
         () => props.value,

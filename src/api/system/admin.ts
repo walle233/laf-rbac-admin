@@ -118,3 +118,16 @@ export function deleteAdmin(_id) {
     },
   });
 }
+
+/**
+ * @description: 重置管理员密码
+ * @param params
+ */
+export function resetPasswordAdmin(params) {
+  return http.request({
+    url: '/admin-resetpassword',
+    method: 'POST',
+    params,
+  });
+}
+

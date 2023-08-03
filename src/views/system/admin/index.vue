@@ -21,6 +21,48 @@
     </BasicTable>
 
     <n-modal
+      :closable="false"
+      :show="resetModal"
+      :show-icon="false"
+      style="width: 480px"
+      preset="dialog"
+      :mask-closable="false"
+      :on-after-leave="resetPasswordParams"
+      title="重置密码"
+    >
+      <n-form
+        :model="passwordParams"
+        :rules="resetRules"
+        ref="resetRef"
+        label-placement="left"
+        :label-width="80"
+        class="py-4"
+      >
+        <n-form-item label="用户名" path="username">
+          <n-input
+            placeholder="请输入用户名"
+            v-model:value="passwordParams.username"
+            disabled="true"
+          />
+        </n-form-item>
+        <n-form-item label="新密码" path="password">
+          <n-input
+            placeholder="请输入密码"
+            v-model:value="passwordParams.password"
+            type="password"
+            show-password-on="mousedown"
+          />
+        </n-form-item>
+      </n-form>
+      <template #action>
+        <n-space>
+          <n-button @click="() => (resetModal = false)">取消</n-button>
+          <n-button type="info" :loading="formBtnLoading" @click="resetPassword">重置</n-button>
+        </n-space>
+      </template>
+    </n-modal>
+
+    <n-modal
       v-model:show="showModal"
       :show-icon="false"
       style="width: 600px"
@@ -44,7 +86,12 @@
           <n-input placeholder="请输入姓名" v-model:value="formParams.name" />
         </n-form-item>
         <n-form-item v-if="modalType === 'create'" label="密码" path="password">
-          <n-input placeholder="请输入密码" v-model:value="formParams.password" type="password" />
+          <n-input
+            placeholder="请输入密码"
+            v-model:value="formParams.password"
+            type="password"
+            show-password-on="mousedown"
+          />
         </n-form-item>
         <n-form-item label="头像" path="avatar">
           <BasicUpload
@@ -79,7 +126,13 @@
   import { h, reactive, ref, onMounted } from 'vue';
   import { useMessage, UploadCustomRequestOptions } from 'naive-ui';
   import { BasicTable, TableAction } from '@/components/Table';
-  import { getAdminList, createAdmin, deleteAdmin, updateAdmin } from '@/api/system/admin';
+  import {
+    getAdminList,
+    createAdmin,
+    deleteAdmin,
+    updateAdmin,
+    resetPasswordAdmin,
+  } from '@/api/system/admin';
   import { getAllRoles } from '@/api/system/role';
   import { uploadFile } from '@/api/cloud';
   import { columns } from './columns';
@@ -95,6 +148,12 @@
     password: string;
     avatar: string[];
     roles: string[];
+  };
+
+  type TReset = {
+    _id: string | null;
+    username: string;
+    password: string;
   };
 
   const userStore = useUserStoreWidthOut();
@@ -172,7 +231,13 @@
           },
         ],
         select: (key) => {
-          message.info(`您点击了，${key} 按钮`);
+          if (key == 'reset') {
+            resetModal.value = true;
+            passwordParams._id = record._id;
+            passwordParams.username = record.username;
+          } else {
+            message.info(`您点击了，${key} 按钮`);
+          }
         },
       });
     },
@@ -180,6 +245,20 @@
 
   const message = useMessage();
   const formRef: any = ref(null);
+  const resetRef: any = ref(null);
+
+  const resetRules = {
+    username: {
+      required: true,
+      trigger: ['blur', 'input'],
+      message: '请输入用户名',
+    },
+    password: {
+      required: true,
+      trigger: ['blur', 'input'],
+      message: '请输入密码',
+    },
+  };
   const createRules = {
     username: {
       required: true,
@@ -205,6 +284,35 @@
       message: '请输入密码',
     },
   };
+
+  const passwordParams = reactive<TReset>({
+    _id: null,
+    username: '',
+    password: '',
+  });
+  const resetPasswordParams = () => {
+    passwordParams._id = null;
+    passwordParams.username = '';
+    passwordParams.password = '';
+  };
+
+  function resetPassword() {
+    formBtnLoading.value = true;
+    console.log(resetRef.value);
+    resetRef.value.validate(async (errors) => {
+      if (!errors) {
+        resetModal.value = false;
+        message.success('重置成功');
+        await resetPasswordAdmin(passwordParams);
+        resetPasswordParams();
+      } else {
+        message.error('请填写完整信息');
+      }
+      formBtnLoading.value = false;
+    });
+  }
+
+  const resetModal = ref(false);
 
   const showModal = ref(false);
   const modalType = ref('create');

@@ -1,6 +1,7 @@
 import cloud from '@lafjs/cloud'
 
 const db = cloud.database();
+const checkPermission = cloud.shared.get('checkPermission');
 
 export default async function (ctx: FunctionContext) {
   const { body, query, headers } = ctx;

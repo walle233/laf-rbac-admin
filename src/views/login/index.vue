@@ -29,7 +29,7 @@
             <n-input
               v-model:value="formInline.password"
               type="password"
-              showPasswordOn="click"
+              show-password-on="mousedown"
               placeholder="请输入密码"
               @keyup.enter="handleSubmit"
             >

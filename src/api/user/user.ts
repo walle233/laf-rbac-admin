@@ -118,3 +118,15 @@ export function deleteUser(_id) {
     },
   });
 }
+
+/**
+ * @description: 重置用户密码
+ * @param params
+ */
+export function resetPasswordUser(params) {
+  return http.request({
+    url: '/user-resetpassword',
+    method: 'POST',
+    params,
+  });
+}

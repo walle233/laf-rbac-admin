@@ -19,7 +19,7 @@ export default async function (ctx: FunctionContext) {
   }
 
   const { key } = ctx.body;
-  if (key === 'setting') {
+  if (key === 'basic') {
     const { name, logo, icpCode, mobile, address, loginCode, systemOpen, closeText } = ctx.body;
     if (!name) {
       return { code: 1001, result: "网站名称不能为空" };

@@ -32,7 +32,9 @@ export default async function (ctx: FunctionContext) {
 
   const access_token = cloud.getToken(payload);
 
-  const res = await db.collection('user-token').add({
+
+  await db.collection('user-token').where({ 'uid': user._id }).remove({ multi: true });
+  await db.collection('user-token').add({
     uid: user._id,
     token: access_token,
     expired_at: expire * 1000,

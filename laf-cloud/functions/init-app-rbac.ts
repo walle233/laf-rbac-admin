@@ -375,7 +375,7 @@ const innerSchemaApis = [{
     "logout": {
       "target": "api-cms-user-logout",
       "enable": true,
-      "token": false,
+      "token": true,
       "tokenEdit": false,
       "displayName": "登出 / Logout",
       "url": "/api/cms/user/logout",

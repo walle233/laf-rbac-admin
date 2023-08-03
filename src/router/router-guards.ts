@@ -6,13 +6,15 @@ import { useAsyncRouteStoreWidthOut } from '@/store/modules/asyncRoute';
 import { PageEnum } from '@/enums/pageEnum';
 import { ErrorPageRoute } from '@/router/base';
 import { logger } from '@/utils/Logger';
-import {Recordable} from "vite-plugin-mock";
+import { Recordable } from 'vite-plugin-mock';
+import { useSystemSettingStoreWidthOut } from '@/store/modules/setting';
 
 const LOGIN_PATH = PageEnum.BASE_LOGIN;
 
 const whitePathList = [LOGIN_PATH]; // no redirect whitelist
 
 export function createRouterGuards(router: Router) {
+  const basicStore = useSystemSettingStoreWidthOut();
   const userStore = useUserStoreWidthOut();
   const asyncRouteStore = useAsyncRouteStoreWidthOut();
   router.beforeEach(async (to, from, next) => {
@@ -27,6 +29,14 @@ export function createRouterGuards(router: Router) {
     if (whitePathList.includes(to.path as PageEnum)) {
       next();
       return;
+    }
+
+    const logo = basicStore.settings.logo;
+    if (logo) {
+      const link = document.querySelector("link[rel*='icon']");
+      link.rel = 'icon';
+      link.href = logo;
+      document.getElementsByTagName('head')[0].appendChild(link);
     }
 
     const token = userStore.token;

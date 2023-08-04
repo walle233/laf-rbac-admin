@@ -12,8 +12,8 @@ export async function main(ctx: FunctionContext) {
   const { body } = ctx;
   const { schemaId, _id } = body;
 
-console.log(schemaId)
-console.log(_id)
+  console.log(schemaId)
+  console.log(_id)
   if (!schemaId || !_id) {
     return { code: 'INVALID_PARAM', error: 'schemaId or id cannot be empty' };
   }

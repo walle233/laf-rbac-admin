@@ -43,7 +43,7 @@ export async function main(ctx: FunctionContext) {
     if (filters[key]) {
       try {
         where[key] = new RegExp(`${filters[key]}`);
-      } catch (err) {}
+      } catch (err) { }
     }
   }
 

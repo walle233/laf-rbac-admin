@@ -80,7 +80,26 @@ export async function main(ctx: FunctionContext) {
 
 
   // update schema
-  await db.collection('schema-api').doc(schemaApi._id).update(sdata);
+  if (sdata) {
+    const sapi = db.collection('schema-api').doc(schemaApi._id);
+    await sapi.update({
+      apis: {
+        "read": {
+          "body": db.command.remove(),
+        },
+        "add": {
+          "body": db.command.remove(),
+        },
+        "update": {
+          "body": db.command.remove(),
+        },
+        "remove": {
+          "body": db.command.remove(),
+        }
+      }
+    });
+    await sapi.update(sdata);
+  }
   const r = await db.collection('schema').where({ _id }).update(data);
 
   return {

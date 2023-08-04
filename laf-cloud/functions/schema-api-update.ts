@@ -38,7 +38,13 @@ export default async function (ctx: FunctionContext) {
 
 
   // update schema
-  const r = await db.collection('schema-api').where({ _id }).update(data);
+  const sapi = db.collection('schema-api').doc(_id);
+  if (apis) {
+    await sapi.update({
+      apis: db.command.remove()
+    });
+  }
+  const r = await sapi.update(data);
 
   return {
     code: 0,
